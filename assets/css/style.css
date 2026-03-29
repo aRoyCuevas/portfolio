@@ -50,9 +50,10 @@
 
         /* ── Input focus glow ───────────────────────────── */
         .form-input:focus {
-            outline: none;
-            border-color: #A47FFF;
-            box-shadow: 0 4px 0 -2px rgba(164, 127, 255, 0.2);
+            outline: none !important;
+            border-color: #A47FFF !important;
+            box-shadow: 0 4px 0 -2px rgba(164, 127, 255, 0.2) !important;
+            --tw-ring-shadow: none !important;
         }
 
         /* ── Input error state ──────────────────────────── */
