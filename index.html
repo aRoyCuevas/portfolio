@@ -24,53 +24,54 @@
             theme: {
                 extend: {
                     colors: {
-                        "secondary": "#CFC2D7",
-                        "on-surface-variant": "#CFC2D7",
-                        "on-primary-fixed-variant": "#251a00",
-                        "on-surface": "#E0E0E0",
-                        "surface-container-lowest": "#0E0E0E",
-                        "on-secondary": "#00363d",
-                        "primary-fixed": "#A47FFF",
-                        "on-error": "#690005",
-                        "tertiary-container": "#fec931",
-                        "surface-container": "#201f1f",
-                        "tertiary": "#ffeac0",
-                        "on-tertiary-fixed-variant": "#594400",
-                        "tertiary-fixed-dim": "#f3bf26",
-                        "tertiary-fixed": "#ffdf96",
-                        "surface-container-low": "#1c1b1b",
-                        "surface-container-highest": "#2A2A2A",
-                        "on-background": "#E0E0E0",
-                        "on-primary-container": "#ffffff",
-                        "inverse-primary": "#8A2BE2",
-                        "inverse-surface": "#E0E0E0",
-                        "inverse-on-surface": "#131313",
-                        "primary-container": "#8A2BE2",
-                        "on-secondary-container": "#CFC2D7",
-                        "on-error-container": "#ffdad6",
-                        "surface-variant": "#353534",
-                        "on-primary": "#ffffff",
-                        "secondary-fixed-dim": "#CFC2D7",
-                        "primary": "#A47FFF",
-                        "secondary-fixed": "#CFC2D7",
-                        "surface-bright": "#2A2A2A",
-                        "secondary-container": "#11505a",
-                        "outline-variant": "rgba(207, 194, 215, 0.15)",
-                        "error-container": "#93000a",
-                        "surface-container-high": "#2A2A2A",
-                        "on-primary-fixed": "#001f24",
-                        "on-secondary-fixed": "#001f24",
-                        "error": "#ffb4ab",
-                        "on-tertiary-fixed": "#251a00",
-                        "surface-tint": "#8A2BE2",
-                        "outline": "#CFC2D7",
-                        "surface": "#131313",
-                        "on-tertiary-container": "#6f5500",
-                        "background": "#131313",
-                        "surface-dim": "#131313",
-                        "primary-fixed-dim": "#A47FFF",
-                        "on-secondary-fixed-variant": "#0d4e57",
-                        "on-tertiary": "#3e2e00"
+                        "white": "var(--core-white-text)",
+                        "secondary": "var(--secondary)",
+                        "on-surface-variant": "var(--on-surface-variant)",
+                        "on-primary-fixed-variant": "var(--on-primary-fixed-variant)",
+                        "on-surface": "var(--on-surface)",
+                        "surface-container-lowest": "var(--surface-container-lowest)",
+                        "on-secondary": "var(--on-secondary)",
+                        "primary-fixed": "var(--primary-fixed)",
+                        "on-error": "var(--on-error)",
+                        "tertiary-container": "var(--tertiary-container)",
+                        "surface-container": "var(--surface-container)",
+                        "tertiary": "var(--tertiary)",
+                        "on-tertiary-fixed-variant": "var(--on-tertiary-fixed-variant)",
+                        "tertiary-fixed-dim": "var(--tertiary-fixed-dim)",
+                        "tertiary-fixed": "var(--tertiary-fixed)",
+                        "surface-container-low": "var(--surface-container-low)",
+                        "surface-container-highest": "var(--surface-container-highest)",
+                        "on-background": "var(--on-background)",
+                        "on-primary-container": "var(--on-primary-container)",
+                        "inverse-primary": "var(--inverse-primary)",
+                        "inverse-surface": "var(--inverse-surface)",
+                        "inverse-on-surface": "var(--inverse-on-surface)",
+                        "primary-container": "var(--primary-container)",
+                        "on-secondary-container": "var(--on-secondary-container)",
+                        "on-error-container": "var(--on-error-container)",
+                        "surface-variant": "var(--surface-variant)",
+                        "on-primary": "var(--on-primary)",
+                        "secondary-fixed-dim": "var(--secondary-fixed-dim)",
+                        "primary": "var(--primary)",
+                        "secondary-fixed": "var(--secondary-fixed)",
+                        "surface-bright": "var(--surface-bright)",
+                        "secondary-container": "var(--secondary-container)",
+                        "outline-variant": "var(--outline-variant)",
+                        "error-container": "var(--error-container)",
+                        "surface-container-high": "var(--surface-container-high)",
+                        "on-primary-fixed": "var(--on-primary-fixed)",
+                        "on-secondary-fixed": "var(--on-secondary-fixed)",
+                        "error": "var(--error)",
+                        "on-tertiary-fixed": "var(--on-tertiary-fixed)",
+                        "surface-tint": "var(--surface-tint)",
+                        "outline": "var(--outline)",
+                        "surface": "var(--surface)",
+                        "on-tertiary-container": "var(--on-tertiary-container)",
+                        "background": "var(--background)",
+                        "surface-dim": "var(--surface-dim)",
+                        "primary-fixed-dim": "var(--primary-fixed-dim)",
+                        "on-secondary-fixed-variant": "var(--on-secondary-fixed-variant)",
+                        "on-tertiary": "var(--on-tertiary)"
                     },
                     fontFamily: {
                         "headline": ["Space Grotesk"],
@@ -89,11 +90,11 @@
     <!-- ═══════════════════════════════════════════
          NAVEGACIÓN
     ═══════════════════════════════════════════ -->
-    <nav aria-label="Navegación principal" class="fixed top-0 w-full z-50 transition-all duration-500 bg-surface/70 backdrop-blur-[12px]">
+    <nav aria-label="Navegación principal" class="fixed top-0 w-full z-50 transition-[box-shadow,background-color] duration-500 bg-surface/70 backdrop-blur-[12px] transform-gpu">
         <div class="flex justify-between items-center px-6 md:px-12 py-6 max-w-[1440px] mx-auto">
-            <a href="#about" class="text-xl font-bold tracking-tighter text-white font-headline" aria-label="Ir al inicio">ROY</a>
+            <a href="#hero" class="text-xl font-bold tracking-tighter text-white font-headline" aria-label="Ir al inicio">ROY</a>
 
-            <!-- Links desktop -->
+            <!-- Enlaces escritorio -->
             <div class="hidden md:flex items-center space-x-8" role="list">
                 <a class="nav-link font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-white transition-colors"
                     href="#about" role="listitem">Sobre Mí</a>
@@ -123,7 +124,7 @@
                     class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-4 md:px-6 py-2 rounded-lg font-headline font-bold text-xs uppercase tracking-wider hover:scale-105 transition-transform active:scale-95 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                     Descargar CV
                 </a>
-                <!-- Menú hamburguesa mobile -->
+                <!-- Menú hamburguesa móvil -->
                 <button
                     id="btn-mobile-menu"
                     aria-label="Abrir menú de navegación"
@@ -132,7 +133,7 @@
             </div>
         </div>
 
-        <!-- Menú mobile desplegable -->
+        <!-- Menú desplegable móvil -->
         <div id="mobile-menu" class="hidden md:hidden bg-surface-container-lowest border-t border-outline-variant px-6 py-6" role="menu" aria-hidden="true">
             <div class="flex flex-col space-y-6">
                 <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors" href="#about" role="menuitem">Sobre Mí</a>
@@ -178,8 +179,8 @@
             </div>
         </div>
 
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce" aria-hidden="true">
-            <span class="material-symbols-outlined text-primary/40">expand_more</span>
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2" aria-hidden="true">
+            <span class="material-symbols-outlined text-primary/40 animate-bounce block">expand_more</span>
         </div>
     </header>
 
@@ -292,27 +293,51 @@
                             WebSockets, garantizando velocidad y seguridad con un sistema de persistencia híbrida y
                             acceso por roles.
                         </p>
-                        <a href="#"
+                        <button
+                            id="btn-turnero-demo"
                             aria-label="Ver demo de Turnero - Gestión de Colas"
-                            class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
+                            class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex cursor-pointer bg-transparent border-0 p-0">
                             Ver Demo
                             <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform" aria-hidden="true">arrow_forward</span>
-                        </a>
+                        </button>
                     </div>
                 </article>
 
                 <!-- Proyecto 2: LocalPDF Hub -->
                 <article class="project-card reveal-right flex flex-col lg:flex-row-reverse gap-20 items-center rounded-xl p-2 -m-2">
-                    <div class="w-full lg:w-3/5 aspect-video project-placeholder rounded-xl overflow-hidden relative group border border-outline-variant flex items-center justify-center">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
-                            <span class="material-symbols-outlined text-5xl text-primary/60" aria-hidden="true">picture_as_pdf</span>
-                            <p class="font-headline text-xs tracking-widest uppercase text-on-surface-variant/60">LocalPDF Hub · Preview</p>
+                    <div class="w-full lg:w-3/5 aspect-video rounded-xl overflow-hidden relative group border border-outline-variant" id="localpdf-carousel">
+                        <!-- Pista de imágenes del carrusel -->
+                        <div id="localpdf-track" class="flex h-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                            <img src="assets/img/LocalPDF_Hub/1.png" alt="LocalPDF Hub – pantalla 1" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/2.png" alt="LocalPDF Hub – pantalla 2" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/3.png" alt="LocalPDF Hub – pantalla 3" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/4.png" alt="LocalPDF Hub – pantalla 4" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/5.png" alt="LocalPDF Hub – pantalla 5" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
                         </div>
-                        <!-- Decoración grid -->
-                        <div class="absolute inset-0 opacity-5" aria-hidden="true"
-                            style="background-image: linear-gradient(rgba(164,127,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(164,127,255,0.5) 1px, transparent 1px); background-size: 32px 32px;">
+
+                        <!-- Botón: imagen anterior -->
+                        <button id="localpdf-prev" aria-label="Imagen anterior"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_left</span>
+                        </button>
+
+                        <!-- Botón: imagen siguiente -->
+                        <button id="localpdf-next" aria-label="Imagen siguiente"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_right</span>
+                        </button>
+
+                        <!-- Indicadores de posición -->
+                        <div id="localpdf-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2" role="tablist" aria-label="Selector de imagen">
+                            <button role="tab" aria-selected="true"  aria-label="Imagen 1" class="carousel-dot dot-active"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 2" class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 3" class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 4" class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 5" class="carousel-dot"></button>
                         </div>
-                        <div class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500"></div>
+
+                        <!-- Overlay sutil al hacer hover -->
+                        <div class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500 pointer-events-none z-10"></div>
                     </div>
                     <div class="w-full lg:w-2/5">
                         <div class="flex flex-wrap gap-3 mb-6">
@@ -335,6 +360,17 @@
                     </div>
                 </article>
             </div>
+
+            <!-- Botón: ver más proyectos -->
+            <div class="reveal flex justify-center mt-20">
+                <button
+                    id="btn-more-projects"
+                    aria-label="Ver más proyectos próximamente"
+                    class="group flex items-center gap-3 border border-outline-variant text-on-surface-variant px-8 py-4 rounded-lg font-headline font-bold text-xs uppercase tracking-widest hover:border-primary hover:text-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(138,43,226,0.12)] active:scale-95">
+                    <span id="btn-more-projects-label">Ver Más Proyectos</span>
+                    <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true">arrow_forward</span>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -347,7 +383,7 @@
 
             <ol class="relative ml-4 md:ml-8 pl-10 md:pl-12 border-l border-primary/20" aria-label="Historial de experiencia laboral">
                 <li class="reveal delay-200 mb-12 relative">
-                    <div class="timeline-pulse absolute -left-[49px] md:-left-[57px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-primary/20" aria-hidden="true"></div>
+                    <div class="timeline-pulse absolute -left-[49px] md:-left-[57px] top-1 w-4 h-4 rounded-full bg-primary" aria-hidden="true"></div>
                     <div class="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
                         <div>
                             <h3 class="font-headline text-2xl text-white font-bold">Desarrollador Full Stack Independiente</h3>

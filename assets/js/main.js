@@ -5,8 +5,10 @@
         const toastMsg = document.getElementById('toast-msg');
         let toastTimer;
 
-        function showToast(msg, icon = 'check_circle') {
-            toastMsg.textContent = msg;
+        function showToast(msgKey, icon = 'check_circle') {
+            const translation = (typeof i18n !== 'undefined' && i18n[typeof currentLang !== 'undefined' ? currentLang : 'es']) ? 
+                                (i18n[typeof currentLang !== 'undefined' ? currentLang : 'es'][msgKey] || msgKey) : msgKey;
+            toastMsg.textContent = translation;
             toast.querySelector('.toast-icon').textContent = icon;
             toast.classList.add('show');
             clearTimeout(toastTimer);
@@ -69,7 +71,7 @@
         }, { passive: true });
 
         // ═══════════════════════════════════════════════════
-        //  MENU MOBILE
+        //  MENÚ MÓVIL
         // ═══════════════════════════════════════════════════
         const btnMobile = document.getElementById('btn-mobile-menu');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -90,7 +92,7 @@
         });
 
         // ═══════════════════════════════════════════════════
-        //  DARK / LIGHT MODE
+        //  MODO OSCURO / CLARO
         // ═══════════════════════════════════════════════════
         const btnTheme = document.getElementById('btn-theme');
         const htmlEl = document.documentElement;
@@ -105,7 +107,7 @@
             const isDark = htmlEl.classList.toggle('dark');
             btnTheme.textContent = isDark ? 'dark_mode' : 'light_mode';
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            showToast(isDark ? 'Tema oscuro activado' : 'Tema claro activado', isDark ? 'dark_mode' : 'light_mode');
+            showToast(isDark ? 'toastDark' : 'toastLight', isDark ? 'dark_mode' : 'light_mode');
         });
 
         // ═══════════════════════════════════════════════════
@@ -148,7 +150,16 @@
                 contactLabelMsg: 'Mensaje', contactPlaceholderMsg: '¿En qué te puedo ayudar?',
                 contactBtn: 'Enviar Mensaje',
                 footerCopy: '© 2026 Alan Roy Cuevas. Todos los derechos reservados.',
-                langToast: 'Idioma: Español'
+                langToast: 'Idioma: Español',
+                toastDark: 'Tema oscuro activado',
+                toastLight: 'Tema claro activado',
+                toastCv: 'CV próximamente disponible',
+                toastFormErr: 'Completa todos los campos correctamente',
+                toastFormOk: 'Mensaje enviado con éxito',
+                toastFormFail: 'Error al enviar. Intentá de nuevo.',
+                toastMoreProjects: 'Próximamente más proyectos',
+                moreProjectsBtn: 'Ver Más Proyectos',
+                toastDemo: 'Demo de Turnero próximamente'
             },
             en: {
                 navAbout: 'About', navStack: 'Stack', navProjects: 'Projects',
@@ -183,7 +194,16 @@
                 contactLabelMsg: 'Message', contactPlaceholderMsg: 'How can I help you?',
                 contactBtn: 'Send Message',
                 footerCopy: '© 2026 Alan Roy Cuevas. All rights reserved.',
-                langToast: 'Language: English'
+                langToast: 'Language: English',
+                toastDark: 'Dark mode activated',
+                toastLight: 'Light mode activated',
+                toastCv: 'CV coming soon',
+                toastFormErr: 'Please fill all fields correctly',
+                toastFormOk: 'Message sent successfully',
+                toastFormFail: 'Error sending. Try again.',
+                toastMoreProjects: 'More projects coming soon',
+                moreProjectsBtn: 'View More Projects',
+                toastDemo: 'Turnero demo coming soon'
             }
         };
 
@@ -191,7 +211,7 @@
             const t = i18n[lang];
             document.documentElement.lang = lang;
 
-            // Nav
+            // Navegación
             const nl = document.querySelectorAll('nav .nav-link');
             nl[0].textContent = t.navAbout;
             nl[1].textContent = t.navStack;
@@ -207,23 +227,23 @@
                     a.textContent = t.heroNavCv;
             });
 
-            // Hero
+            // Hero (Encabezado)
             document.querySelector('.hero-stagger.font-headline.text-primary').textContent = t.heroBadge;
             document.querySelector('.hero-stagger.font-body').textContent = t.heroDesc;
             const heroBtns = document.querySelectorAll('.hero-stagger a');
             if (heroBtns[0]) heroBtns[0].textContent = t.heroCta1;
             if (heroBtns[1]) heroBtns[1].textContent = t.heroCta2;
 
-            // About
+            // Sobre Mí
             document.getElementById('about-heading').textContent = t.aboutTitle;
             document.querySelector('#about p.reveal').textContent = t.aboutText;
 
-            // Tech
+            // Tecnologías (Stack)
             document.getElementById('tech-heading').textContent = t.techTitle;
             document.querySelector('#tech p.reveal.delay-150').textContent = t.techSub;
             document.querySelector('#tech p.reveal.delay-300').textContent = t.techDesc;
 
-            // Projects
+            // Proyectos
             document.getElementById('projects-heading').textContent = t.projTitle;
             const projectPreviews = document.querySelectorAll('#projects article .absolute .font-headline.text-xs');
             if (projectPreviews[0]) projectPreviews[0].textContent = t.proj1Preview;
@@ -238,7 +258,7 @@
             if (demoLinks[0]) { demoLinks[0].childNodes[0].textContent = t.proj1Demo + ' '; }
             if (demoLinks[1]) { demoLinks[1].childNodes[0].textContent = t.proj2Repo + ' '; }
 
-            // Experience
+            // Experiencia
             document.getElementById('experience-heading').textContent = t.expTitle;
             document.querySelector('#experience h3').textContent = t.expRole;
             document.querySelector('#experience p.text-primary').textContent = t.expOrg;
@@ -252,7 +272,7 @@
                 li.append(' ' + bulletTexts[i]);
             });
 
-            // Contact
+            // Contacto
             document.getElementById('contact-heading').textContent = t.contactTitle;
             document.querySelector('#contact .font-headline.text-5xl').innerHTML = t.contactHeadline;
             document.querySelector('#contact p.text-xl').textContent = t.contactDesc;
@@ -264,10 +284,26 @@
             document.getElementById('contact-message').placeholder = t.contactPlaceholderMsg;
             document.querySelector('#contact-form button[type="submit"]').textContent = t.contactBtn;
 
-            // Footer
+            // Pie de página (Footer)
             document.querySelector('footer p.font-body').textContent = t.footerCopy;
 
-            showToast(t.langToast, 'language');
+            // Botón ver más proyectos
+            const moreProjLabel = document.getElementById('btn-more-projects-label');
+            if (moreProjLabel) moreProjLabel.textContent = t.moreProjectsBtn;
+
+            // Retraducir el toast visible si lo hay
+            const toastContainer = document.getElementById('toast');
+            if (toastContainer.classList.contains('show')) {
+                const toastMsgEl = document.getElementById('toast-msg');
+                const currText = toastMsgEl.textContent;
+                const otherLang = lang === 'es' ? 'en' : 'es';
+                const foundKey = Object.keys(i18n[otherLang]).find(k => i18n[otherLang][k] === currText);
+                if (foundKey && t[foundKey]) {
+                    toastMsgEl.textContent = t[foundKey];
+                }
+            }
+
+            showToast('langToast', 'language');
         }
 
         btnLang.addEventListener('click', () => {
@@ -276,13 +312,33 @@
         });
 
         // ═══════════════════════════════════════════════════
-        //  DOWNLOAD CV
+        //  VER DEMO: Turnero
+        // ═══════════════════════════════════════════════════
+        const btnDemo = document.getElementById('btn-turnero-demo');
+        if (btnDemo) {
+            btnDemo.addEventListener('click', () => {
+                showToast('toastDemo', 'schedule');
+            });
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  VER MÁS PROYECTOS
+        // ═══════════════════════════════════════════════════
+        const btnMoreProjects = document.getElementById('btn-more-projects');
+        if (btnMoreProjects) {
+            btnMoreProjects.addEventListener('click', () => {
+                showToast('toastMoreProjects', 'schedule');
+            });
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  DESCARGAR CV
         // ═══════════════════════════════════════════════════
         document.querySelectorAll('a[aria-label*="CV"], a[aria-label*="cv"]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 // Cuando exista el PDF real: btn.href = 'cv-alan-roy-cuevas.pdf'; btn.download = true;
-                showToast('CV próximamente disponible', 'schedule');
+                showToast('toastCv', 'schedule');
             });
         });
 
@@ -316,14 +372,14 @@
             const inputs = [...form.querySelectorAll('.form-input')];
             const allValid = inputs.map(validateField).every(Boolean);
             if (!allValid) {
-                showToast('Completa todos los campos correctamente', 'error');
+                showToast('toastFormErr', 'error');
                 return;
             }
 
             // Deshabilitar botón durante envío
             submitBtn.disabled = true;
             const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Enviando...';
+            submitBtn.textContent = typeof currentLang !== 'undefined' && currentLang === 'en' ? 'Sending...' : 'Enviando...';
             submitBtn.style.opacity = '0.7';
 
             try {
@@ -334,13 +390,69 @@
                 await new Promise(r => setTimeout(r, 1200));
 
                 form.reset();
-                showToast('Mensaje enviado con éxito', 'check_circle');
+                showToast('toastFormOk', 'check_circle');
             } catch (err) {
                 console.error(err);
-                showToast('Error al enviar. Intentá de nuevo.', 'error');
+                showToast('toastFormFail', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
                 submitBtn.style.opacity = '';
             }
         });
+
+        // ═══════════════════════════════════════════════════
+        //  CARRUSEL: LocalPDF Hub
+        // ═══════════════════════════════════════════════════
+        (() => {
+            const track   = document.getElementById('localpdf-track');
+            const btnPrev = document.getElementById('localpdf-prev');
+            const btnNext = document.getElementById('localpdf-next');
+            const dots    = document.querySelectorAll('#localpdf-dots .carousel-dot');
+
+            if (!track || !btnPrev || !btnNext) return;
+
+            const TOTAL      = dots.length;   // 5 imágenes
+            const AUTO_MS    = 4000;          // avance automático cada 4 s
+            let   current    = 0;
+            let   autoTimer;
+
+            // --- Función principal de ir a un slide ---
+            function goTo(index) {
+                current = (index + TOTAL) % TOTAL;
+                track.style.transform = `translateX(-${current * 100}%)`;
+
+                dots.forEach((dot, i) => {
+                    const active = i === current;
+                    dot.classList.toggle('dot-active', active);
+                    dot.setAttribute('aria-selected', active);
+                });
+            }
+
+            // --- Controles botones ---
+            btnPrev.addEventListener('click', () => { resetAuto(); goTo(current - 1); });
+            btnNext.addEventListener('click', () => { resetAuto(); goTo(current + 1); });
+
+            // --- Puntos clickeables ---
+            dots.forEach((dot, i) => dot.addEventListener('click', () => { resetAuto(); goTo(i); }));
+
+            // --- Avance automático ---
+            function startAuto() { autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); }
+            function resetAuto() { clearInterval(autoTimer); startAuto(); }
+            startAuto();
+
+            // --- Soporte táctil / swipe ---
+            let touchStartX = 0;
+            track.parentElement.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+            track.parentElement.addEventListener('touchend',   e => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(dx) > 40) { resetAuto(); goTo(current + (dx < 0 ? 1 : -1)); }
+            }, { passive: true });
+
+            // --- Teclado (cuando el carrusel tiene foco) ---
+            track.parentElement.setAttribute('tabindex', '0');
+            track.parentElement.addEventListener('keydown', e => {
+                if (e.key === 'ArrowRight') { resetAuto(); goTo(current + 1); }
+                if (e.key === 'ArrowLeft')  { resetAuto(); goTo(current - 1); }
+            });
+        })();
