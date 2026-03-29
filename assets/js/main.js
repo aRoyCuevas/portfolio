@@ -367,6 +367,7 @@ if (btnMoreProjects) {
 // ═══════════════════════════════════════════════════
 //  FORMULARIO: validación + EmailJS
 // ═══════════════════════════════════════════════════
+
 emailjs.init('5jV8d_imrYVzIc3-W');
 
 const form = document.getElementById('contact-form');
