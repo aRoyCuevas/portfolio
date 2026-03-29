@@ -1,0 +1,229 @@
+.material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #131313;
+            color: #CFC2D7;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.08) 0%, rgba(19, 19, 19, 1) 70%);
+        }
+
+        /* ── Placeholder visual proyectos ─────────────── */
+        .project-placeholder {
+            background: linear-gradient(135deg, #1c1b1b 0%, #201f1f 50%, #1c1b1b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.12) 0%, rgba(164, 127, 255, 0.06) 100%);
+        }
+
+        /* ── Project card: glow top-border en hover ─────── */
+        .project-card {
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .project-card:hover {
+            transform: scale(1.015);
+            box-shadow: 0 -3px 0 0 #A47FFF, 0 20px 60px rgba(138, 43, 226, 0.18);
+        }
+
+        /* ── Tech stack card: glow en hover ────────────── */
+        .tech-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .tech-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 24px rgba(164, 127, 255, 0.15);
+        }
+
+        /* ── Input focus glow ───────────────────────────── */
+        .form-input:focus {
+            outline: none;
+            border-color: #A47FFF;
+            box-shadow: 0 4px 0 -2px rgba(164, 127, 255, 0.2);
+        }
+
+        /* ── Input error state ──────────────────────────── */
+        .has-error .form-input {
+            border-color: #ff4d4d;
+            box-shadow: 0 4px 0 -2px rgba(255, 77, 77, 0.15);
+        }
+        .has-error label {
+            color: #ff6b6b !important;
+        }
+
+        /* ── Timeline nodo pulso ─────────────────────────── */
+        @keyframes pulse-ring {
+            0%   { transform: scale(1);   opacity: 0.6; }
+            70%  { transform: scale(2.2); opacity: 0;   }
+            100% { transform: scale(1);   opacity: 0;   }
+        }
+        .timeline-pulse::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            background: #A47FFF;
+            animation: pulse-ring 2.5s ease-out infinite;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2A2A2A;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8A2BE2;
+        }
+
+        /* ── Nav link activo ────────────────────────────── */
+        .nav-link-active {
+            color: #A47FFF;
+        }
+        /* Nav underline sweep en hover y activo */
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: #A47FFF;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-link:hover::after,
+        .nav-link-active::after {
+            width: 100%;
+        }
+
+        /* ── FASE 3: keyframes ────────────────────────── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(36px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes shimmer {
+            0%   { background-position: -400px 0; }
+            100% { background-position:  400px 0; }
+        }
+
+        /* Hero stagger: elementos empiezan invisibles */
+        .hero-stagger {
+            opacity: 0;
+        }
+        .hero-stagger.appeared {
+            animation: fadeInUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Variante: reveal desde izquierda */
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        /* Variante: reveal desde derecha */
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Delay helpers para stagger en grids */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-150 { transition-delay: 0.15s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-250 { transition-delay: 0.25s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-350 { transition-delay: 0.35s; }
+        .delay-400 { transition-delay: 0.4s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-600 { transition-delay: 0.6s; }
+        .delay-700 { transition-delay: 0.7s; }
+
+        /* ── Toast notification ──────────────────────────── */
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            background: #201f1f;
+            border: 1px solid rgba(164,127,255,0.3);
+            color: #E0E0E0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(164,127,255,0.1);
+            transform: translateY(calc(100% + 2rem));
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        #toast .toast-icon {
+            color: #A47FFF;
+        }
+
+        /* ── Smooth scroll offset para nav fija ─────────────── */
+        :target::before {
+            content: '';
+            display: block;
+            height: 96px;
+            margin-top: -96px;
+        }
