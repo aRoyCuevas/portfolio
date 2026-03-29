@@ -127,6 +127,12 @@
                 techDesc: 'Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto rendimiento.',
                 projTitle: 'Proyectos Destacados',
                 proj1Demo: 'Ver Demo', proj2Repo: 'Ver Repositorio',
+                proj1Preview: 'Gestión de Colas · Preview',
+                proj1Title: 'Turnero — Gestión de Colas',
+                proj1Desc: 'Sistema integral de gestión de turnos en tiempo real que digitaliza las filas de espera. Procesa conexiones simultáneas desde dispositivos móviles, tótems y pantallas de TV mediante WebSockets, garantizando velocidad y seguridad con un sistema de persistencia híbrida y acceso por roles.',
+                proj2Preview: 'LocalPDF Hub · Preview',
+                proj2Title: 'LocalPDF Hub',
+                proj2Desc: 'Aplicación de escritorio offline para manipular documentos e imágenes directamente en el navegador. Su arquitectura cliente-servidor local garantiza privacidad total al procesar los archivos de forma local sin enviarlos a servidores externos.',
                 expTitle: 'Experiencia',
                 expRole: 'Desarrollador Full Stack Independiente',
                 expOrg: 'Institución Médica / Sector Salud',
@@ -156,6 +162,12 @@
                 techDesc: 'Technologies and languages I use to build scalable, secure, high-performance architectures.',
                 projTitle: 'Featured Projects',
                 proj1Demo: 'View Demo', proj2Repo: 'View Repository',
+                proj1Preview: 'Queue Management · Preview',
+                proj1Title: 'Turnero — Queue Management',
+                proj1Desc: 'Comprehensive real-time queue management system that digitizes waiting lines. Processes simultaneous connections from mobile devices, totems, and TV screens via WebSockets, ensuring speed and security with hybrid persistence and role-based access.',
+                proj2Preview: 'LocalPDF Hub · Preview',
+                proj2Title: 'LocalPDF Hub',
+                proj2Desc: 'Offline desktop application to manipulate documents and images directly in the browser. Its local client-server architecture ensures total privacy by processing files locally without sending them to external servers.',
                 expTitle: 'Experience',
                 expRole: 'Independent Full Stack Developer',
                 expOrg: 'Medical Institution / Healthcare Sector',
@@ -213,8 +225,15 @@
 
             // Projects
             document.getElementById('projects-heading').textContent = t.projTitle;
-            document.querySelector('#projects article:nth-of-type(1) a[aria-label]').textContent = '';
-            document.querySelector('#projects article:nth-of-type(1) a .material-symbols-outlined:not([aria-hidden="true"])');
+            const projectPreviews = document.querySelectorAll('#projects article .absolute .font-headline.text-xs');
+            if (projectPreviews[0]) projectPreviews[0].textContent = t.proj1Preview;
+            if (projectPreviews[1]) projectPreviews[1].textContent = t.proj2Preview;
+            const projectTitles = document.querySelectorAll('#projects article h3');
+            if (projectTitles[0]) projectTitles[0].textContent = t.proj1Title;
+            if (projectTitles[1]) projectTitles[1].textContent = t.proj2Title;
+            const projectDescs = document.querySelectorAll('#projects article p.leading-relaxed');
+            if (projectDescs[0]) projectDescs[0].textContent = t.proj1Desc;
+            if (projectDescs[1]) projectDescs[1].textContent = t.proj2Desc;
             const demoLinks = document.querySelectorAll('#projects article a');
             if (demoLinks[0]) { demoLinks[0].childNodes[0].textContent = t.proj1Demo + ' '; }
             if (demoLinks[1]) { demoLinks[1].childNodes[0].textContent = t.proj2Repo + ' '; }
