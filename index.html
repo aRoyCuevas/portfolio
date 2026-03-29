@@ -5,10 +5,12 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Alan Roy Cuevas — Desarrollador Full Stack | Portfolio</title>
-    <meta name="description" content="Portfolio profesional de Alan Roy Cuevas, Desarrollador Full Stack y estudiante de Sistemas (UBA). Especializado en Node.js, Python, arquitecturas en tiempo real y privacidad del usuario." />
+    <meta name="description"
+        content="Portfolio profesional de Alan Roy Cuevas, Desarrollador Full Stack y estudiante de Sistemas (UBA). Especializado en Node.js, Python, arquitecturas en tiempo real y privacidad del usuario." />
     <meta name="author" content="Alan Roy Cuevas" />
     <meta property="og:title" content="Alan Roy Cuevas — Desarrollador Full Stack" />
-    <meta property="og:description" content="Diseño y desarrollo soluciones de software seguras, eficientes y visualmente intuitivas." />
+    <meta property="og:description"
+        content="Diseño y desarrollo soluciones de software seguras, eficientes y visualmente intuitivas." />
     <meta property="og:type" content="website" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -90,9 +92,11 @@
     <!-- ═══════════════════════════════════════════
          NAVEGACIÓN
     ═══════════════════════════════════════════ -->
-    <nav aria-label="Navegación principal" class="fixed top-0 w-full z-50 transition-[box-shadow,background-color] duration-500 bg-surface/70 backdrop-blur-[12px] transform-gpu">
+    <nav aria-label="Navegación principal"
+        class="fixed top-0 w-full z-50 transition-[box-shadow,background-color] duration-500 bg-surface/70 backdrop-blur-[12px] transform-gpu">
         <div class="flex justify-between items-center px-6 md:px-12 py-6 max-w-[1440px] mx-auto">
-            <a href="#hero" class="text-xl font-bold tracking-tighter text-white font-headline" aria-label="Ir al inicio">ROY</a>
+            <a href="#hero" class="text-xl font-bold tracking-tighter text-white font-headline"
+                aria-label="Ir al inicio">ROY</a>
 
             <!-- Enlaces escritorio -->
             <div class="hidden md:flex items-center space-x-8" role="list">
@@ -110,37 +114,36 @@
 
             <div class="flex items-center gap-4 md:gap-6">
                 <div class="flex gap-3 md:gap-4">
-                    <button
-                        id="btn-language"
-                        aria-label="Cambiar idioma"
+                    <button id="btn-language" aria-label="Cambiar idioma"
                         class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary hover:scale-105 transition-all">language</button>
-                    <button
-                        id="btn-theme"
-                        aria-label="Cambiar tema claro/oscuro"
+                    <button id="btn-theme" aria-label="Cambiar tema claro/oscuro"
                         class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary hover:scale-105 transition-all">dark_mode</button>
                 </div>
-                <a href="#"
-                    aria-label="Descargar CV de Alan Roy Cuevas"
+                <a href="#" aria-label="Descargar CV de Alan Roy Cuevas"
                     class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-4 md:px-6 py-2 rounded-lg font-headline font-bold text-xs uppercase tracking-wider hover:scale-105 transition-transform active:scale-95 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                     Descargar CV
                 </a>
                 <!-- Menú hamburguesa móvil -->
-                <button
-                    id="btn-mobile-menu"
-                    aria-label="Abrir menú de navegación"
-                    aria-expanded="false"
+                <button id="btn-mobile-menu" aria-label="Abrir menú de navegación" aria-expanded="false"
                     class="md:hidden material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">menu</button>
             </div>
         </div>
 
         <!-- Menú desplegable móvil -->
-        <div id="mobile-menu" class="hidden md:hidden bg-surface-container-lowest border-t border-outline-variant px-6 py-6" role="menu" aria-hidden="true">
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-surface-container-lowest border-t border-outline-variant px-6 py-6" role="menu"
+            aria-hidden="true">
             <div class="flex flex-col space-y-6">
-                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors" href="#about" role="menuitem">Sobre Mí</a>
-                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors" href="#tech" role="menuitem">Stack</a>
-                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors" href="#projects" role="menuitem">Proyectos</a>
-                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors" href="#experience" role="menuitem">Experiencia</a>
-                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors" href="#contact" role="menuitem">Contacto</a>
+                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors"
+                    href="#about" role="menuitem">Sobre Mí</a>
+                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors"
+                    href="#tech" role="menuitem">Stack</a>
+                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors"
+                    href="#projects" role="menuitem">Proyectos</a>
+                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors"
+                    href="#experience" role="menuitem">Experiencia</a>
+                <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors"
+                    href="#contact" role="menuitem">Contacto</a>
             </div>
         </div>
     </nav>
@@ -152,16 +155,24 @@
         class="relative h-screen flex flex-col items-center justify-center text-center px-6 hero-gradient overflow-hidden">
         <!-- Blobs de fondo decorativos -->
         <div class="absolute inset-0 z-0 opacity-20 pointer-events-none" aria-hidden="true">
-            <div id="blob-a" class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container blur-[120px] rounded-full"></div>
-            <div id="blob-b" class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-surface-tint blur-[120px] rounded-full opacity-30"></div>
+            <div id="blob-a" class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container blur-[120px] rounded-full">
+            </div>
+            <div id="blob-b"
+                class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-surface-tint blur-[120px] rounded-full opacity-30">
+            </div>
         </div>
 
         <div class="z-10 max-w-4xl">
-            <span class="hero-stagger font-headline text-primary tracking-[0.3em] uppercase mb-4 block text-xs">Desarrollador Full Stack &amp; Estudiante de Sistemas (UBA)</span>
-            <h1 class="hero-stagger font-headline text-6xl md:text-8xl font-bold text-white tracking-tighter mb-8 leading-none">
-                ALAN ROY <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-primary">CUEVAS</span>
+            <span
+                class="hero-stagger font-headline text-primary tracking-[0.3em] uppercase mb-4 block text-xs">Desarrollador
+                Full Stack &amp; Estudiante de Sistemas (UBA)</span>
+            <h1
+                class="hero-stagger font-headline text-6xl md:text-8xl font-bold text-white tracking-tighter mb-8 leading-none">
+                ALAN ROY <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-primary">CUEVAS</span>
             </h1>
-            <p class="hero-stagger font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+            <p
+                class="hero-stagger font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-12 font-light leading-relaxed">
                 Diseño y desarrollo soluciones de software seguras, eficientes y visualmente intuitivas. Me especializo
                 en construir desde arquitecturas en tiempo real con Node.js hasta herramientas de procesamiento local
                 con Python, integrando métricas clave y priorizando la privacidad del usuario.
@@ -171,8 +182,7 @@
                     class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-10 py-4 rounded-lg font-headline font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(138,43,226,0.2)] shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] inline-block">
                     Ver Proyectos
                 </a>
-                <a href="#"
-                    aria-label="Descargar CV en PDF"
+                <a href="#" aria-label="Descargar CV en PDF"
                     class="border border-outline-variant text-white px-10 py-4 rounded-lg font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-bright hover:border-primary/40 transition-all inline-block">
                     Descargar CV
                 </a>
@@ -189,7 +199,9 @@
     ═══════════════════════════════════════════ -->
     <section class="py-32 bg-surface" id="about" aria-labelledby="about-heading">
         <div class="max-w-[1440px] mx-auto px-6 md:px-12 text-center">
-            <h2 id="about-heading" class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-16">Sobre Mí</h2>
+            <h2 id="about-heading"
+                class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-16">Sobre Mí
+            </h2>
             <div class="max-w-4xl mx-auto">
                 <p class="reveal delay-200 font-body text-xl md:text-2xl text-on-surface leading-relaxed font-light">
                     "Mi enfoque como desarrollador Full Stack nace de una premisa clara: transformar el caos operativo
@@ -206,54 +218,99 @@
         <div class="max-w-[1440px] mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
                 <div>
-                    <h2 id="tech-heading" class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-4">Stack Tecnológico</h2>
+                    <h2 id="tech-heading"
+                        class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-4">
+                        Stack Tecnológico</h2>
                     <p class="reveal delay-150 font-headline text-4xl text-white font-bold">Herramientas Principales</p>
                 </div>
                 <p class="reveal delay-300 font-body text-on-surface-variant max-w-sm text-sm">
-                    Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto rendimiento.
+                    Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto
+                    rendimiento.
                 </p>
             </div>
 
             <ul class="grid grid-cols-2 md:grid-cols-5 gap-4" role="list" aria-label="Lista de tecnologías">
-                <li class="reveal delay-100 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">dns</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">NODE.JS</span>
+                <li class="reveal delay-100 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">dns</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">NODE.JS</span>
                 </li>
-                <li class="reveal delay-150 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">terminal</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">PYTHON</span>
+                <li class="reveal delay-150 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">terminal</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">PYTHON</span>
                 </li>
-                <li class="reveal delay-200 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">code</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">JAVASCRIPT</span>
+                <li class="reveal delay-200 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">code</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">JAVASCRIPT</span>
                 </li>
-                <li class="reveal delay-250 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">palette</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">TAILWIND CSS</span>
+                <li class="reveal delay-250 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">palette</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">TAILWIND
+                        CSS</span>
                 </li>
-                <li class="reveal delay-300 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">database</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">SQLITE</span>
+                <li class="reveal delay-300 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">database</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">SQLITE</span>
                 </li>
-                <li class="reveal delay-150 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">sync_alt</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">SOCKET.IO</span>
+                <li class="reveal delay-150 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">sync_alt</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">SOCKET.IO</span>
                 </li>
-                <li class="reveal delay-200 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">hub</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">EXPRESS</span>
+                <li class="reveal delay-200 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">hub</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">EXPRESS</span>
                 </li>
-                <li class="reveal delay-250 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">api</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">FASTAPI</span>
+                <li class="reveal delay-250 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">api</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">FASTAPI</span>
                 </li>
-                <li class="reveal delay-300 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">commit</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">GIT</span>
+                <li class="reveal delay-300 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">commit</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">GIT</span>
                 </li>
-                <li class="reveal delay-350 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default" role="listitem">
-                    <span class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300" aria-hidden="true">html</span>
-                    <span class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">HTML / CSS</span>
+                <li class="reveal delay-350 tech-card group bg-surface-container-low p-10 flex flex-col items-center justify-center gap-5 hover:bg-surface-container-high rounded-lg cursor-default"
+                    role="listitem">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl group-hover:scale-110 transition-all duration-300"
+                        aria-hidden="true">html</span>
+                    <span
+                        class="font-headline text-on-surface-variant group-hover:text-white text-xs tracking-[0.1em] uppercase transition-colors">HTML
+                        / CSS</span>
                 </li>
             </ul>
         </div>
@@ -264,27 +321,40 @@
     ═══════════════════════════════════════════ -->
     <section class="py-32 bg-surface" id="projects" aria-labelledby="projects-heading">
         <div class="max-w-[1440px] mx-auto px-6 md:px-12">
-            <h2 id="projects-heading" class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-20">Proyectos Destacados</h2>
+            <h2 id="projects-heading"
+                class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-20">Proyectos
+                Destacados</h2>
 
             <div class="space-y-32">
                 <!-- Proyecto 1: Turnero -->
-                <article class="project-card reveal-left flex flex-col lg:flex-row gap-20 items-center rounded-xl p-2 -m-2">
-                    <div class="w-full lg:w-3/5 aspect-video project-placeholder rounded-xl overflow-hidden relative group border border-outline-variant flex items-center justify-center">
+                <article
+                    class="project-card reveal-left flex flex-col lg:flex-row gap-20 items-center rounded-xl p-2 -m-2">
+                    <div
+                        class="w-full lg:w-3/5 aspect-video project-placeholder rounded-xl overflow-hidden relative group border border-outline-variant flex items-center justify-center">
                         <div class="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
-                            <span class="material-symbols-outlined text-5xl text-primary/60" aria-hidden="true">manage_accounts</span>
-                            <p class="font-headline text-xs tracking-widest uppercase text-on-surface-variant/60">Gestión de Colas · Preview</p>
+                            <span class="material-symbols-outlined text-5xl text-primary/60"
+                                aria-hidden="true">manage_accounts</span>
+                            <p class="font-headline text-xs tracking-widest uppercase text-on-surface-variant/60">
+                                Gestión de Colas · Preview</p>
                         </div>
                         <!-- Decoración grid -->
                         <div class="absolute inset-0 opacity-5" aria-hidden="true"
                             style="background-image: linear-gradient(rgba(164,127,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(164,127,255,0.5) 1px, transparent 1px); background-size: 32px 32px;">
                         </div>
-                        <div class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500"></div>
+
+                        <!-- Overlay sutil al hacer hover -->
+                        <div
+                            class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500">
+                        </div>
                     </div>
                     <div class="w-full lg:w-2/5">
                         <div class="flex flex-wrap gap-3 mb-6">
-                            <span class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#Node.js</span>
-                            <span class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#Socket.IO</span>
-                            <span class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#SQLite</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#Node.js</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#Socket.IO</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#SQLite</span>
                         </div>
                         <h3 class="font-headline text-4xl text-white font-bold mb-6">Turnero — Gestión de Colas</h3>
                         <p class="font-body text-on-surface-variant text-lg leading-relaxed mb-10">
@@ -293,26 +363,33 @@
                             WebSockets, garantizando velocidad y seguridad con un sistema de persistencia híbrida y
                             acceso por roles.
                         </p>
-                        <button
-                            id="btn-turnero-demo"
-                            aria-label="Ver demo de Turnero - Gestión de Colas"
+                        <button id="btn-turnero-demo" aria-label="Ver demo de Turnero - Gestión de Colas"
                             class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex cursor-pointer bg-transparent border-0 p-0">
                             Ver Demo
-                            <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform" aria-hidden="true">arrow_forward</span>
+                            <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
+                                aria-hidden="true">arrow_forward</span>
                         </button>
                     </div>
                 </article>
 
                 <!-- Proyecto 2: LocalPDF Hub -->
-                <article class="project-card reveal-right flex flex-col lg:flex-row-reverse gap-20 items-center rounded-xl p-2 -m-2">
-                    <div class="w-full lg:w-3/5 aspect-video rounded-xl overflow-hidden relative group border border-outline-variant" id="localpdf-carousel">
+                <article
+                    class="project-card reveal-right flex flex-col lg:flex-row-reverse gap-20 items-center rounded-xl p-2 -m-2">
+                    <div class="w-full lg:w-3/5 aspect-video rounded-xl overflow-hidden relative group border border-outline-variant"
+                        id="localpdf-carousel">
                         <!-- Pista de imágenes del carrusel -->
-                        <div id="localpdf-track" class="flex h-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                            <img src="assets/img/LocalPDF_Hub/1.png" alt="LocalPDF Hub – pantalla 1" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
-                            <img src="assets/img/LocalPDF_Hub/2.png" alt="LocalPDF Hub – pantalla 2" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
-                            <img src="assets/img/LocalPDF_Hub/3.png" alt="LocalPDF Hub – pantalla 3" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
-                            <img src="assets/img/LocalPDF_Hub/4.png" alt="LocalPDF Hub – pantalla 4" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
-                            <img src="assets/img/LocalPDF_Hub/5.png" alt="LocalPDF Hub – pantalla 5" class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                        <div id="localpdf-track"
+                            class="flex h-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                            <img src="assets/img/LocalPDF_Hub/1.png" alt="LocalPDF Hub – pantalla 1"
+                                class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/2.png" alt="LocalPDF Hub – pantalla 2"
+                                class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/3.png" alt="LocalPDF Hub – pantalla 3"
+                                class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/4.png" alt="LocalPDF Hub – pantalla 4"
+                                class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/LocalPDF_Hub/5.png" alt="LocalPDF Hub – pantalla 5"
+                                class="w-full h-full object-cover flex-shrink-0" loading="lazy" />
                         </div>
 
                         <!-- Botón: imagen anterior -->
@@ -328,22 +405,33 @@
                         </button>
 
                         <!-- Indicadores de posición -->
-                        <div id="localpdf-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2" role="tablist" aria-label="Selector de imagen">
-                            <button role="tab" aria-selected="true"  aria-label="Imagen 1" class="carousel-dot dot-active"></button>
-                            <button role="tab" aria-selected="false" aria-label="Imagen 2" class="carousel-dot"></button>
-                            <button role="tab" aria-selected="false" aria-label="Imagen 3" class="carousel-dot"></button>
-                            <button role="tab" aria-selected="false" aria-label="Imagen 4" class="carousel-dot"></button>
-                            <button role="tab" aria-selected="false" aria-label="Imagen 5" class="carousel-dot"></button>
+                        <div id="localpdf-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+                            role="tablist" aria-label="Selector de imagen">
+                            <button role="tab" aria-selected="true" aria-label="Imagen 1"
+                                class="carousel-dot dot-active"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 2"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 3"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 4"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 5"
+                                class="carousel-dot"></button>
                         </div>
 
                         <!-- Overlay sutil al hacer hover -->
-                        <div class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500 pointer-events-none z-10"></div>
+                        <div
+                            class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500 pointer-events-none z-10">
+                        </div>
                     </div>
                     <div class="w-full lg:w-2/5">
                         <div class="flex flex-wrap gap-3 mb-6">
-                            <span class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#Python</span>
-                            <span class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#FastAPI</span>
-                            <span class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#VanillaJS</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#Python</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#FastAPI</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#VanillaJS</span>
                         </div>
                         <h3 class="font-headline text-4xl text-white font-bold mb-6">LocalPDF Hub</h3>
                         <p class="font-body text-on-surface-variant text-lg leading-relaxed mb-10">
@@ -355,7 +443,8 @@
                             aria-label="Ver repositorio de LocalPDF Hub en GitHub"
                             class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
                             Ver Repositorio
-                            <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform" aria-hidden="true">arrow_forward</span>
+                            <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
+                                aria-hidden="true">arrow_forward</span>
                         </a>
                     </div>
                 </article>
@@ -363,12 +452,12 @@
 
             <!-- Botón: ver más proyectos -->
             <div class="reveal flex justify-center mt-20">
-                <button
-                    id="btn-more-projects"
-                    aria-label="Ver más proyectos próximamente"
+                <button id="btn-more-projects" aria-label="Ver más proyectos próximamente"
                     class="group flex items-center gap-3 border border-outline-variant text-on-surface-variant px-8 py-4 rounded-lg font-headline font-bold text-xs uppercase tracking-widest hover:border-primary hover:text-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(138,43,226,0.12)] active:scale-95">
                     <span id="btn-more-projects-label">Ver Más Proyectos</span>
-                    <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true">arrow_forward</span>
+                    <span
+                        class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform duration-300"
+                        aria-hidden="true">arrow_forward</span>
                 </button>
             </div>
         </div>
@@ -379,30 +468,41 @@
     ═══════════════════════════════════════════ -->
     <section class="py-32 bg-surface-container-lowest" id="experience" aria-labelledby="experience-heading">
         <div class="max-w-[1440px] mx-auto px-6 md:px-12">
-            <h2 id="experience-heading" class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-20">Experiencia</h2>
+            <h2 id="experience-heading"
+                class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-20">
+                Experiencia</h2>
 
-            <ol class="relative ml-4 md:ml-8 pl-10 md:pl-12 border-l border-primary/20" aria-label="Historial de experiencia laboral">
+            <ol class="relative ml-4 md:ml-8 pl-10 md:pl-12 border-l border-primary/20"
+                aria-label="Historial de experiencia laboral">
                 <li class="reveal delay-200 mb-12 relative">
-                    <div class="timeline-pulse absolute -left-[49px] md:-left-[57px] top-1 w-4 h-4 rounded-full bg-primary" aria-hidden="true"></div>
+                    <div class="timeline-pulse absolute -left-[49px] md:-left-[57px] top-1 w-4 h-4 rounded-full bg-primary"
+                        aria-hidden="true"></div>
                     <div class="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
                         <div>
-                            <h3 class="font-headline text-2xl text-white font-bold">Desarrollador Full Stack Independiente</h3>
+                            <h3 class="font-headline text-2xl text-white font-bold">Desarrollador Full Stack
+                                Independiente</h3>
                             <p class="font-body text-primary font-medium mt-1">Institución Médica / Sector Salud</p>
                         </div>
-                        <time class="font-headline text-on-surface-variant text-xs tracking-widest uppercase whitespace-nowrap" datetime="2025">2025 — PRESENTE</time>
+                        <time
+                            class="font-headline text-on-surface-variant text-xs tracking-widest uppercase whitespace-nowrap"
+                            datetime="2025">2025 — PRESENTE</time>
                     </div>
-                    <ul class="space-y-4 font-body text-on-surface-variant max-w-3xl" aria-label="Logros y responsabilidades">
+                    <ul class="space-y-4 font-body text-on-surface-variant max-w-3xl"
+                        aria-label="Logros y responsabilidades">
                         <li class="flex gap-4">
                             <span class="text-primary mt-1" aria-hidden="true">•</span>
-                            Identifiqué cuellos de botella operativos y desarrollé proactivamente un sistema integral de gestión de colas desde cero.
+                            Identifiqué cuellos de botella operativos y desarrollé proactivamente un sistema integral de
+                            gestión de colas desde cero.
                         </li>
                         <li class="flex gap-4">
                             <span class="text-primary mt-1" aria-hidden="true">•</span>
-                            Arquitecté una solución cliente-servidor en tiempo real (Node.js, Socket.IO) capaz de manejar tótems, pantallas de TV y dispositivos móviles simultáneamente.
+                            Arquitecté una solución cliente-servidor en tiempo real (Node.js, Socket.IO) capaz de
+                            manejar tótems, pantallas de TV y dispositivos móviles simultáneamente.
                         </li>
                         <li class="flex gap-4">
                             <span class="text-primary mt-1" aria-hidden="true">•</span>
-                            Implementé un sistema de persistencia híbrida (SQLite + RAM) y autenticación JWT, garantizando alta disponibilidad y seguridad de los datos.
+                            Implementé un sistema de persistencia híbrida (SQLite + RAM) y autenticación JWT,
+                            garantizando alta disponibilidad y seguridad de los datos.
                         </li>
                     </ul>
                 </li>
@@ -417,24 +517,29 @@
         <div class="max-w-[1440px] mx-auto px-6 md:px-12">
             <div class="grid lg:grid-cols-2 gap-20 lg:gap-32 items-start">
                 <div class="reveal-left">
-                    <h2 id="contact-heading" class="font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-8">Contacto</h2>
+                    <h2 id="contact-heading"
+                        class="font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-8">Contacto
+                    </h2>
                     <p class="font-headline text-5xl md:text-6xl text-white font-bold mb-12 leading-tight">
                         Construyamos soluciones <span class="text-primary">eficientes</span>.
                     </p>
                     <p class="font-body text-on-surface-variant text-xl mb-12">
-                        Estoy abierto a nuevos desafíos técnicos, propuestas laborales o charlas sobre arquitectura de software.
+                        Estoy abierto a nuevos desafíos técnicos, propuestas laborales o charlas sobre arquitectura de
+                        software.
                     </p>
 
                     <address class="not-italic space-y-8">
                         <div class="flex items-center gap-6 group">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors" aria-hidden="true">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors"
+                                aria-hidden="true">
                                 <span class="material-symbols-outlined">mail</span>
                             </div>
                             <a href="mailto:alaancuevas2016@gmail.com"
                                 class="font-headline text-lg text-white hover:text-primary transition-colors">alaancuevas2016@gmail.com</a>
                         </div>
                         <div class="flex items-center gap-6 group">
-                            <div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors" aria-hidden="true">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors"
+                                aria-hidden="true">
                                 <span class="material-symbols-outlined">location_on</span>
                             </div>
                             <span class="font-headline text-lg text-white">Buenos Aires, Argentina / Remoto</span>
@@ -447,32 +552,25 @@
                         <div class="relative group">
                             <label for="contact-name"
                                 class="font-headline text-[10px] tracking-widest text-on-surface-variant uppercase absolute -top-3 left-0 group-focus-within:text-primary transition-colors">Nombre</label>
-                            <input
-                                id="contact-name"
-                                name="name"
+                            <input id="contact-name" name="contact-name"
                                 class="form-input w-full bg-transparent border-0 border-b border-outline-variant py-4 font-body text-white placeholder:text-on-surface-variant/20 transition-all"
                                 placeholder="Tu nombre completo" type="text" autocomplete="name" required />
                         </div>
                         <div class="relative group">
                             <label for="contact-email"
                                 class="font-headline text-[10px] tracking-widest text-on-surface-variant uppercase absolute -top-3 left-0 group-focus-within:text-primary transition-colors">Email</label>
-                            <input
-                                id="contact-email"
-                                name="email"
+                            <input id="contact-email" name="contact-email"
                                 class="form-input w-full bg-transparent border-0 border-b border-outline-variant py-4 font-body text-white placeholder:text-on-surface-variant/20 transition-all"
                                 placeholder="tu@email.com" type="email" autocomplete="email" required />
                         </div>
                         <div class="relative group">
                             <label for="contact-message"
                                 class="font-headline text-[10px] tracking-widest text-on-surface-variant uppercase absolute -top-3 left-0 group-focus-within:text-primary transition-colors">Mensaje</label>
-                            <textarea
-                                id="contact-message"
-                                name="message"
+                            <textarea id="contact-message" name="contact-message"
                                 class="form-input w-full bg-transparent border-0 border-b border-outline-variant py-4 font-body text-white placeholder:text-on-surface-variant/20 transition-all resize-none"
                                 placeholder="¿En qué te puedo ayudar?" rows="4" required></textarea>
                         </div>
-                        <button
-                            type="submit"
+                        <button type="submit"
                             class="w-full py-5 rounded-lg bg-gradient-to-br from-primary-container to-primary text-on-primary font-headline font-bold uppercase tracking-widest transition-all hover:scale-[1.02] hover:shadow-[0_0_24px_rgba(138,43,226,0.3)] active:scale-95 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
                             Enviar Mensaje
                         </button>
@@ -487,7 +585,8 @@
     ═══════════════════════════════════════════ -->
     <footer class="w-full py-12 border-t border-outline-variant bg-surface-container-lowest">
         <div class="flex flex-col md:flex-row justify-between items-center px-6 md:px-12 gap-6 max-w-[1440px] mx-auto">
-            <a href="#hero" class="text-lg font-bold text-white font-headline hover:text-primary transition-colors" aria-label="Volver al inicio">ROY</a>
+            <a href="#hero" class="text-lg font-bold text-white font-headline hover:text-primary transition-colors"
+                aria-label="Volver al inicio">ROY</a>
             <p class="font-body text-[10px] tracking-widest uppercase text-on-surface-variant">
                 &copy; 2026 Alan Roy Cuevas. Todos los derechos reservados.
             </p>
@@ -500,7 +599,8 @@
                     </li>
                     <li>
                         <a class="font-body text-[10px] tracking-widest uppercase text-on-surface-variant hover:text-primary transition-colors"
-                            href="https://github.com/alaancuevas" target="_blank" rel="noopener noreferrer" aria-label="Perfil de GitHub de Alan Roy Cuevas">GitHub</a>
+                            href="https://github.com/alaancuevas" target="_blank" rel="noopener noreferrer"
+                            aria-label="Perfil de GitHub de Alan Roy Cuevas">GitHub</a>
                     </li>
                 </ul>
             </nav>
