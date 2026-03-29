@@ -142,6 +142,13 @@ const i18n = {
         expBullet1: 'Identifiqué cuellos de botella operativos y desarrollé proactivamente un sistema integral de gestión de colas desde cero.',
         expBullet2: 'Arquitecé una solución cliente-servidor en tiempo real (Node.js, Socket.IO) capaz de manejar tótems, pantallas de TV y dispositivos móviles simultáneamente.',
         expBullet3: 'Implementé un sistema de persistencia híbrida (SQLite + RAM) y autenticación JWT, garantizando alta disponibilidad y seguridad de los datos.',
+        exp2Role: 'Creador y Desarrollador',
+        exp2Org: 'LocalPDF Hub',
+        exp2OrgBadge: '(Open Source)',
+        exp2Date: '2025 — PRESENTE',
+        exp2Bullet1: 'Lidero el desarrollo continuo de una aplicación de escritorio offline-first para manipular documentos sensibles, iterando nuevas funcionalidades para escalar el producto y garantizar la privacidad total.',
+        exp2Bullet2: 'Arquitecté un monolito local escalable utilizando FastAPI y Vanilla JS, diseñado estructuralmente para integrar progresivamente nuevas herramientas de procesamiento sin depender de servidores externos.',
+        exp2Bullet3: 'Automaticé conversiones complejas de .docx a PDF superando bloqueos nativos del sistema, y actualmente trabajo en la expansión del soporte multi-formato, manejo de colas de trabajo y optimización asíncrona.',
         contactTitle: 'Contacto',
         contactHeadline: 'Construyamos soluciones <span class="text-primary">eficientes</span>.',
         contactDesc: 'Estoy abierto a nuevos desafíos técnicos, propuestas laborales o charlas sobre arquitectura de software.',
@@ -186,6 +193,13 @@ const i18n = {
         expBullet1: 'Identified operational bottlenecks and proactively developed a comprehensive queue management system from scratch.',
         expBullet2: 'Architected a real-time client-server solution (Node.js, Socket.IO) capable of handling totems, TV screens, and mobile devices simultaneously.',
         expBullet3: 'Implemented a hybrid persistence system (SQLite + RAM) and JWT authentication, ensuring high availability and data security.',
+        exp2Role: 'Creator and Developer',
+        exp2Org: 'LocalPDF Hub',
+        exp2OrgBadge: '(Open Source)',
+        exp2Date: '2025 — PRESENT',
+        exp2Bullet1: 'Lead the ongoing development of an offline-first desktop application for handling sensitive documents, iterating new features to scale the product and guarantee total privacy.',
+        exp2Bullet2: 'Architected a scalable local monolith using FastAPI and Vanilla JS, structurally designed to progressively integrate new processing tools without relying on external servers.',
+        exp2Bullet3: 'Automated complex .docx to PDF conversions overcoming native system blockers, currently working on expanding multi-format support, job queue handling, and async optimization.',
         contactTitle: 'Contact',
         contactHeadline: 'Let\'s build <span class="text-primary">efficient</span> solutions.',
         contactDesc: 'I\'m open to new technical challenges, job proposals, or conversations about software architecture.',
@@ -260,17 +274,36 @@ function applyLang(lang) {
 
     // Experiencia
     document.getElementById('experience-heading').textContent = t.expTitle;
-    document.querySelector('#experience h3').textContent = t.expRole;
-    document.querySelector('#experience p.text-primary').textContent = t.expOrg;
-    document.querySelector('#experience time').textContent = t.expDate;
-    const bullets = document.querySelectorAll('#experience ul[aria-label] li');
-    const bulletTexts = [t.expBullet1, t.expBullet2, t.expBullet3];
-    bullets.forEach((li, i) => {
-        const dot = li.querySelector('span');
-        li.textContent = '';
-        li.appendChild(dot);
-        li.append(' ' + bulletTexts[i]);
-    });
+    const expItems = document.querySelectorAll('#experience ol > li');
+    // Primera experiencia
+    if (expItems[0]) {
+        expItems[0].querySelector('h3').textContent = t.expRole;
+        expItems[0].querySelector('p.text-primary').textContent = t.expOrg;
+        expItems[0].querySelector('time').textContent = t.expDate;
+        const bullets1 = expItems[0].querySelectorAll('ul[aria-label] li');
+        const bulletTexts1 = [t.expBullet1, t.expBullet2, t.expBullet3];
+        bullets1.forEach((li, i) => {
+            const dot = li.querySelector('span');
+            li.textContent = '';
+            li.appendChild(dot);
+            li.append(' ' + bulletTexts1[i]);
+        });
+    }
+    // Segunda experiencia (LocalPDF Hub)
+    if (expItems[1]) {
+        expItems[1].querySelector('h3').textContent = t.exp2Role;
+        const orgEl = expItems[1].querySelector('p.text-primary');
+        orgEl.innerHTML = t.exp2Org + ' <span class="text-on-surface-variant">' + t.exp2OrgBadge + '</span>';
+        expItems[1].querySelector('time').textContent = t.exp2Date;
+        const bullets2 = expItems[1].querySelectorAll('ul[aria-label] li');
+        const bulletTexts2 = [t.exp2Bullet1, t.exp2Bullet2, t.exp2Bullet3];
+        bullets2.forEach((li, i) => {
+            const dot = li.querySelector('span');
+            li.textContent = '';
+            li.appendChild(dot);
+            li.append(' ' + bulletTexts2[i]);
+        });
+    }
 
     // Contacto
     document.getElementById('contact-heading').textContent = t.contactTitle;
@@ -332,20 +365,8 @@ if (btnMoreProjects) {
 }
 
 // ═══════════════════════════════════════════════════
-//  DESCARGAR CV
-// ═══════════════════════════════════════════════════
-document.querySelectorAll('a[aria-label*="CV"], a[aria-label*="cv"]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Cuando exista el PDF real: btn.href = 'cv-alan-roy-cuevas.pdf'; btn.download = true;
-        showToast('toastCv', 'schedule');
-    });
-});
-
-// ═══════════════════════════════════════════════════
 //  FORMULARIO: validación + EmailJS
 // ═══════════════════════════════════════════════════
-// Configurar EmailJS (reemplazar con credenciales reales)
 emailjs.init('5jV8d_imrYVzIc3-W');
 
 const form = document.getElementById('contact-form');

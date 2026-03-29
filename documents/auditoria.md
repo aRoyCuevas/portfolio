@@ -169,6 +169,26 @@ Verificación completa de 8 puntos críticos (Hero, Dark Mode, Multilenguaje, Sc
 
 ---
 
+### [2026-03-29] — CV PDF y Nueva Experiencia LocalPDF Hub
+**Autor:** auditor.md
+**Tipo:** feat / content
+**Estado:** ✅ Aprobado
+**Solicitado por:** usuario
+
+**Descripción:**
+1. **CV Download Real:** Se agregó el archivo PDF `assets/docs/Alan-Cuevas-CV.pdf` y se actualizaron los botones de descarga CV (desktop y móvil) con el atributo `download` y el `href` correspondiente.
+2. **Eliminación de Toast placeholder:** Se removió el event listener que interceptaba los botones CV y mostraba "CV próximamente disponible". Ahora los botones descargan el PDF directamente.
+3. **Nueva Experiencia:** Se añadió la entrada "Creador y Desarrollador | LocalPDF Hub (Open Source)" a la sección Experience con sus 3 bullets descriptivos.
+4. **i18n Nueva Experiencia:** Se agregaron las traducciones ES/EN para la segunda experiencia (`exp2Role`, `exp2Org`, `exp2OrgBadge`, `exp2Date`, `exp2Bullet1-3`) y se actualizó `applyLang()` para manejar ambas entradas de experiencia.
+
+**Archivos modificados:**
+- `index.html` (botones CV, nueva entrada de experiencia)
+- `assets/js/main.js` (remoción de toast CV, traducciones i18n)
+- `assets/docs/Alan-Cuevas-CV.pdf` (nuevo archivo)
+- `auditoria.md` (este log)
+
+---
+
 ## 📊 Resumen de Estado
 
 | Fase | Estado | Responsable |

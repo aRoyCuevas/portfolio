@@ -126,7 +126,7 @@
                     <button id="btn-theme" aria-label="Cambiar tema claro/oscuro"
                         class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary hover:scale-105 transition-all">dark_mode</button>
                 </div>
-                <a href="#" aria-label="Descargar CV de Alan Roy Cuevas"
+                <a href="assets/docs/Alan-Cuevas-CV.pdf" download aria-label="Descargar CV de Alan Roy Cuevas"
                     class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-4 md:px-6 py-2 rounded-lg font-headline font-bold text-xs uppercase tracking-wider hover:scale-105 transition-transform active:scale-95 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                     Descargar CV
                 </a>
@@ -189,7 +189,7 @@
                     class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-10 py-4 rounded-lg font-headline font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(138,43,226,0.2)] shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] inline-block">
                     Ver Proyectos
                 </a>
-                <a href="#" aria-label="Descargar CV en PDF"
+                <a href="assets/docs/Alan-Cuevas-CV.pdf" download aria-label="Descargar CV en PDF"
                     class="border border-outline-variant text-white px-10 py-4 rounded-lg font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-bright hover:border-primary/40 transition-all inline-block">
                     Descargar CV
                 </a>
@@ -509,7 +509,36 @@
                         <li class="flex gap-4">
                             <span class="text-primary mt-1" aria-hidden="true">•</span>
                             Implementé un sistema de persistencia híbrida (SQLite + RAM) y autenticación JWT,
-                            garantizando alta disponibilidad y seguridad de los datos.
+                            garantizando alta disponibilidad y seguridad de los datos (middlewares de seguridad, rate
+                            limiting y CSRF protection).
+                        </li>
+                    </ul>
+                </li>
+                <li class="reveal delay-200 mb-12 relative">
+                    <div class="timeline-pulse absolute -left-[49px] md:-left-[57px] top-1 w-4 h-4 rounded-full bg-primary"
+                        aria-hidden="true"></div>
+                    <div class="flex flex-col md:flex-row justify-between items-start mb-6 gap-4">
+                        <div>
+                            <h3 class="font-headline text-2xl text-white font-bold">Creador y Desarrollador</h3>
+                            <p class="font-body text-primary font-medium mt-1">LocalPDF Hub <span class="text-on-surface-variant">(Open Source)</span></p>
+                        </div>
+                        <time
+                            class="font-headline text-on-surface-variant text-xs tracking-widest uppercase whitespace-nowrap"
+                            datetime="2025">2025 — PRESENTE</time>
+                    </div>
+                    <ul class="space-y-4 font-body text-on-surface-variant max-w-3xl"
+                        aria-label="Logros y responsabilidades">
+                        <li class="flex gap-4">
+                            <span class="text-primary mt-1" aria-hidden="true">•</span>
+                            Lidero el desarrollo continuo de una aplicación de escritorio offline-first para manipular documentos sensibles, iterando nuevas funcionalidades para escalar el producto y garantizar la privacidad total.
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-primary mt-1" aria-hidden="true">•</span>
+                            Arquitecté un monolito local escalable utilizando FastAPI y Vanilla JS, diseñado estructuralmente para integrar progresivamente nuevas herramientas de procesamiento sin depender de servidores externos.
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-primary mt-1" aria-hidden="true">•</span>
+                            Automaticé conversiones complejas de .docx a PDF superando bloqueos nativos del sistema, y actualmente trabajo en la expansión del soporte multi-formato, manejo de colas de trabajo y optimización asíncrona.
                         </li>
                     </ul>
                 </li>
