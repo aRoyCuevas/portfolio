@@ -128,7 +128,7 @@ const i18n = {
         techTitle: 'Stack Tecnológico', techSub: 'Herramientas Principales',
         techDesc: 'Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto rendimiento.',
         projTitle: 'Proyectos Destacados',
-        proj1Demo: 'Ver Demo', proj2Repo: 'Ver Repositorio',
+        proj1Demo: 'Solicitar Demo', proj2Site: 'Ver Sitio Web',
         proj1Preview: 'Gestión de Colas · Preview',
         proj1Title: 'Turnero — Gestión de Colas',
         proj1Desc: 'Sistema integral de gestión de turnos en tiempo real que digitaliza las filas de espera. Procesa conexiones simultáneas desde dispositivos móviles, tótems y pantallas de TV mediante WebSockets, garantizando velocidad y seguridad con un sistema de persistencia híbrida y acceso por roles.',
@@ -144,10 +144,10 @@ const i18n = {
         expBullet3: 'Implementé un sistema de persistencia híbrida (SQLite + RAM) y autenticación JWT, garantizando alta disponibilidad y seguridad de los datos.',
         exp2Role: 'Creador y Desarrollador',
         exp2Org: 'LocalPDF Hub',
-        exp2OrgBadge: '(Open Source)',
+        exp2OrgBadge: '',
         exp2Date: '2025 — PRESENTE',
-        exp2Bullet1: 'Lidero el desarrollo continuo de una aplicación de escritorio offline-first para manipular documentos sensibles, iterando nuevas funcionalidades para escalar el producto y garantizar la privacidad total.',
-        exp2Bullet2: 'Arquitecté un monolito local escalable utilizando FastAPI y Vanilla JS, diseñado estructuralmente para integrar progresivamente nuevas herramientas de procesamiento sin depender de servidores externos.',
+        exp2Bullet1: 'Lidero el desarrollo continuo de una aplicación de escritorio offline-first en Python para manipular documentos sensibles, iterando nuevas funcionalidades para escalar el producto y garantizar la privacidad total.',
+        exp2Bullet2: 'Arquitecté un monolito local escalable utilizando Python (FastAPI) y Vanilla JS, diseñado estructuralmente para integrar progresivamente nuevas herramientas de procesamiento sin depender de servidores externos.',
         exp2Bullet3: 'Automaticé conversiones complejas de .docx a PDF superando bloqueos nativos del sistema, y actualmente trabajo en la expansión del soporte multi-formato, manejo de colas de trabajo y optimización asíncrona.',
         contactTitle: 'Contacto',
         contactHeadline: 'Construyamos soluciones <span class="text-primary">eficientes</span>.',
@@ -166,7 +166,8 @@ const i18n = {
         toastFormFail: 'Error al enviar. Intentá de nuevo.',
         toastMoreProjects: 'Próximamente más proyectos',
         moreProjectsBtn: 'Ver Más Proyectos',
-        toastDemo: 'Demo de Turnero próximamente'
+        toastDemo: 'Completá el formulario para solicitar la demo',
+        disclaimerCarousel: 'Las imágenes pueden corresponder a versiones anteriores'
     },
     en: {
         navAbout: 'About', navStack: 'Stack', navProjects: 'Projects',
@@ -179,7 +180,7 @@ const i18n = {
         techTitle: 'Tech Stack', techSub: 'Core Tools',
         techDesc: 'Technologies and languages I use to build scalable, secure, high-performance architectures.',
         projTitle: 'Featured Projects',
-        proj1Demo: 'View Demo', proj2Repo: 'View Repository',
+        proj1Demo: 'Request Demo', proj2Site: 'View Website',
         proj1Preview: 'Queue Management · Preview',
         proj1Title: 'Turnero — Queue Management',
         proj1Desc: 'Comprehensive real-time queue management system that digitizes waiting lines. Processes simultaneous connections from mobile devices, totems, and TV screens via WebSockets, ensuring speed and security with hybrid persistence and role-based access.',
@@ -195,10 +196,10 @@ const i18n = {
         expBullet3: 'Implemented a hybrid persistence system (SQLite + RAM) and JWT authentication, ensuring high availability and data security.',
         exp2Role: 'Creator and Developer',
         exp2Org: 'LocalPDF Hub',
-        exp2OrgBadge: '(Open Source)',
+        exp2OrgBadge: '',
         exp2Date: '2025 — PRESENT',
-        exp2Bullet1: 'Lead the ongoing development of an offline-first desktop application for handling sensitive documents, iterating new features to scale the product and guarantee total privacy.',
-        exp2Bullet2: 'Architected a scalable local monolith using FastAPI and Vanilla JS, structurally designed to progressively integrate new processing tools without relying on external servers.',
+        exp2Bullet1: 'Lead the ongoing development of an offline-first desktop application built with Python for handling sensitive documents, iterating new features to scale the product and guarantee total privacy.',
+        exp2Bullet2: 'Architected a scalable local monolith using Python (FastAPI) and Vanilla JS, structurally designed to progressively integrate new processing tools without relying on external servers.',
         exp2Bullet3: 'Automated complex .docx to PDF conversions overcoming native system blockers, currently working on expanding multi-format support, job queue handling, and async optimization.',
         contactTitle: 'Contact',
         contactHeadline: 'Let\'s build <span class="text-primary">efficient</span> solutions.',
@@ -217,7 +218,8 @@ const i18n = {
         toastFormFail: 'Error sending. Try again.',
         toastMoreProjects: 'More projects coming soon',
         moreProjectsBtn: 'View More Projects',
-        toastDemo: 'Turnero demo coming soon'
+        toastDemo: 'Fill out the form to request the demo',
+        disclaimerCarousel: 'Images may correspond to earlier versions'
     }
 };
 
@@ -270,7 +272,9 @@ function applyLang(lang) {
     if (projectDescs[1]) projectDescs[1].textContent = t.proj2Desc;
     const demoLinks = document.querySelectorAll('#projects article a');
     if (demoLinks[0]) { demoLinks[0].childNodes[0].textContent = t.proj1Demo + ' '; }
-    if (demoLinks[1]) { demoLinks[1].childNodes[0].textContent = t.proj2Repo + ' '; }
+    if (demoLinks[1]) { demoLinks[1].childNodes[0].textContent = t.proj2Site + ' '; }
+    const disclaimer = document.getElementById('localpdf-disclaimer');
+    if (disclaimer) disclaimer.textContent = t.disclaimerCarousel;
 
     // Experiencia
     document.getElementById('experience-heading').textContent = t.expTitle;
@@ -293,7 +297,7 @@ function applyLang(lang) {
     if (expItems[1]) {
         expItems[1].querySelector('h3').textContent = t.exp2Role;
         const orgEl = expItems[1].querySelector('p.text-primary');
-        orgEl.innerHTML = t.exp2Org + ' <span class="text-on-surface-variant">' + t.exp2OrgBadge + '</span>';
+        orgEl.innerHTML = t.exp2OrgBadge ? t.exp2Org + ' <span class="text-on-surface-variant">' + t.exp2OrgBadge + '</span>' : t.exp2Org;
         expItems[1].querySelector('time').textContent = t.exp2Date;
         const bullets2 = expItems[1].querySelectorAll('ul[aria-label] li');
         const bulletTexts2 = [t.exp2Bullet1, t.exp2Bullet2, t.exp2Bullet3];
@@ -349,8 +353,10 @@ btnLang.addEventListener('click', () => {
 // ═══════════════════════════════════════════════════
 const btnDemo = document.getElementById('btn-turnero-demo');
 if (btnDemo) {
-    btnDemo.addEventListener('click', () => {
-        showToast('toastDemo', 'schedule');
+    btnDemo.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        showToast('toastDemo', 'mail');
     });
 }
 
