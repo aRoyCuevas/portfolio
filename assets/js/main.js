@@ -1,3 +1,4 @@
+
 // ═══════════════════════════════════════════════════
 //  UTILIDADES
 // ═══════════════════════════════════════════════════
@@ -16,11 +17,59 @@ function showToast(msgKey, icon = 'check_circle') {
 }
 
 // ═══════════════════════════════════════════════════
-//  HERO: stagger reveal al cargar
+//  HERO: Intro scroll scrubbing (Sticky)
 // ═══════════════════════════════════════════════════
-document.querySelectorAll('.hero-stagger').forEach((el, i) => {
-    setTimeout(() => el.classList.add('appeared'), 200 + i * 160);
+const mainNav = document.querySelector('nav');
+const heroElements = document.querySelectorAll('.hero-stagger');
+const scrollIndicator = document.getElementById('intro-scroll-indicator');
+
+mainNav.style.transition = 'none';
+mainNav.style.opacity = '0';
+mainNav.style.transform = 'translateY(-100%)';
+mainNav.style.pointerEvents = 'none';
+
+heroElements.forEach(el => {
+    el.style.transition = 'none';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(40px)';
+    el.classList.remove('appeared');
 });
+
+const asciiBg = document.getElementById('ascii-bg');
+
+function handleScrubbing() {
+    const scrollY = window.scrollY;
+    // El efecto dura exactamente el alto de la pantalla (100vh)
+    const maxScroll = window.innerHeight; 
+    const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
+    
+    // Aplicar desenfoque dinámico al fondo ASCII (de 0px a 2px)
+    if (asciiBg) {
+        asciiBg.style.filter = `blur(${progress * 2}px)`;
+    }
+    
+    // Nav
+    mainNav.style.opacity = progress.toString();
+    mainNav.style.transform = `translateY(${-100 + (progress * 100)}%)`;
+    mainNav.style.pointerEvents = progress > 0.8 ? 'auto' : 'none';
+    
+    // Textos
+    heroElements.forEach((el, index) => {
+        const startThreshold = index * 0.08; 
+        const localProgress = Math.min(1, Math.max(0, (progress - startThreshold) / (1 - startThreshold)));
+        
+        el.style.opacity = localProgress.toString();
+        el.style.transform = `translateY(${40 - (localProgress * 40)}px)`;
+    });
+    
+    if (scrollIndicator) {
+        scrollIndicator.style.opacity = Math.max(0, 1 - (progress * 2.5)).toString();
+    }
+}
+
+window.addEventListener('scroll', handleScrubbing, { passive: true });
+window.addEventListener('resize', handleScrubbing, { passive: true });
+handleScrubbing();
 
 // ═══════════════════════════════════════════════════
 //  NAV: shadow + scroll activo
@@ -167,7 +216,8 @@ const i18n = {
         toastMoreProjects: 'Próximamente más proyectos',
         moreProjectsBtn: 'Ver Más Proyectos',
         toastDemo: 'Completá el formulario para solicitar la demo',
-        disclaimerCarousel: 'Las imágenes pueden corresponder a versiones anteriores'
+        disclaimerCarousel: 'Las imágenes pueden corresponder a versiones anteriores',
+        introScroll: 'Haz scroll para descubrir'
     },
     en: {
         navAbout: 'About', navStack: 'Stack', navProjects: 'Projects',
@@ -219,7 +269,8 @@ const i18n = {
         toastMoreProjects: 'More projects coming soon',
         moreProjectsBtn: 'View More Projects',
         toastDemo: 'Fill out the form to request the demo',
-        disclaimerCarousel: 'Images may correspond to earlier versions'
+        disclaimerCarousel: 'Images may correspond to earlier versions',
+        introScroll: 'Scroll to discover'
     }
 };
 
@@ -244,6 +295,9 @@ function applyLang(lang) {
     });
 
     // Hero (Encabezado)
+    const introIndicator = document.querySelector('#intro-scroll-indicator span:first-child');
+    if (introIndicator && t.introScroll) introIndicator.textContent = t.introScroll;
+
     document.querySelector('.hero-stagger.font-headline.text-primary').textContent = t.heroBadge;
     document.querySelector('.hero-stagger.font-body').textContent = t.heroDesc;
     const heroBtns = document.querySelectorAll('.hero-stagger a');
