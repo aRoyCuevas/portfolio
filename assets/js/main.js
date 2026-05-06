@@ -184,6 +184,9 @@ const i18n = {
         proj2Preview: 'LocalPDF Hub · Preview',
         proj2Title: 'LocalPDF Hub',
         proj2Desc: 'Aplicación de escritorio offline para manipular documentos e imágenes directamente en el navegador. Su arquitectura cliente-servidor local garantiza privacidad total al procesar los archivos de forma local sin enviarlos a servidores externos.',
+        proj3Title: 'Key2Pad — Teclado a Gamepad',
+        proj3Desc: 'Software de emulación nativa (XInput) que permite jugar cualquier título de PC sin necesidad de hardware adicional. Transforma inputs físicos en señales analógicas reales mediante drivers de bajo nivel, ofreciendo una experiencia altamente personalizable con perfiles dedicados y un overlay de interacción directa.',
+        proj3Site: 'Ver Sitio Web',
         expTitle: 'Experiencia',
         expRole: 'Desarrollador Full Stack Independiente',
         expOrg: 'Institución Médica / Sector Salud',
@@ -237,6 +240,9 @@ const i18n = {
         proj2Preview: 'LocalPDF Hub · Preview',
         proj2Title: 'LocalPDF Hub',
         proj2Desc: 'Offline desktop application to manipulate documents and images directly in the browser. Its local client-server architecture ensures total privacy by processing files locally without sending them to external servers.',
+        proj3Title: 'Key2Pad — Keyboard to Gamepad',
+        proj3Desc: 'Native emulation software (XInput) that allows playing any PC title without the need for additional hardware. Transforms physical inputs into real analog signals using low-level drivers, offering a highly customizable experience with dedicated profiles and a direct interaction overlay.',
+        proj3Site: 'View Website',
         expTitle: 'Experience',
         expRole: 'Independent Full Stack Developer',
         expOrg: 'Medical Institution / Healthcare Sector',
@@ -321,12 +327,15 @@ function applyLang(lang) {
     const projectTitles = document.querySelectorAll('#projects article h3');
     if (projectTitles[0]) projectTitles[0].textContent = t.proj1Title;
     if (projectTitles[1]) projectTitles[1].textContent = t.proj2Title;
+    if (projectTitles[2]) projectTitles[2].textContent = t.proj3Title;
     const projectDescs = document.querySelectorAll('#projects article p.leading-relaxed');
     if (projectDescs[0]) projectDescs[0].textContent = t.proj1Desc;
     if (projectDescs[1]) projectDescs[1].textContent = t.proj2Desc;
+    if (projectDescs[2]) projectDescs[2].textContent = t.proj3Desc;
     const demoLinks = document.querySelectorAll('#projects article a');
     if (demoLinks[0]) { demoLinks[0].childNodes[0].textContent = t.proj1Demo + ' '; }
     if (demoLinks[1]) { demoLinks[1].childNodes[0].textContent = t.proj2Site + ' '; }
+    if (demoLinks[2]) { demoLinks[2].childNodes[0].textContent = t.proj3Site + ' '; }
     const disclaimer = document.getElementById('localpdf-disclaimer');
     if (disclaimer) disclaimer.textContent = t.disclaimerCarousel;
 
@@ -495,6 +504,62 @@ form.addEventListener('submit', async (e) => {
     if (!track || !btnPrev || !btnNext) return;
 
     const TOTAL = dots.length;   // 5 imágenes
+    const AUTO_MS = 4000;          // avance automático cada 4 s
+    let current = 0;
+    let autoTimer;
+
+    // --- Función principal de ir a un slide ---
+    function goTo(index) {
+        current = (index + TOTAL) % TOTAL;
+        track.style.transform = `translateX(-${current * 100}%)`;
+
+        dots.forEach((dot, i) => {
+            const active = i === current;
+            dot.classList.toggle('dot-active', active);
+            dot.setAttribute('aria-selected', active);
+        });
+    }
+
+    // --- Controles botones ---
+    btnPrev.addEventListener('click', () => { resetAuto(); goTo(current - 1); });
+    btnNext.addEventListener('click', () => { resetAuto(); goTo(current + 1); });
+
+    // --- Puntos clickeables ---
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { resetAuto(); goTo(i); }));
+
+    // --- Avance automático ---
+    function startAuto() { autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+    startAuto();
+
+    // --- Soporte táctil / swipe ---
+    let touchStartX = 0;
+    track.parentElement.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    track.parentElement.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) { resetAuto(); goTo(current + (dx < 0 ? 1 : -1)); }
+    }, { passive: true });
+
+    // --- Teclado (cuando el carrusel tiene foco) ---
+    track.parentElement.setAttribute('tabindex', '0');
+    track.parentElement.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { resetAuto(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft') { resetAuto(); goTo(current - 1); }
+    });
+})();
+
+// ═══════════════════════════════════════════════════
+//  CARRUSEL: Key2Pad
+// ═══════════════════════════════════════════════════
+(() => {
+    const track = document.getElementById('key2pad-track');
+    const btnPrev = document.getElementById('key2pad-prev');
+    const btnNext = document.getElementById('key2pad-next');
+    const dots = document.querySelectorAll('#key2pad-dots .carousel-dot');
+
+    if (!track || !btnPrev || !btnNext) return;
+
+    const TOTAL = dots.length;   // 4 imágenes
     const AUTO_MS = 4000;          // avance automático cada 4 s
     let current = 0;
     let autoTimer;

@@ -575,6 +575,77 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                         </a>
                     </div>
                 </article>
+
+                <!-- Proyecto 3: Key2Pad -->
+                <article
+                    class="project-card reveal-left flex flex-col lg:flex-row gap-20 items-center rounded-xl p-2 -m-2">
+                    <div class="w-full lg:w-3/5 aspect-video rounded-xl overflow-hidden relative group border border-outline-variant bg-surface-container-low/50"
+                        id="key2pad-carousel">
+                        <!-- Pista de imágenes del carrusel -->
+                        <div id="key2pad-track"
+                            class="flex h-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                            <img src="assets/img/Key2Pad/1.png" alt="Key2Pad – pantalla 1"
+                                class="w-[calc(100%+2px)] h-[calc(100%+2px)] max-w-none object-fill flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/Key2Pad/2.png" alt="Key2Pad – pantalla 2"
+                                class="w-[calc(100%+2px)] h-[calc(100%+2px)] max-w-none object-fill flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/Key2Pad/3.png" alt="Key2Pad – pantalla 3"
+                                class="w-[calc(100%+2px)] h-[calc(100%+2px)] max-w-none object-fill flex-shrink-0" loading="lazy" />
+                            <img src="assets/img/Key2Pad/4.png" alt="Key2Pad – pantalla 4"
+                                class="w-[calc(100%+2px)] h-[calc(100%+2px)] max-w-none object-fill flex-shrink-0" loading="lazy" />
+                        </div>
+
+                        <!-- Botón: imagen anterior -->
+                        <button id="key2pad-prev" aria-label="Imagen anterior"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_left</span>
+                        </button>
+
+                        <!-- Botón: imagen siguiente -->
+                        <button id="key2pad-next" aria-label="Imagen siguiente"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_right</span>
+                        </button>
+
+                        <!-- Indicadores de posición -->
+                        <div id="key2pad-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+                            role="tablist" aria-label="Selector de imagen">
+                            <button role="tab" aria-selected="true" aria-label="Imagen 1"
+                                class="carousel-dot dot-active"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 2"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 3"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 4"
+                                class="carousel-dot"></button>
+                        </div>
+
+                        <!-- Overlay sutil al hacer hover -->
+                        <div
+                            class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500 pointer-events-none z-10">
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-2/5">
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#C++</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#TypeScript</span>
+                            <span
+                                class="bg-surface-container-highest text-primary px-3 py-1 text-[10px] tracking-widest uppercase font-headline rounded">#Electron</span>
+                        </div>
+                        <h3 class="font-headline text-4xl text-white font-bold mb-6">Key2Pad — Teclado a Gamepad</h3>
+                        <p class="font-body text-on-surface-variant text-lg leading-relaxed mb-10">
+                            Software de emulación nativa (XInput) que permite jugar cualquier título de PC sin necesidad de hardware adicional. Transforma inputs físicos en señales analógicas reales mediante drivers de bajo nivel, ofreciendo una experiencia altamente personalizable con perfiles dedicados y un overlay de interacción directa.
+                        </p>
+                        <a href="https://key2pad.netlify.app/" target="_blank" rel="noopener noreferrer"
+                            aria-label="Ver sitio web de Key2Pad"
+                            class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
+                            Ver Sitio Web
+                            <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
+                                aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
             </div>
 
             <!-- Botón: ver más proyectos -->
