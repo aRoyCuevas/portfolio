@@ -559,7 +559,7 @@ form.addEventListener('submit', async (e) => {
 
     if (!track || !btnPrev || !btnNext) return;
 
-    const TOTAL = dots.length;   // 4 imágenes
+    const TOTAL = dots.length;   // 10 imágenes
     const AUTO_MS = 4000;          // avance automático cada 4 s
     let current = 0;
     let autoTimer;
@@ -602,4 +602,113 @@ form.addEventListener('submit', async (e) => {
         if (e.key === 'ArrowRight') { resetAuto(); goTo(current + 1); }
         if (e.key === 'ArrowLeft') { resetAuto(); goTo(current - 1); }
     });
+})();
+
+// ═══════════════════════════════════════════════════
+//  LIGHTBOX (GALERÍA PANTALLA COMPLETA)
+// ═══════════════════════════════════════════════════
+(() => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+
+    if (!lightbox) return;
+
+    let currentImages = [];
+    let currentIndex = 0;
+
+    // Abrir lightbox
+    function openLightbox(index) {
+        currentIndex = index;
+        updateLightboxImage();
+        lightbox.classList.remove('hidden');
+        // Pequeño delay para permitir que el display:flex se aplique antes de la transición de opacidad
+        requestAnimationFrame(() => {
+            lightbox.classList.remove('opacity-0');
+            lightboxImg.classList.remove('scale-95');
+            lightboxImg.classList.add('scale-100');
+        });
+        document.body.style.overflow = 'hidden'; // Prevenir scroll de fondo
+    }
+
+    // Cerrar lightbox
+    function closeLightbox() {
+        lightbox.classList.add('opacity-0');
+        lightboxImg.classList.remove('scale-100');
+        lightboxImg.classList.add('scale-95');
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300); // Coincide con la duración de la transición
+    }
+
+    // Actualizar imagen mostrada
+    function updateLightboxImage() {
+        if (currentImages.length === 0) return;
+        lightboxImg.src = currentImages[currentIndex].src;
+        lightboxImg.alt = currentImages[currentIndex].alt;
+        lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+    }
+
+    // Navegar
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        updateLightboxImage();
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        updateLightboxImage();
+    }
+
+    // Bindear clicks en las imágenes de los carruseles
+    const tracks = ['localpdf-track', 'key2pad-track'];
+    tracks.forEach(trackId => {
+        const track = document.getElementById(trackId);
+        if (!track) return;
+
+        const images = track.querySelectorAll('img');
+        images.forEach((img, index) => {
+            img.classList.add('cursor-pointer'); // Feedback visual
+            img.addEventListener('click', () => {
+                currentImages = Array.from(images); // Guardar contexto de qué carrusel se clickeó
+                openLightbox(index);
+            });
+        });
+    });
+
+    // Eventos de botones UI
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxNext.addEventListener('click', nextImage);
+    lightboxPrev.addEventListener('click', prevImage);
+
+    // Cerrar al clickear fuera de la imagen
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Soporte teclado
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+    });
+
+    // Soporte Swipe en móvil
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend', e => {
+        if (lightbox.classList.contains('hidden')) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) {
+            if (dx < 0) nextImage();
+            else prevImage();
+        }
+    }, { passive: true });
 })();
