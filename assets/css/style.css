@@ -252,7 +252,7 @@ body {
         .nav-link-active {
             color: var(--primary);
         }
-        /* Nav underline sweep en hover y activo */
+        /* Nav underline sweep únicamente en activo (scroll) */
         .nav-link {
             position: relative;
             padding-bottom: 4px;
@@ -266,10 +266,16 @@ body {
             transition: width 0.3s ease;
             border-radius: 2px;
         }
-        .nav-link:hover::after,
+        /* Solo se activa la línea cuando tiene la clase nav-link-active */
         .nav-link-active::after {
             width: 100%;
         }
+
+        /* Hover modo claro (solo texto) */
+        html:not(.dark) .nav-link:hover {
+            color: #BABABA !important;
+        }
+
 
         /* ── FASE 3: keyframes ────────────────────────── */
         @keyframes fadeInUp {
