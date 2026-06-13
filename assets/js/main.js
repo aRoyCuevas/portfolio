@@ -172,6 +172,7 @@ const i18n = {
         heroBadge: 'Desarrollador Full Stack',
         heroDesc: 'Diseño y desarrollo soluciones de software seguras, eficientes y visualmente intuitivas. Me especializo en construir desde arquitecturas en tiempo real con Node.js hasta herramientas de procesamiento local con Python, integrando métricas clave y priorizando la privacidad del usuario.',
         heroCta1: 'Ver Proyectos', heroCta2: 'Descargar CV', heroNavCv: 'Descargar CV',
+        heroQuote: 'El código se reescribe; tu determinación permanece intacta',
         aboutTitle: 'Sobre Mí',
         aboutText: '"Soy un desarrollador apasionado por la tecnología y el análisis de sistemas. Me considero una persona práctica a la que le gusta optimizar procesos para hacer el trabajo más fácil. Tengo facilidad para adaptarme a los cambios, lo que me ayuda a resolver problemas reales y a trabajar bien con los demás."',
         techTitle: 'Stack Tecnológico', techSub: 'Herramientas Principales',
@@ -247,6 +248,7 @@ const i18n = {
         heroBadge: 'Full Stack Developer',
         heroDesc: 'I design and build secure, efficient, and visually intuitive software solutions. I specialize in crafting real-time architectures with Node.js and local processing tools with Python, integrating key metrics and prioritizing user privacy.',
         heroCta1: 'View Projects', heroCta2: 'Download CV', heroNavCv: 'Download CV',
+        heroQuote: 'Code is rewritten; your determination remains intact',
         aboutTitle: 'About Me',
         aboutText: '"I am a developer passionate about technology and systems analysis. I consider myself a practical person who likes to optimize processes to make work easier. I adapt well to change, which helps me solve real problems and collaborate effectively with others."',
         techTitle: 'Tech Stack', techSub: 'Core Tools',
@@ -358,6 +360,7 @@ function applyLang(lang) {
     translateEl('txt-hero-description', t.heroDesc);
     translateEl('txt-btn-projects', t.heroCta1);
     translateEl('txt-btn-cv', t.heroCta2);
+    translateEl('hero-quote-text', t.heroQuote);
 
     // --- 3. SOBRE MÍ ---
     translateEl('about-heading', t.aboutTitle);
@@ -476,9 +479,8 @@ function applyLang(lang) {
     translateEl('btn-key2pad-site', t.ariaProj3, 'aria-label');
 
     // Traducir texto visible de los botones de descarga de CV
-    translateEl('btn-cv-nav', t.heroNavCv);
-    translateEl('btn-cv-hero', t.heroNavCv);
-    translateEl('btn-cv-mobile', t.heroNavCv);
+    translateEl('txt-btn-cv-nav', t.heroNavCv);
+    translateEl('txt-btn-cv-mobile', t.heroNavCv);
 
     const btnMobileMenu = document.getElementById('btn-mobile-menu');
     const mobileMenu = document.getElementById('mobile-menu');
