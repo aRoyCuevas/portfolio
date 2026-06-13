@@ -94,7 +94,7 @@
     </script>
 </head>
 
-<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary">
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary overflow-x-clip">
     
 
 
@@ -128,8 +128,8 @@
                     <button id="btn-theme" aria-label="Cambiar tema claro/oscuro"
                         class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary hover:scale-105 transition-all">dark_mode</button>
                 </div>
-                <a href="assets/docs/Alan-Cuevas-CV.pdf" download aria-label="Descargar CV de Alan Roy Cuevas"
-                    class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-4 md:px-6 py-2 rounded-lg font-headline font-bold text-xs uppercase tracking-wider hover:scale-105 transition-transform active:scale-95 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <a href="assets/docs/Alan-Cuevas-CV.pdf" download id="btn-cv-nav" aria-label="Descargar CV de Alan Roy Cuevas"
+                    class="hidden sm:inline-flex bg-gradient-to-br from-primary-container to-primary text-on-primary px-4 md:px-6 py-2 rounded-lg font-headline font-bold text-xs uppercase tracking-wider hover:scale-105 transition-transform active:scale-95 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                     Descargar CV
                 </a>
                 <!-- Menú hamburguesa móvil -->
@@ -153,6 +153,10 @@
                     href="#experience" role="menuitem">Experiencia</a>
                 <a class="font-headline font-bold tracking-tight uppercase text-sm text-on-surface-variant hover:text-primary transition-colors"
                     href="#contact" role="menuitem">Contacto</a>
+                <a href="assets/docs/Alan-Cuevas-CV.pdf" download id="btn-cv-mobile" aria-label="Descargar CV de Alan Roy Cuevas"
+                    class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-6 py-3 rounded-lg font-headline font-bold text-xs uppercase tracking-wider text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                    Descargar CV
+                </a>
             </div>
         </div>
     </nav>
@@ -317,17 +321,16 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
             <p
                 class="hero-stagger font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-12 font-light leading-relaxed">
                 Diseño y desarrollo soluciones de software seguras, eficientes y visualmente intuitivas. Me especializo
-                en construir desde arquitecturas en tiempo real con Node.js hasta herramientas de procesamiento local
-                con Python, integrando métricas clave y priorizando la privacidad del usuario.
+                <span id="txt-hero-description">Diseño y desarrollo soluciones de software seguras, eficientes y visualmente intuitivas. Me especializo en construir desde arquitecturas en tiempo real con Node.js hasta herramientas de procesamiento local con Python, integrando métricas clave y priorizando la privacidad del usuario.</span>
             </p>
             <div class="hero-stagger flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
                 <a href="#projects"
                     class="bg-gradient-to-br from-primary-container to-primary text-on-primary px-10 py-4 rounded-lg font-headline font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-[0_0_20px_rgba(138,43,226,0.2)] shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] inline-block">
-                    Ver Proyectos
+                    <span id="txt-btn-projects">Ver Proyectos</span>
                 </a>
-                <a href="assets/docs/Alan-Cuevas-CV.pdf" download aria-label="Descargar CV en PDF"
+                <a href="assets/docs/Alan-Cuevas-CV.pdf" download id="btn-cv-hero" aria-label="Descargar CV en PDF"
                     class="border border-outline-variant text-white px-10 py-4 rounded-lg font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-bright hover:border-primary/40 transition-all inline-block">
-                    Descargar CV
+                    <span id="txt-btn-cv">Descargar CV</span>
                 </a>
             </div>
         </div>
@@ -339,6 +342,7 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
     </header>
     </div>
 
+    <main class="overflow-x-hidden w-full relative">
     <!-- ═══════════════════════════════════════════
          SOBRE MÍ
     ═══════════════════════════════════════════ -->
@@ -359,14 +363,14 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
     </section>
     <section class="py-32 bg-surface-container-lowest" id="tech" aria-labelledby="tech-heading">
         <div class="max-w-[1440px] mx-auto px-6 md:px-12">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
                 <div>
                     <h2 id="tech-heading"
                         class="reveal font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-4">
                         Stack Tecnológico</h2>
-                    <h3 class="reveal delay-150 font-headline text-4xl text-white font-bold">Herramientas Principales</h3>
+                    <h3 id="tech-subheading" class="reveal delay-150 font-headline text-4xl text-white font-bold">Herramientas Principales</h3>
                 </div>
-                <p class="reveal delay-300 font-body text-on-surface-variant max-w-sm text-sm">
+                <p id="tech-description" class="reveal delay-300 font-body text-on-surface-variant max-w-sm text-sm">
                     Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto
                     rendimiento.
                 </p>
@@ -486,7 +490,7 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                         </p>
                         <a href="#contact" id="btn-turnero-demo" aria-label="Solicitar demo de Turnero - Gestión de Colas"
                             class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
-                            Solicitar Demo
+                            <span id="btn-turnero-demo-text">Solicitar Demo</span>
                             <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
                                 aria-hidden="true">arrow_forward</span>
                         </a>
@@ -515,13 +519,13 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
 
                         <!-- Botón: imagen anterior -->
                         <button id="localpdf-prev" aria-label="Imagen anterior"
-                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
                             <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_left</span>
                         </button>
 
                         <!-- Botón: imagen siguiente -->
                         <button id="localpdf-next" aria-label="Imagen siguiente"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
                             <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_right</span>
                         </button>
 
@@ -567,9 +571,9 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                             archivos de forma local sin enviarlos a servidores externos.
                         </p>
                         <a href="https://localpdfhub.netlify.app" target="_blank" rel="noopener noreferrer"
-                            aria-label="Ver sitio web de LocalPDF Hub"
+                            id="btn-localpdf-site" aria-label="Ver sitio web de LocalPDF Hub"
                             class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
-                            Ver Sitio Web
+                            <span id="btn-localpdf-site-text">Ver Sitio Web</span>
                             <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
                                 aria-hidden="true">arrow_forward</span>
                         </a>
@@ -608,13 +612,13 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
 
                         <!-- Botón: imagen anterior -->
                         <button id="key2pad-prev" aria-label="Imagen anterior"
-                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
                             <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_left</span>
                         </button>
 
                         <!-- Botón: imagen siguiente -->
                         <button id="key2pad-next" aria-label="Imagen siguiente"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-outline-variant text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
                             <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_right</span>
                         </button>
 
@@ -662,9 +666,9 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                             Software de emulación nativa (XInput) que permite jugar cualquier título de PC sin necesidad de hardware adicional. Transforma inputs físicos en señales analógicas reales mediante drivers de bajo nivel, ofreciendo una experiencia altamente personalizable con perfiles dedicados y un overlay de interacción directa.
                         </p>
                         <a href="https://key2pad.netlify.app/" target="_blank" rel="noopener noreferrer"
-                            aria-label="Ver sitio web de Key2Pad"
+                            id="btn-key2pad-site" aria-label="Ver sitio web de Key2Pad"
                             class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
-                            Ver Sitio Web
+                            <span id="btn-key2pad-site-text">Ver Sitio Web</span>
                             <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
                                 aria-hidden="true">arrow_forward</span>
                         </a>
@@ -775,9 +779,9 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                         class="font-headline text-on-surface-variant text-sm tracking-[0.4em] uppercase mb-8">Contacto
                     </h2>
                     <p class="font-headline text-5xl md:text-6xl text-white font-bold mb-12 leading-tight">
-                        Construyamos soluciones <span class="text-primary">eficientes</span>.
+                        <span id="contact-headline-part1">Construyamos soluciones </span><span id="contact-headline-span" class="text-primary">eficientes</span><span id="contact-headline-part2">.</span>
                     </p>
-                    <p class="font-body text-on-surface-variant text-xl mb-12">
+                    <p id="contact-desc" class="font-body text-on-surface-variant text-xl mb-12">
                         Estoy abierto a nuevos desafíos técnicos, propuestas laborales o charlas sobre arquitectura de
                         software.
                     </p>
@@ -804,27 +808,27 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                 <div class="reveal-right bg-surface-container-lowest p-8 md:p-12 rounded-xl">
                     <form id="contact-form" class="space-y-10" novalidate aria-label="Formulario de contacto">
                         <div class="relative group">
-                            <label for="contact-name"
+                            <label for="contact-name" id="contact-name-label"
                                 class="font-headline text-[10px] tracking-widest text-on-surface-variant uppercase absolute -top-3 left-0 group-focus-within:text-primary transition-colors">Nombre</label>
                             <input id="contact-name" name="contact-name"
                                 class="form-input w-full bg-transparent border-0 border-b border-outline-variant py-4 font-body text-white placeholder:text-on-surface-variant/20 transition-all"
                                 placeholder="Tu nombre completo" type="text" autocomplete="name" required />
                         </div>
                         <div class="relative group">
-                            <label for="contact-email"
+                            <label for="contact-email" id="contact-email-label"
                                 class="font-headline text-[10px] tracking-widest text-on-surface-variant uppercase absolute -top-3 left-0 group-focus-within:text-primary transition-colors">Email</label>
                             <input id="contact-email" name="contact-email"
                                 class="form-input w-full bg-transparent border-0 border-b border-outline-variant py-4 font-body text-white placeholder:text-on-surface-variant/20 transition-all"
                                 placeholder="tu@email.com" type="email" autocomplete="email" required />
                         </div>
                         <div class="relative group">
-                            <label for="contact-message"
+                            <label for="contact-message" id="contact-message-label"
                                 class="font-headline text-[10px] tracking-widest text-on-surface-variant uppercase absolute -top-3 left-0 group-focus-within:text-primary transition-colors">Mensaje</label>
                             <textarea id="contact-message" name="contact-message"
                                 class="form-input w-full bg-transparent border-0 border-b border-outline-variant py-4 font-body text-white placeholder:text-on-surface-variant/20 transition-all resize-none"
                                 placeholder="¿En qué te puedo ayudar?" rows="4" required></textarea>
                         </div>
-                        <button type="submit"
+                        <button type="submit" id="btn-submit-text"
                             class="w-full py-5 rounded-lg bg-gradient-to-br from-primary-container to-primary text-on-primary font-headline font-bold uppercase tracking-widest transition-all hover:scale-[1.02] hover:shadow-[0_0_24px_rgba(138,43,226,0.3)] active:scale-95 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
                             Enviar Mensaje
                         </button>
@@ -860,35 +864,39 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
             </nav>
         </div>
     </footer>
+    </main>
 
     <!-- ═══════════════════════════════════════════
          LIGHTBOX (GALERÍA PANTALLA COMPLETA)
     ═══════════════════════════════════════════ -->
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-xl hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300" aria-modal="true" role="dialog" aria-label="Visor de imágenes">
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-white/85 dark:bg-[#0c0d10]/95 backdrop-blur-3xl hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300" aria-modal="true" role="dialog" aria-label="Visor de imágenes">
         <!-- Botón Cerrar -->
-        <button id="lightbox-close" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-surface-container/50 border border-outline-variant text-white flex items-center justify-center hover:bg-primary/20 hover:text-primary hover:border-primary/50 transition-all z-10" aria-label="Cerrar visor">
+        <button id="lightbox-close" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/90 dark:bg-surface-container/50 border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-white flex items-center justify-center hover:bg-[#8021DB] hover:text-[#ECE6F0] dark:hover:bg-[#A47FFF] dark:hover:text-[#FEFDFF] dark:hover:border-[#A47FFF] transition-all z-10 shadow-sm" aria-label="Cerrar visor">
             <span class="material-symbols-outlined text-2xl">close</span>
         </button>
 
         <!-- Contenedor Principal de la Imagen -->
         <div class="relative w-full h-full flex items-center justify-center p-4 md:p-16">
             <!-- Botón Anterior -->
-            <button id="lightbox-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-surface-container/80 backdrop-blur-md border border-outline-variant text-white flex items-center justify-center hover:bg-primary hover:text-on-primary hover:border-primary transition-all z-10" aria-label="Imagen anterior">
+            <button id="lightbox-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 dark:bg-surface-container/80 backdrop-blur-md border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-white flex items-center justify-center hover:bg-[#8021DB] hover:text-[#ECE6F0] dark:hover:bg-[#A47FFF] dark:hover:text-[#FEFDFF] hover:border-[#8021DB] dark:hover:border-[#A47FFF] transition-all z-10 shadow-md hover:scale-105 active:scale-95" aria-label="Imagen anterior">
                 <span class="material-symbols-outlined text-3xl">chevron_left</span>
             </button>
 
             <!-- Imagen -->
-            <img id="lightbox-img" src="" alt="Imagen ampliada" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-transform duration-300 transform scale-95" />
+            <img id="lightbox-img" src="" alt="Imagen ampliada" class="max-w-full max-h-full object-contain rounded-xl shadow-[0_24px_50px_-12px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_50px_rgba(0,0,0,0.5)] border border-black/5 dark:border-outline-variant/30 transition-all duration-200 ease-out transform scale-95" />
 
             <!-- Botón Siguiente -->
-            <button id="lightbox-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-surface-container/80 backdrop-blur-md border border-outline-variant text-white flex items-center justify-center hover:bg-primary hover:text-on-primary hover:border-primary transition-all z-10" aria-label="Imagen siguiente">
+            <button id="lightbox-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 dark:bg-surface-container/80 backdrop-blur-md border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-white flex items-center justify-center hover:bg-[#8021DB] hover:text-[#ECE6F0] dark:hover:bg-[#A47FFF] dark:hover:text-[#FEFDFF] hover:border-[#8021DB] dark:hover:border-[#A47FFF] transition-all z-10 shadow-md hover:scale-105 active:scale-95" aria-label="Imagen siguiente">
                 <span class="material-symbols-outlined text-3xl">chevron_right</span>
             </button>
         </div>
 
-        <!-- Contador -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-surface-container/80 backdrop-blur-md border border-outline-variant text-white font-headline text-sm tracking-widest z-10">
-            <span id="lightbox-counter">1 / 1</span>
+        <!-- Leyenda y Contador Unificados -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5 z-10 w-full max-w-[90%] md:max-w-md">
+            <p id="lightbox-caption" class="text-[#8021DB] dark:text-[#FDFBFF] font-body text-xs md:text-sm text-center bg-white/90 dark:bg-surface-container-high/90 backdrop-blur-md border border-[#8021DB] dark:border-outline-variant px-4 py-2.5 rounded-xl shadow-lg transition-opacity duration-300 w-full truncate"></p>
+            <div class="px-4 py-1.5 rounded-full bg-white/90 dark:bg-surface-container/90 backdrop-blur-md border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-[#FDFBFF] font-headline text-xs tracking-widest shadow-sm">
+                <span id="lightbox-counter">1 / 1</span>
+            </div>
         </div>
     </div>
 
@@ -898,7 +906,7 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
         <span id="toast-msg">Mensaje enviado</span>
     </div>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=1.0.1"></script>
 </body>
 
 </html>

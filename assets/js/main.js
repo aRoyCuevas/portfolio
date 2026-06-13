@@ -202,7 +202,9 @@ const i18n = {
         exp2Bullet2: 'Diseñé una arquitectura modular (FastAPI + JavaScript, empaquetada con PyInstaller) que permite sumar herramientas de forma aislada sin acoplar funcionalidades.',
         exp2Bullet3: 'Desarrollé un conjunto de 10 herramientas de manipulación de documentos e incorporé mejoras continuas como soporte multi-formato (HEIC/HEIF), procesamiento batch, modo red para LAN, y UI multi-idioma con modo claro/oscuro.',
         contactTitle: 'Contacto',
-        contactHeadline: 'Construyamos soluciones <span class="text-primary">eficientes</span>.',
+        contactHeadlinePart1: 'Construyamos soluciones ',
+        contactHeadlineSpan: 'eficientes',
+        contactHeadlinePart2: '.',
         contactDesc: 'Estoy abierto a nuevos desafíos técnicos, propuestas laborales o charlas sobre arquitectura de software.',
         contactLabelName: 'Nombre', contactPlaceholderName: 'Tu nombre completo',
         contactLabelEmail: 'Email', contactPlaceholderEmail: 'tu@email.com',
@@ -220,7 +222,24 @@ const i18n = {
         moreProjectsBtn: 'Ver Más Proyectos',
         toastDemo: 'Completá el formulario para solicitar la demo',
         disclaimerCarousel: 'Las imágenes pueden corresponder a versiones anteriores',
-        introScroll: 'Haz scroll para descubrir'
+        introScroll: 'Haz scroll para descubrir',
+        carouselScreen: 'pantalla',
+        lightboxFallback: 'Captura de pantalla',
+        submitSending: 'Enviando...',
+        submitNormal: 'Enviar Mensaje',
+        ariaLang: 'Cambiar idioma',
+        ariaTheme: 'Cambiar tema claro/oscuro',
+        ariaMenuOpen: 'Cerrar menú de navegación',
+        ariaMenuClosed: 'Abrir menú de navegación',
+        ariaCvNav: 'Descargar CV de Alan Roy Cuevas',
+        ariaCvHero: 'Descargar CV en PDF',
+        ariaLboxClose: 'Cerrar visor',
+        ariaLboxPrev: 'Imagen anterior',
+        ariaLboxNext: 'Imagen siguiente',
+        ariaLbox: 'Visor de imágenes',
+        ariaProj1: 'Solicitar demo de Turnero - Gestión de Colas',
+        ariaProj2: 'Ver sitio web de LocalPDF Hub',
+        ariaProj3: 'Ver sitio web de Key2Pad'
     },
     en: {
         navAbout: 'About', navStack: 'Stack', navProjects: 'Projects',
@@ -258,7 +277,9 @@ const i18n = {
         exp2Bullet2: 'Designed a modular architecture (FastAPI + JavaScript, packaged with PyInstaller) that allows adding tools in isolation without coupling functionalities.',
         exp2Bullet3: 'Developed a suite of 10 document manipulation tools and shipped continuous improvements including multi-format support (HEIC/HEIF), batch processing, LAN network mode, and a multi-language UI with light/dark mode.',
         contactTitle: 'Contact',
-        contactHeadline: 'Let\'s build <span class="text-primary">efficient</span> solutions.',
+        contactHeadlinePart1: 'Let\'s build ',
+        contactHeadlineSpan: 'efficient',
+        contactHeadlinePart2: ' solutions.',
         contactDesc: 'I\'m open to new technical challenges, job proposals, or conversations about software architecture.',
         contactLabelName: 'Name', contactPlaceholderName: 'Your full name',
         contactLabelEmail: 'Email', contactPlaceholderEmail: 'you@email.com',
@@ -276,7 +297,24 @@ const i18n = {
         moreProjectsBtn: 'View More Projects',
         toastDemo: 'Fill out the form to request the demo',
         disclaimerCarousel: 'Images may correspond to earlier versions',
-        introScroll: 'Scroll to discover'
+        introScroll: 'Scroll to discover',
+        carouselScreen: 'screen',
+        lightboxFallback: 'Screenshot',
+        submitSending: 'Sending...',
+        submitNormal: 'Send Message',
+        ariaLang: 'Change language',
+        ariaTheme: 'Toggle light/dark theme',
+        ariaMenuOpen: 'Close navigation menu',
+        ariaMenuClosed: 'Open navigation menu',
+        ariaCvNav: 'Download Alan Roy Cuevas CV',
+        ariaCvHero: 'Download CV as PDF',
+        ariaLboxClose: 'Close viewer',
+        ariaLboxPrev: 'Previous image',
+        ariaLboxNext: 'Next image',
+        ariaLbox: 'Image viewer',
+        ariaProj1: 'Request Turnero demo - Queue Management',
+        ariaProj2: 'Visit LocalPDF Hub website',
+        ariaProj3: 'Visit Key2Pad website'
     }
 };
 
@@ -284,43 +322,55 @@ function applyLang(lang) {
     const t = i18n[lang];
     document.documentElement.lang = lang;
 
-    // Navegación
+    // Helper robusto sin innerHTML (prevención de XSS)
+    function translateEl(id, text, attr = null) {
+        const el = document.getElementById(id);
+        if (!el) {
+            console.warn(`[i18n Warning] Element with ID "${id}" was not found.`);
+            return;
+        }
+        if (attr) {
+            el.setAttribute(attr, text);
+        } else {
+            el.textContent = text;
+        }
+    }
+
+    // --- 1. NAVEGACIÓN ---
     const nl = document.querySelectorAll('nav .nav-link');
-    nl[0].textContent = t.navAbout;
-    nl[1].textContent = t.navStack;
-    nl[2].textContent = t.navProjects;
-    nl[3].textContent = t.navExp;
-    nl[4].textContent = t.navContact;
-    document.querySelector('#btn-mobile-menu').closest('div').previousElementSibling
-        .querySelectorAll('a[role="menuitem"]').forEach((a, i) => {
-            a.textContent = [t.navAbout, t.navStack, t.navProjects, t.navExp, t.navContact][i];
-        });
-    document.querySelectorAll('a[aria-label]').forEach(a => {
-        if (a.textContent.trim() === i18n[lang === 'es' ? 'en' : 'es'].heroNavCv)
-            a.textContent = t.heroNavCv;
+    if (nl[0]) nl[0].textContent = t.navAbout;
+    if (nl[1]) nl[1].textContent = t.navStack;
+    if (nl[2]) nl[2].textContent = t.navProjects;
+    if (nl[3]) nl[3].textContent = t.navExp;
+    if (nl[4]) nl[4].textContent = t.navContact;
+
+    document.querySelectorAll('#mobile-menu a[role="menuitem"]').forEach((a, i) => {
+        a.textContent = [t.navAbout, t.navStack, t.navProjects, t.navExp, t.navContact][i];
     });
 
-    // Hero (Encabezado)
+    // --- 2. HERO ---
     const introIndicator = document.querySelector('#intro-scroll-indicator span:first-child');
     if (introIndicator && t.introScroll) introIndicator.textContent = t.introScroll;
 
-    document.querySelector('.hero-stagger.font-headline.text-primary').textContent = t.heroBadge;
-    document.querySelector('.hero-stagger.font-body').textContent = t.heroDesc;
-    const heroBtns = document.querySelectorAll('.hero-stagger a');
-    if (heroBtns[0]) heroBtns[0].textContent = t.heroCta1;
-    if (heroBtns[1]) heroBtns[1].textContent = t.heroCta2;
+    const heroBadgeEl = document.querySelector('.hero-stagger.font-headline.text-primary');
+    if (heroBadgeEl) heroBadgeEl.textContent = t.heroBadge;
 
-    // Sobre Mí
-    document.getElementById('about-heading').textContent = t.aboutTitle;
-    document.querySelector('#about p.reveal').textContent = t.aboutText;
+    translateEl('txt-hero-description', t.heroDesc);
+    translateEl('txt-btn-projects', t.heroCta1);
+    translateEl('txt-btn-cv', t.heroCta2);
 
-    // Tecnologías (Stack)
-    document.getElementById('tech-heading').textContent = t.techTitle;
-    document.querySelector('#tech p.reveal.delay-150').textContent = t.techSub;
-    document.querySelector('#tech p.reveal.delay-300').textContent = t.techDesc;
+    // --- 3. SOBRE MÍ ---
+    translateEl('about-heading', t.aboutTitle);
+    const aboutTextEl = document.querySelector('#about p.reveal');
+    if (aboutTextEl) aboutTextEl.textContent = t.aboutText;
 
-    // Proyectos
-    document.getElementById('projects-heading').textContent = t.projTitle;
+    // --- 4. STACK ---
+    translateEl('tech-heading', t.techTitle);
+    translateEl('tech-subheading', t.techSub);
+    translateEl('tech-description', t.techDesc);
+
+    // --- 5. PROYECTOS ---
+    translateEl('projects-heading', t.projTitle);
     const projectPreviews = document.querySelectorAll('#projects article .absolute .font-headline.text-xs');
     if (projectPreviews[0]) projectPreviews[0].textContent = t.proj1Preview;
     if (projectPreviews[1]) projectPreviews[1].textContent = t.proj2Preview;
@@ -332,74 +382,144 @@ function applyLang(lang) {
     if (projectDescs[0]) projectDescs[0].textContent = t.proj1Desc;
     if (projectDescs[1]) projectDescs[1].textContent = t.proj2Desc;
     if (projectDescs[2]) projectDescs[2].textContent = t.proj3Desc;
-    const demoLinks = document.querySelectorAll('#projects article a');
-    if (demoLinks[0]) { demoLinks[0].childNodes[0].textContent = t.proj1Demo + ' '; }
-    if (demoLinks[1]) { demoLinks[1].childNodes[0].textContent = t.proj2Site + ' '; }
-    if (demoLinks[2]) { demoLinks[2].childNodes[0].textContent = t.proj3Site + ' '; }
+
+    // CTAs de Proyectos traducidos de forma segura en spans
+    translateEl('btn-turnero-demo-text', t.proj1Demo);
+    translateEl('btn-localpdf-site-text', t.proj2Site);
+    translateEl('btn-key2pad-site-text', t.proj3Site);
+
     const disclaimer = document.getElementById('localpdf-disclaimer');
     if (disclaimer) disclaimer.textContent = t.disclaimerCarousel;
 
-    // Experiencia
-    document.getElementById('experience-heading').textContent = t.expTitle;
+    // --- 6. EXPERIENCIA ---
+    translateEl('experience-heading', t.expTitle);
     const expItems = document.querySelectorAll('#experience ol > li');
-    // Primera experiencia
+    // Experiencia 1
     if (expItems[0]) {
-        expItems[0].querySelector('h3').textContent = t.expRole;
-        expItems[0].querySelector('p.text-primary').textContent = t.expOrg;
-        expItems[0].querySelector('time').textContent = t.expDate;
+        const h3 = expItems[0].querySelector('h3');
+        if (h3) h3.textContent = t.expRole;
+        const org = expItems[0].querySelector('p.text-primary');
+        if (org) org.textContent = t.expOrg;
+        const time = expItems[0].querySelector('time');
+        if (time) time.textContent = t.expDate;
+        
         const bullets1 = expItems[0].querySelectorAll('ul[aria-label] li');
         const bulletTexts1 = [t.expBullet1, t.expBullet2, t.expBullet3];
         bullets1.forEach((li, i) => {
             const dot = li.querySelector('span');
             li.textContent = '';
-            li.appendChild(dot);
+            if (dot) li.appendChild(dot);
             li.append(' ' + bulletTexts1[i]);
         });
     }
-    // Segunda experiencia (LocalPDF Hub)
+    // Experiencia 2 (LocalPDF Hub) - SIN innerHTML (Creación de Nodos DOM)
     if (expItems[1]) {
-        expItems[1].querySelector('h3').textContent = t.exp2Role;
+        const h3 = expItems[1].querySelector('h3');
+        if (h3) h3.textContent = t.exp2Role;
         const orgEl = expItems[1].querySelector('p.text-primary');
-        orgEl.innerHTML = t.exp2OrgBadge ? t.exp2Org + ' <span class="text-on-surface-variant">' + t.exp2OrgBadge + '</span>' : t.exp2Org;
-        expItems[1].querySelector('time').textContent = t.exp2Date;
+        if (orgEl) {
+            orgEl.textContent = t.exp2Org;
+            if (t.exp2OrgBadge) {
+                const badge = document.createElement('span');
+                badge.className = 'text-on-surface-variant ml-2';
+                badge.textContent = t.exp2OrgBadge;
+                orgEl.appendChild(badge);
+            }
+        }
+        const time = expItems[1].querySelector('time');
+        if (time) time.textContent = t.exp2Date;
+        
         const bullets2 = expItems[1].querySelectorAll('ul[aria-label] li');
         const bulletTexts2 = [t.exp2Bullet1, t.exp2Bullet2, t.exp2Bullet3];
         bullets2.forEach((li, i) => {
             const dot = li.querySelector('span');
             li.textContent = '';
-            li.appendChild(dot);
+            if (dot) li.appendChild(dot);
             li.append(' ' + bulletTexts2[i]);
         });
     }
 
-    // Contacto
-    document.getElementById('contact-heading').textContent = t.contactTitle;
-    document.querySelector('#contact .font-headline.text-5xl').innerHTML = t.contactHeadline;
-    document.querySelector('#contact p.text-xl').textContent = t.contactDesc;
-    document.querySelector('label[for="contact-name"]').textContent = t.contactLabelName;
-    document.getElementById('contact-name').placeholder = t.contactPlaceholderName;
-    document.querySelector('label[for="contact-email"]').textContent = t.contactLabelEmail;
-    document.getElementById('contact-email').placeholder = t.contactPlaceholderEmail;
-    document.querySelector('label[for="contact-message"]').textContent = t.contactLabelMsg;
-    document.getElementById('contact-message').placeholder = t.contactPlaceholderMsg;
-    document.querySelector('#contact-form button[type="submit"]').textContent = t.contactBtn;
+    // --- 7. CONTACTO ---
+    translateEl('contact-heading', t.contactTitle);
+    translateEl('contact-headline-part1', t.contactHeadlinePart1);
+    translateEl('contact-headline-span', t.contactHeadlineSpan);
+    translateEl('contact-headline-part2', t.contactHeadlinePart2);
+    translateEl('contact-desc', t.contactDesc);
+    translateEl('contact-name-label', t.contactLabelName);
+    translateEl('contact-email-label', t.contactLabelEmail);
+    translateEl('contact-message-label', t.contactLabelMsg);
+    
+    const inputName = document.getElementById('contact-name');
+    if (inputName) inputName.placeholder = t.contactPlaceholderName;
+    const inputEmail = document.getElementById('contact-email');
+    if (inputEmail) inputEmail.placeholder = t.contactPlaceholderEmail;
+    const inputMsg = document.getElementById('contact-message');
+    if (inputMsg) inputMsg.placeholder = t.contactPlaceholderMsg;
+    
+    translateEl('btn-submit-text', t.contactBtn);
 
-    // Pie de página (Footer)
-    document.querySelector('footer p.font-body').textContent = t.footerCopy;
+    // --- 8. FOOTER ---
+    const footerText = document.querySelector('footer p.font-body');
+    if (footerText) footerText.textContent = t.footerCopy;
 
-    // Botón ver más proyectos
     const moreProjLabel = document.getElementById('btn-more-projects-label');
     if (moreProjLabel) moreProjLabel.textContent = t.moreProjectsBtn;
 
+    // --- 9. ACCESIBILIDAD (ARIA LABELS) Y BOTÓN CV ---
+    translateEl('btn-language', t.ariaLang, 'aria-label');
+    translateEl('btn-theme', t.ariaTheme, 'aria-label');
+    translateEl('btn-cv-nav', t.ariaCvNav, 'aria-label');
+    translateEl('btn-cv-hero', t.ariaCvHero, 'aria-label');
+    translateEl('btn-cv-mobile', t.ariaCvNav, 'aria-label');
+    translateEl('btn-turnero-demo', t.ariaProj1, 'aria-label');
+    translateEl('btn-localpdf-site', t.ariaProj2, 'aria-label');
+    translateEl('btn-key2pad-site', t.ariaProj3, 'aria-label');
+
+    // Traducir texto visible de los botones de descarga de CV
+    translateEl('btn-cv-nav', t.heroNavCv);
+    translateEl('btn-cv-hero', t.heroNavCv);
+    translateEl('btn-cv-mobile', t.heroNavCv);
+
+    const btnMobileMenu = document.getElementById('btn-mobile-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (btnMobileMenu && mobileMenu) {
+        const isMenuOpen = !mobileMenu.classList.contains('hidden');
+        btnMobileMenu.setAttribute('aria-label', isMenuOpen ? t.ariaMenuOpen : t.ariaMenuClosed);
+    }
+
+    // Traducir alt de imágenes de carruseles
+    const localpdfImages = document.querySelectorAll('#localpdf-track img');
+    localpdfImages.forEach((img, i) => {
+        img.alt = `LocalPDF Hub – ${t.carouselScreen} ${i + 1}`;
+    });
+    const key2padImages = document.querySelectorAll('#key2pad-track img');
+    key2padImages.forEach((img, i) => {
+        img.alt = `Key2Pad – ${t.carouselScreen} ${i + 1}`;
+    });
+
+    // Traducir atributos del Lightbox
+    translateEl('lightbox', t.ariaLbox, 'aria-label');
+    translateEl('lightbox-close', t.ariaLboxClose, 'aria-label');
+    translateEl('lightbox-prev', t.ariaLboxPrev, 'aria-label');
+    translateEl('lightbox-next', t.ariaLboxNext, 'aria-label');
+
+    // Actualización del Lightbox visible en caliente
+    const lbox = document.getElementById('lightbox');
+    if (lbox && !lbox.classList.contains('hidden') && window.portfolioLightbox) {
+        window.portfolioLightbox.updateActiveTranslation();
+    }
+
     // Retraducir el toast visible si lo hay
     const toastContainer = document.getElementById('toast');
-    if (toastContainer.classList.contains('show')) {
+    if (toastContainer && toastContainer.classList.contains('show')) {
         const toastMsgEl = document.getElementById('toast-msg');
-        const currText = toastMsgEl.textContent;
-        const otherLang = lang === 'es' ? 'en' : 'es';
-        const foundKey = Object.keys(i18n[otherLang]).find(k => i18n[otherLang][k] === currText);
-        if (foundKey && t[foundKey]) {
-            toastMsgEl.textContent = t[foundKey];
+        if (toastMsgEl) {
+            const currText = toastMsgEl.textContent;
+            const otherLang = lang === 'es' ? 'en' : 'es';
+            const foundKey = Object.keys(i18n[otherLang]).find(k => i18n[otherLang][k] === currText);
+            if (foundKey && t[foundKey]) {
+                toastMsgEl.textContent = t[foundKey];
+            }
         }
     }
 
@@ -437,7 +557,15 @@ if (btnMoreProjects) {
 //  FORMULARIO: validación + EmailJS
 // ═══════════════════════════════════════════════════
 
-emailjs.init('5jV8d_imrYVzIc3-W');
+// EmailJS Inicialización segura (OWASP A04:2021)
+emailjs.init({
+    publicKey: '5jV8d_imrYVzIc3-W',
+    blockHeadless: true,
+    limitRate: {
+        id: 'app',
+        throttle: 10000 // 10 segundos
+    }
+});
 
 const form = document.getElementById('contact-form');
 const submitBtn = form.querySelector('button[type="submit"]');
@@ -469,17 +597,13 @@ form.addEventListener('submit', async (e) => {
 
     // Deshabilitar botón durante envío
     submitBtn.disabled = true;
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = typeof currentLang !== 'undefined' && currentLang === 'en' ? 'Sending...' : 'Enviando...';
+    submitBtn.textContent = i18n[currentLang].submitSending;
     submitBtn.style.opacity = '0.7';
 
     try {
-        const _0x1a = 'c2VydmljZV8zNzFwemNj';
-        const _0x2b = 'dGVtcGxhdGVfYWc5OWpwaQ==';
-
-        // Llamada real a EmailJS:
-        await emailjs.sendForm(atob(_0x1a), atob(_0x2b), form);
-
+        const serviceId = 'service_371pzcc';
+        const templateId = 'template_ag99jpi';
+        await emailjs.sendForm(serviceId, templateId, form);
         form.reset();
         showToast('toastFormOk', 'check_circle');
     } catch (err) {
@@ -487,7 +611,7 @@ form.addEventListener('submit', async (e) => {
         showToast('toastFormFail', 'error');
     } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
+        submitBtn.textContent = i18n[currentLang].submitNormal;
         submitBtn.style.opacity = '';
     }
 });
@@ -495,18 +619,20 @@ form.addEventListener('submit', async (e) => {
 // ═══════════════════════════════════════════════════
 //  CARRUSEL: LocalPDF Hub
 // ═══════════════════════════════════════════════════
-(() => {
+window.portfolioCarousels = window.portfolioCarousels || {};
+window.portfolioCarousels.localpdf = (() => {
     const track = document.getElementById('localpdf-track');
     const btnPrev = document.getElementById('localpdf-prev');
     const btnNext = document.getElementById('localpdf-next');
     const dots = document.querySelectorAll('#localpdf-dots .carousel-dot');
 
-    if (!track || !btnPrev || !btnNext) return;
+    if (!track || !btnPrev || !btnNext) return null;
 
     const TOTAL = dots.length;   // 5 imágenes
     const AUTO_MS = 4000;          // avance automático cada 4 s
     let current = 0;
     let autoTimer;
+    let preventClick = false;
 
     // --- Función principal de ir a un slide ---
     function goTo(index) {
@@ -528,41 +654,59 @@ form.addEventListener('submit', async (e) => {
     dots.forEach((dot, i) => dot.addEventListener('click', () => { resetAuto(); goTo(i); }));
 
     // --- Avance automático ---
-    function startAuto() { autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); }
+    function startAuto() { 
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); 
+    }
     function resetAuto() { clearInterval(autoTimer); startAuto(); }
     startAuto();
 
     // --- Soporte táctil / swipe ---
     let touchStartX = 0;
-    track.parentElement.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    track.parentElement.addEventListener('touchstart', e => { 
+        touchStartX = e.changedTouches[0].clientX; 
+        preventClick = false;
+    }, { passive: true });
     track.parentElement.addEventListener('touchend', e => {
         const dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) { resetAuto(); goTo(current + (dx < 0 ? 1 : -1)); }
+        if (Math.abs(dx) > 40) { 
+            resetAuto(); 
+            goTo(current + (dx < 0 ? 1 : -1));
+            preventClick = true;
+            setTimeout(() => preventClick = false, 150);
+        }
     }, { passive: true });
 
     // --- Teclado (cuando el carrusel tiene foco) ---
     track.parentElement.setAttribute('tabindex', '0');
     track.parentElement.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight') { resetAuto(); goTo(current + 1); }
-        if (e.key === 'ArrowLeft') { resetAuto(); goTo(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); resetAuto(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); resetAuto(); goTo(current - 1); }
     });
+
+    return {
+        pause: () => clearInterval(autoTimer),
+        resume: () => startAuto(),
+        isClickPrevented: () => preventClick
+    };
 })();
 
 // ═══════════════════════════════════════════════════
 //  CARRUSEL: Key2Pad
 // ═══════════════════════════════════════════════════
-(() => {
+window.portfolioCarousels.key2pad = (() => {
     const track = document.getElementById('key2pad-track');
     const btnPrev = document.getElementById('key2pad-prev');
     const btnNext = document.getElementById('key2pad-next');
     const dots = document.querySelectorAll('#key2pad-dots .carousel-dot');
 
-    if (!track || !btnPrev || !btnNext) return;
+    if (!track || !btnPrev || !btnNext) return null;
 
     const TOTAL = dots.length;   // 10 imágenes
     const AUTO_MS = 4000;          // avance automático cada 4 s
     let current = 0;
     let autoTimer;
+    let preventClick = false;
 
     // --- Función principal de ir a un slide ---
     function goTo(index) {
@@ -584,44 +728,69 @@ form.addEventListener('submit', async (e) => {
     dots.forEach((dot, i) => dot.addEventListener('click', () => { resetAuto(); goTo(i); }));
 
     // --- Avance automático ---
-    function startAuto() { autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); }
+    function startAuto() { 
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); 
+    }
     function resetAuto() { clearInterval(autoTimer); startAuto(); }
     startAuto();
 
     // --- Soporte táctil / swipe ---
     let touchStartX = 0;
-    track.parentElement.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    track.parentElement.addEventListener('touchstart', e => { 
+        touchStartX = e.changedTouches[0].clientX; 
+        preventClick = false;
+    }, { passive: true });
     track.parentElement.addEventListener('touchend', e => {
         const dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) { resetAuto(); goTo(current + (dx < 0 ? 1 : -1)); }
+        if (Math.abs(dx) > 40) { 
+            resetAuto(); 
+            goTo(current + (dx < 0 ? 1 : -1));
+            preventClick = true;
+            setTimeout(() => preventClick = false, 150);
+        }
     }, { passive: true });
 
     // --- Teclado (cuando el carrusel tiene foco) ---
     track.parentElement.setAttribute('tabindex', '0');
     track.parentElement.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight') { resetAuto(); goTo(current + 1); }
-        if (e.key === 'ArrowLeft') { resetAuto(); goTo(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); resetAuto(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); resetAuto(); goTo(current - 1); }
     });
+
+    return {
+        pause: () => clearInterval(autoTimer),
+        resume: () => startAuto(),
+        isClickPrevented: () => preventClick
+    };
 })();
 
 // ═══════════════════════════════════════════════════
 //  LIGHTBOX (GALERÍA PANTALLA COMPLETA)
 // ═══════════════════════════════════════════════════
-(() => {
+window.portfolioLightbox = (() => {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.getElementById('lightbox-close');
     const lightboxPrev = document.getElementById('lightbox-prev');
     const lightboxNext = document.getElementById('lightbox-next');
     const lightboxCounter = document.getElementById('lightbox-counter');
+    const lightboxCaption = document.getElementById('lightbox-caption');
 
-    if (!lightbox) return;
+    if (!lightbox) return null;
 
     let currentImages = [];
     let currentIndex = 0;
 
     // Abrir lightbox
     function openLightbox(index) {
+        // Pausar avance automático de todos los carruseles
+        if (window.portfolioCarousels) {
+            Object.values(window.portfolioCarousels).forEach(c => {
+                if (c && typeof c.pause === 'function') c.pause();
+            });
+        }
+
         currentIndex = index;
         updateLightboxImage();
         lightbox.classList.remove('hidden');
@@ -642,15 +811,48 @@ form.addEventListener('submit', async (e) => {
         setTimeout(() => {
             lightbox.classList.add('hidden');
             document.body.style.overflow = '';
+            
+            // Reanudar avance automático de todos los carruseles
+            if (window.portfolioCarousels) {
+                Object.values(window.portfolioCarousels).forEach(c => {
+                    if (c && typeof c.resume === 'function') c.resume();
+                });
+            }
         }, 300); // Coincide con la duración de la transición
+    }
+
+    // Actualizar traducción en caliente
+    function updateActiveTranslation() {
+        if (currentImages.length === 0) return;
+        if (lightboxImg) {
+            lightboxImg.alt = currentImages[currentIndex].alt;
+        }
+        if (lightboxCaption) {
+            lightboxCaption.textContent = currentImages[currentIndex].alt || i18n[currentLang].lightboxFallback;
+        }
+        if (lightboxCounter) {
+            lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+        }
     }
 
     // Actualizar imagen mostrada
     function updateLightboxImage() {
         if (currentImages.length === 0) return;
-        lightboxImg.src = currentImages[currentIndex].src;
-        lightboxImg.alt = currentImages[currentIndex].alt;
-        lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+        
+        // Efecto fade suave
+        lightboxImg.style.opacity = '0';
+        
+        setTimeout(() => {
+            lightboxImg.src = currentImages[currentIndex].src;
+            lightboxImg.alt = currentImages[currentIndex].alt;
+            
+            if (lightboxCaption) {
+                lightboxCaption.textContent = currentImages[currentIndex].alt || i18n[currentLang].lightboxFallback;
+            }
+            
+            lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+            lightboxImg.style.opacity = '1';
+        }, 150);
     }
 
     // Navegar
@@ -659,6 +861,7 @@ form.addEventListener('submit', async (e) => {
         updateLightboxImage();
     }
 
+    // prevImage
     function prevImage() {
         currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
         updateLightboxImage();
@@ -674,6 +877,14 @@ form.addEventListener('submit', async (e) => {
         images.forEach((img, index) => {
             img.classList.add('cursor-pointer'); // Feedback visual
             img.addEventListener('click', () => {
+                const carouselKey = trackId.split('-')[0]; // 'localpdf' o 'key2pad'
+                const ctrl = window.portfolioCarousels ? window.portfolioCarousels[carouselKey] : null;
+                
+                // Si el carrusel indica que está en medio de un swipe (drag), evitar abrir el Lightbox
+                if (ctrl && typeof ctrl.isClickPrevented === 'function' && ctrl.isClickPrevented()) {
+                    return;
+                }
+                
                 currentImages = Array.from(images); // Guardar contexto de qué carrusel se clickeó
                 openLightbox(index);
             });
@@ -692,12 +903,32 @@ form.addEventListener('submit', async (e) => {
         }
     });
 
-    // Soporte teclado
+    // Soporte teclado con Focus Trapping
     document.addEventListener('keydown', (e) => {
         if (lightbox.classList.contains('hidden')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowRight') nextImage();
         if (e.key === 'ArrowLeft') prevImage();
+        
+        // Atrapar foco
+        if (e.key === 'Tab') {
+            const focusable = lightbox.querySelectorAll('button, [tabindex="0"]');
+            if (focusable.length > 0) {
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey) {
+                    if (document.activeElement === first) {
+                        last.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === last) {
+                        first.focus();
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
     });
 
     // Soporte Swipe en móvil
@@ -711,4 +942,10 @@ form.addEventListener('submit', async (e) => {
             else prevImage();
         }
     }, { passive: true });
+
+    return {
+        open: openLightbox,
+        close: closeLightbox,
+        updateActiveTranslation: updateActiveTranslation
+    };
 })();

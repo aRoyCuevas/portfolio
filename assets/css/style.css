@@ -228,13 +228,24 @@ body {
             background: var(--background);
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--surface-bright);
-            border-radius: 10px;
+        html:not(.dark) ::-webkit-scrollbar-thumb {
+            background: #bababa;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
+        html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+            background: #8021DB;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: var(--surface-bright);
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
             background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
         }
 
         /* ── Nav link activo ────────────────────────────── */
