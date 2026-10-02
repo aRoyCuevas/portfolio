@@ -239,6 +239,50 @@ const i18n = {
         ariaLboxNext: 'Imagen siguiente',
         ariaLbox: 'Visor de imágenes',
         ariaProj1: 'Solicitar demo de Turnero - Gestión de Colas',
+        proj1Features: 'Ver Características',
+        ariaProj1Features: 'Ver características de Turnero - Gestión de Colas',
+        featuresTitle: 'Características',
+        featuresIntro: 'Sistema completo de turnos y filas de atención: el cliente saca su turno, espera sentado y la pantalla lo llama al puesto correspondiente. Todo en tiempo real y adaptable a cualquier rubro.',
+        ariaFeaturesClose: 'Cerrar características',
+        turneroFeatures: [
+            { icon: 'confirmation_number', title: 'Para el cliente', items: [
+                'Tótem de autoatención: elige el servicio, ingresa su DNI y recibe su turno con código QR.',
+                'Impresión de ticket desde el tótem.',
+                'Turnos desde el celular, sin papel: ve su lugar en la fila y el tiempo estimado.',
+                'Aviso "¡Es tu turno!" en el celular con el puesto al que tiene que ir.',
+                'Calificación de la atención al finalizar.'
+            ] },
+            { icon: 'tv', title: 'Sala de espera', items: [
+                'Pantalla de llamados en tiempo real con aviso sonoro.',
+                'Historial de últimos llamados y puesto de destino.',
+                'Modo cartelería con imágenes y mensajes propios entre llamados.',
+                'Cada pantalla puede mostrar solo los servicios que le corresponden.'
+            ] },
+            { icon: 'support_agent', title: 'Para el equipo', items: [
+                'Panel por puesto: llamar al siguiente, volver a llamar, derivar, devolver a la fila, marcar ausente y finalizar.',
+                'Varios puestos atendiendo el mismo servicio sin llamar dos veces al mismo cliente.',
+                'Admisión manual para cargar turnos desde el mostrador.',
+                'Chat interno entre puestos y notificaciones programadas.'
+            ] },
+            { icon: 'monitoring', title: 'Gestión y reportes', items: [
+                'Tablero en tiempo real: turnos del día, espera y atención promedio, ausentismo y demanda por hora.',
+                'Reportes por mes y por semana con exportación a CSV e impresión/PDF.',
+                'Servicios, horarios por día, personal y roles configurables desde el panel.',
+                'Marca, logo, colores y terminología adaptables a cada rubro.'
+            ] },
+            { icon: 'shield_lock', title: 'Seguridad', items: [
+                'Acceso por roles: administrador, operador, admisión, tótem y pantalla.',
+                'Sesiones con JWT revocables al cambiar permisos o contraseña.',
+                'Protección CSRF y bloqueo temporal ante intentos fallidos de acceso.',
+                'Registro de seguridad de accesos y cambios de configuración.'
+            ] },
+            { icon: 'dns', title: 'Tecnología e instalación', items: [
+                'Node.js, Express, Socket.IO y SQLite con migraciones versionadas.',
+                'Funciona en red local sin internet, en Windows o macOS, o en la nube con Docker/VPS o Railway.',
+                'Copias de seguridad, restauración y recuperación del administrador.',
+                'Más de 370 tests automáticos y guías de instalación paso a paso.'
+            ] }
+        ],
         ariaProj2: 'Ver sitio web de LocalPDF Hub',
         ariaProj3: 'Ver sitio web de Key2Pad'
     },
@@ -318,6 +362,50 @@ const i18n = {
         ariaLboxNext: 'Next image',
         ariaLbox: 'Image viewer',
         ariaProj1: 'Request Turnero demo - Queue Management',
+        proj1Features: 'View Features',
+        ariaProj1Features: 'View Turnero features - Queue Management',
+        featuresTitle: 'Features',
+        featuresIntro: 'A complete ticketing and queue system: customers take a ticket, wait seated and the screen calls them to the right desk. Everything in real time and adaptable to any business.',
+        ariaFeaturesClose: 'Close features',
+        turneroFeatures: [
+            { icon: 'confirmation_number', title: 'For customers', items: [
+                'Self-service kiosk: pick a service, enter an ID number and get a ticket with a QR code.',
+                'Ticket printing from the kiosk.',
+                'Paperless tickets on the phone: see your place in line and the estimated wait.',
+                '"It\'s your turn!" alert on the phone with the desk to go to.',
+                'Service rating at the end.'
+            ] },
+            { icon: 'tv', title: 'Waiting room', items: [
+                'Real-time call screen with sound alert.',
+                'Recent calls history with the destination desk.',
+                'Digital signage mode with your own images and messages between calls.',
+                'Each screen can show only the services assigned to it.'
+            ] },
+            { icon: 'support_agent', title: 'For the team', items: [
+                'Desk panel: call next, recall, transfer, return to queue, mark absent and finish.',
+                'Several desks serving the same service without calling the same customer twice.',
+                'Manual front-desk admission.',
+                'Internal chat between desks and scheduled notifications.'
+            ] },
+            { icon: 'monitoring', title: 'Management & reports', items: [
+                'Real-time dashboard: tickets of the day, average wait and service time, no-shows and hourly demand.',
+                'Monthly and weekly reports with CSV export and print/PDF.',
+                'Services, daily schedules, staff and roles configurable from the panel.',
+                'Brand, logo, colors and terminology adaptable to each business.'
+            ] },
+            { icon: 'shield_lock', title: 'Security', items: [
+                'Role-based access: admin, operator, admission, kiosk and display.',
+                'JWT sessions revoked when permissions or passwords change.',
+                'CSRF protection and temporary lockout after failed sign-in attempts.',
+                'Security log of sign-ins and configuration changes.'
+            ] },
+            { icon: 'dns', title: 'Technology & setup', items: [
+                'Node.js, Express, Socket.IO and SQLite with versioned migrations.',
+                'Runs offline on a local network on Windows or macOS, or in the cloud with Docker/VPS or Railway.',
+                'Backups, restore and administrator recovery.',
+                'Over 370 automated tests and step-by-step setup guides.'
+            ] }
+        ],
         ariaProj2: 'Visit LocalPDF Hub website',
         ariaProj3: 'Visit Key2Pad website'
     }
@@ -391,6 +479,9 @@ function applyLang(lang) {
 
     // CTAs de Proyectos traducidos de forma segura en spans
     translateEl('btn-turnero-demo-text', t.proj1Demo);
+    translateEl('btn-turnero-features-text', t.proj1Features);
+    translateEl('btn-turnero-features', t.ariaProj1Features, 'aria-label');
+    if (window.portfolioFeatures) window.portfolioFeatures.render(t);
     translateEl('btn-localpdf-site-text', t.proj2Site);
     translateEl('btn-key2pad-site-text', t.proj3Site);
 
@@ -488,6 +579,10 @@ function applyLang(lang) {
     }
 
     // Traducir alt de imágenes de carruseles
+    const turneroImages = document.querySelectorAll('#turnero-track img');
+    turneroImages.forEach((img, i) => {
+        img.alt = `Turnero – ${t.carouselScreen} ${i + 1}`;
+    });
     const localpdfImages = document.querySelectorAll('#localpdf-track img');
     localpdfImages.forEach((img, i) => {
         img.alt = `LocalPDF Hub – ${t.carouselScreen} ${i + 1}`;
@@ -542,6 +637,106 @@ if (btnDemo) {
         showToast('toastDemo', 'mail');
     });
 }
+
+// ═══════════════════════════════════════════════════
+//  BLOQUEO DE SCROLL DE FONDO
+// ═══════════════════════════════════════════════════
+// <html> lleva overflow-x-hidden: es el contenedor de scroll de la página,
+// así que bloquear solo <body> no detiene el fondo.
+function lockPageScroll(locked) {
+    const value = locked ? 'hidden' : '';
+    document.documentElement.style.overflow = value;
+    document.body.style.overflow = value;
+}
+
+// ═══════════════════════════════════════════════════
+//  VENTANA: Características de Turnero
+// ═══════════════════════════════════════════════════
+window.portfolioFeatures = (() => {
+    const modal = document.getElementById('features-modal');
+    const panel = document.getElementById('features-panel');
+    const btnOpen = document.getElementById('btn-turnero-features');
+    const btnClose = document.getElementById('features-close');
+    const groups = document.getElementById('features-groups');
+    if (!modal || !panel || !btnOpen || !btnClose || !groups) return null;
+
+    // --- Render (textContent only, no innerHTML) ---
+    function render(t) {
+        document.getElementById('features-kicker').textContent = t.proj1Title;
+        document.getElementById('features-title').textContent = t.featuresTitle;
+        document.getElementById('features-intro').textContent = t.featuresIntro;
+        btnClose.setAttribute('aria-label', t.ariaFeaturesClose);
+        groups.replaceChildren(...t.turneroFeatures.map((group) => {
+            const section = document.createElement('section');
+            const heading = document.createElement('h4');
+            heading.className = 'flex items-center gap-3 font-headline text-lg text-white font-bold mb-4';
+            const icon = document.createElement('span');
+            icon.className = 'material-symbols-outlined text-primary text-2xl';
+            icon.setAttribute('aria-hidden', 'true');
+            icon.textContent = group.icon;
+            heading.append(icon, document.createTextNode(group.title));
+            const list = document.createElement('ul');
+            list.className = 'space-y-2.5';
+            group.items.forEach((text) => {
+                const item = document.createElement('li');
+                item.className = 'flex gap-3 font-body text-sm leading-relaxed text-on-surface-variant';
+                const check = document.createElement('span');
+                check.className = 'material-symbols-outlined text-primary text-lg leading-5 shrink-0';
+                check.setAttribute('aria-hidden', 'true');
+                check.textContent = 'check';
+                const label = document.createElement('span');
+                label.textContent = text;
+                item.append(check, label);
+                list.appendChild(item);
+            });
+            section.append(heading, list);
+            return section;
+        }));
+    }
+
+    // --- Open / close ---
+    function open() {
+        Object.values(window.portfolioCarousels || {}).forEach((c) => c && c.pause());
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        panel.scrollTop = 0;
+        requestAnimationFrame(() => {
+            modal.classList.remove('opacity-0');
+            panel.classList.remove('scale-95');
+        });
+        lockPageScroll(true);
+        btnClose.focus();
+    }
+
+    function close() {
+        modal.classList.add('opacity-0');
+        panel.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            lockPageScroll(false);
+            Object.values(window.portfolioCarousels || {}).forEach((c) => c && c.resume());
+            btnOpen.focus();
+        }, 300);
+    }
+
+    btnOpen.addEventListener('click', open);
+    btnClose.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => {
+        if (modal.classList.contains('hidden')) return;
+        if (e.key === 'Escape') close();
+        // Focus stays inside: close button <-> scrollable panel
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            (document.activeElement === btnClose ? panel : btnClose).focus();
+        }
+    });
+
+    panel.setAttribute('tabindex', '0');
+    render(i18n[currentLang]);
+    return { render, open, close };
+})();
 
 // ═══════════════════════════════════════════════════
 //  VER MÁS PROYECTOS
@@ -617,18 +812,18 @@ form.addEventListener('submit', async (e) => {
 });
 
 // ═══════════════════════════════════════════════════
-//  CARRUSEL: LocalPDF Hub
+//  CARRUSELES DE PROYECTOS (Turnero, LocalPDF Hub, Key2Pad)
 // ═══════════════════════════════════════════════════
 window.portfolioCarousels = window.portfolioCarousels || {};
-window.portfolioCarousels.localpdf = (() => {
-    const track = document.getElementById('localpdf-track');
-    const btnPrev = document.getElementById('localpdf-prev');
-    const btnNext = document.getElementById('localpdf-next');
-    const dots = document.querySelectorAll('#localpdf-dots .carousel-dot');
+function createCarousel(key) {
+    const track = document.getElementById(`${key}-track`);
+    const btnPrev = document.getElementById(`${key}-prev`);
+    const btnNext = document.getElementById(`${key}-next`);
+    const dots = document.querySelectorAll(`#${key}-dots .carousel-dot`);
 
     if (!track || !btnPrev || !btnNext) return null;
 
-    const TOTAL = dots.length;   // 5 imágenes
+    const TOTAL = dots.length;
     const AUTO_MS = 4000;          // avance automático cada 4 s
     let current = 0;
     let autoTimer;
@@ -689,81 +884,11 @@ window.portfolioCarousels.localpdf = (() => {
         resume: () => startAuto(),
         isClickPrevented: () => preventClick
     };
-})();
+}
 
-// ═══════════════════════════════════════════════════
-//  CARRUSEL: Key2Pad
-// ═══════════════════════════════════════════════════
-window.portfolioCarousels.key2pad = (() => {
-    const track = document.getElementById('key2pad-track');
-    const btnPrev = document.getElementById('key2pad-prev');
-    const btnNext = document.getElementById('key2pad-next');
-    const dots = document.querySelectorAll('#key2pad-dots .carousel-dot');
-
-    if (!track || !btnPrev || !btnNext) return null;
-
-    const TOTAL = dots.length;   // 10 imágenes
-    const AUTO_MS = 4000;          // avance automático cada 4 s
-    let current = 0;
-    let autoTimer;
-    let preventClick = false;
-
-    // --- Función principal de ir a un slide ---
-    function goTo(index) {
-        current = (index + TOTAL) % TOTAL;
-        track.style.transform = `translateX(-${current * 100}%)`;
-
-        dots.forEach((dot, i) => {
-            const active = i === current;
-            dot.classList.toggle('dot-active', active);
-            dot.setAttribute('aria-selected', active);
-        });
-    }
-
-    // --- Controles botones ---
-    btnPrev.addEventListener('click', () => { resetAuto(); goTo(current - 1); });
-    btnNext.addEventListener('click', () => { resetAuto(); goTo(current + 1); });
-
-    // --- Puntos clickeables ---
-    dots.forEach((dot, i) => dot.addEventListener('click', () => { resetAuto(); goTo(i); }));
-
-    // --- Avance automático ---
-    function startAuto() { 
-        if (autoTimer) clearInterval(autoTimer);
-        autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); 
-    }
-    function resetAuto() { clearInterval(autoTimer); startAuto(); }
-    startAuto();
-
-    // --- Soporte táctil / swipe ---
-    let touchStartX = 0;
-    track.parentElement.addEventListener('touchstart', e => { 
-        touchStartX = e.changedTouches[0].clientX; 
-        preventClick = false;
-    }, { passive: true });
-    track.parentElement.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) { 
-            resetAuto(); 
-            goTo(current + (dx < 0 ? 1 : -1));
-            preventClick = true;
-            setTimeout(() => preventClick = false, 150);
-        }
-    }, { passive: true });
-
-    // --- Teclado (cuando el carrusel tiene foco) ---
-    track.parentElement.setAttribute('tabindex', '0');
-    track.parentElement.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight') { e.preventDefault(); resetAuto(); goTo(current + 1); }
-        if (e.key === 'ArrowLeft') { e.preventDefault(); resetAuto(); goTo(current - 1); }
-    });
-
-    return {
-        pause: () => clearInterval(autoTimer),
-        resume: () => startAuto(),
-        isClickPrevented: () => preventClick
-    };
-})();
+['turnero', 'localpdf', 'key2pad'].forEach((key) => {
+    window.portfolioCarousels[key] = createCarousel(key);
+});
 
 // ═══════════════════════════════════════════════════
 //  LIGHTBOX (GALERÍA PANTALLA COMPLETA)
@@ -800,7 +925,7 @@ window.portfolioLightbox = (() => {
             lightboxImg.classList.remove('scale-95');
             lightboxImg.classList.add('scale-100');
         });
-        document.body.style.overflow = 'hidden'; // Prevenir scroll de fondo
+        lockPageScroll(true); // Prevenir scroll de fondo
     }
 
     // Cerrar lightbox
@@ -810,7 +935,7 @@ window.portfolioLightbox = (() => {
         lightboxImg.classList.add('scale-95');
         setTimeout(() => {
             lightbox.classList.add('hidden');
-            document.body.style.overflow = '';
+            lockPageScroll(false);
             
             // Reanudar avance automático de todos los carruseles
             if (window.portfolioCarousels) {
@@ -868,7 +993,7 @@ window.portfolioLightbox = (() => {
     }
 
     // Bindear clicks en las imágenes de los carruseles
-    const tracks = ['localpdf-track', 'key2pad-track'];
+    const tracks = ['turnero-track', 'localpdf-track', 'key2pad-track'];
     tracks.forEach(trackId => {
         const track = document.getElementById(trackId);
         if (!track) return;
@@ -877,7 +1002,7 @@ window.portfolioLightbox = (() => {
         images.forEach((img, index) => {
             img.classList.add('cursor-pointer'); // Feedback visual
             img.addEventListener('click', () => {
-                const carouselKey = trackId.split('-')[0]; // 'localpdf' o 'key2pad'
+                const carouselKey = trackId.split('-')[0]; // 'turnero', 'localpdf' o 'key2pad'
                 const ctrl = window.portfolioCarousels ? window.portfolioCarousels[carouselKey] : null;
                 
                 // Si el carrusel indica que está en medio de un swipe (drag), evitar abrir el Lightbox

@@ -454,22 +454,65 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                 <!-- Proyecto 1: Turnero -->
                 <article
                     class="project-card reveal-left flex flex-col lg:flex-row gap-20 items-center rounded-xl p-2 -m-2">
-                    <div
-                        class="w-full lg:w-3/5 aspect-video project-placeholder rounded-xl overflow-hidden relative group border border-outline-variant flex items-center justify-center">
-                        <div class="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
-                            <span class="material-symbols-outlined text-5xl text-primary/60"
-                                aria-hidden="true">manage_accounts</span>
-                            <p class="font-headline text-xs tracking-widest uppercase text-on-surface-variant/60">
-                                Gestión de Colas · Preview</p>
+                    <div class="w-full lg:w-3/5 aspect-video rounded-xl overflow-hidden relative group border border-outline-variant"
+                        id="turnero-carousel">
+                        <!-- Pista de imágenes del carrusel -->
+                        <div id="turnero-track"
+                            class="flex h-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                            <img src="assets/img/Turnero/1.png" alt="Turnero – pantalla 1"
+                                class="w-full h-full object-cover flex-shrink-0" />
+                            <img src="assets/img/Turnero/2.png" alt="Turnero – pantalla 2" loading="lazy"
+                                class="w-full h-full object-cover flex-shrink-0" />
+                            <img src="assets/img/Turnero/3.png" alt="Turnero – pantalla 3" loading="lazy"
+                                class="w-full h-full object-cover flex-shrink-0" />
+                            <img src="assets/img/Turnero/4.png" alt="Turnero – pantalla 4" loading="lazy"
+                                class="w-full h-full object-cover flex-shrink-0" />
+                            <img src="assets/img/Turnero/5.png" alt="Turnero – pantalla 5" loading="lazy"
+                                class="w-full h-full object-cover flex-shrink-0" />
+                            <img src="assets/img/Turnero/6.png" alt="Turnero – pantalla 6" loading="lazy"
+                                class="w-full h-full object-cover flex-shrink-0" />
+                            <img src="assets/img/Turnero/7.png" alt="Turnero – pantalla 7" loading="lazy"
+                                class="w-full h-full object-cover flex-shrink-0" />
+                            <img src="assets/img/Turnero/8.png" alt="Turnero – pantalla 8" loading="lazy"
+                                class="w-full h-full object-cover flex-shrink-0" />
                         </div>
-                        <!-- Decoración grid -->
-                        <div class="absolute inset-0 opacity-5" aria-hidden="true"
-                            style="background-image: linear-gradient(rgba(164,127,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(164,127,255,0.5) 1px, transparent 1px); background-size: 32px 32px;">
+
+                        <!-- Botón: imagen anterior -->
+                        <button id="turnero-prev" aria-label="Imagen anterior"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_left</span>
+                        </button>
+
+                        <!-- Botón: imagen siguiente -->
+                        <button id="turnero-next" aria-label="Imagen siguiente"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-surface-container/80 backdrop-blur-sm border border-[#8021DB] dark:border-outline-variant text-[#8021DB] dark:text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-on-primary hover:border-primary">
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">chevron_right</span>
+                        </button>
+
+                        <!-- Indicadores de posición -->
+                        <div id="turnero-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+                            role="tablist" aria-label="Selector de imagen">
+                            <button role="tab" aria-selected="true" aria-label="Imagen 1"
+                                class="carousel-dot dot-active"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 2"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 3"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 4"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 5"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 6"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 7"
+                                class="carousel-dot"></button>
+                            <button role="tab" aria-selected="false" aria-label="Imagen 8"
+                                class="carousel-dot"></button>
                         </div>
 
                         <!-- Overlay sutil al hacer hover -->
                         <div
-                            class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500">
+                            class="absolute inset-0 bg-primary-container/5 group-hover:bg-primary-container/10 transition-all duration-500 pointer-events-none z-10">
                         </div>
                     </div>
                     <div class="w-full lg:w-2/5">
@@ -488,12 +531,20 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
                             WebSockets, garantizando velocidad y seguridad con un sistema de persistencia híbrida y
                             acceso por roles.
                         </p>
-                        <a href="#contact" id="btn-turnero-demo" aria-label="Solicitar demo de Turnero - Gestión de Colas"
-                            class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
-                            <span id="btn-turnero-demo-text">Solicitar Demo</span>
-                            <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
-                                aria-hidden="true">arrow_forward</span>
-                        </a>
+                        <div class="flex flex-wrap items-center gap-x-10 gap-y-5">
+                            <a href="#contact" id="btn-turnero-demo" aria-label="Solicitar demo de Turnero - Gestión de Colas"
+                                class="flex items-center gap-3 text-primary font-headline font-bold text-sm tracking-widest uppercase group/link inline-flex">
+                                <span id="btn-turnero-demo-text">Solicitar Demo</span>
+                                <span class="material-symbols-outlined group-hover/link:translate-x-2 transition-transform"
+                                    aria-hidden="true">arrow_forward</span>
+                            </a>
+                            <button type="button" id="btn-turnero-features" aria-haspopup="dialog" aria-controls="features-modal"
+                                class="flex items-center gap-3 text-on-surface-variant hover:text-primary font-headline font-bold text-sm tracking-widest uppercase group/feat inline-flex transition-colors">
+                                <span id="btn-turnero-features-text">Ver Características</span>
+                                <span class="material-symbols-outlined group-hover/feat:scale-110 transition-transform"
+                                    aria-hidden="true">checklist</span>
+                            </button>
+                        </div>
                     </div>
                 </article>
 
@@ -905,13 +956,31 @@ SSSSSSSSSSSSSSSSSSSSSSSSSSS##@##SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS%%%%%%%S%%%?%%?%
         </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════
+         VENTANA: CARACTERÍSTICAS DE TURNERO
+    ═══════════════════════════════════════════ -->
+    <div id="features-modal" class="fixed inset-0 z-[90] hidden items-center justify-center p-4 md:p-8 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"
+        role="dialog" aria-modal="true" aria-labelledby="features-title">
+        <div id="features-panel"
+            class="relative w-full max-w-5xl max-h-[88vh] overflow-y-auto overscroll-contain rounded-2xl bg-surface-container border border-outline-variant shadow-2xl p-6 md:p-10 scale-95 transition-transform duration-300">
+            <button id="features-close" type="button" aria-label="Cerrar características"
+                class="absolute top-4 right-4 md:top-6 md:right-6 w-11 h-11 rounded-full bg-surface-container-high border border-outline-variant text-on-surface flex items-center justify-center hover:bg-primary hover:text-on-primary hover:border-primary transition-all">
+                <span class="material-symbols-outlined text-2xl" aria-hidden="true">close</span>
+            </button>
+            <p id="features-kicker" class="font-headline text-xs tracking-[0.3em] uppercase text-primary mb-3 pr-14">Turnero — Gestión de Colas</p>
+            <h3 id="features-title" class="font-headline text-3xl md:text-4xl text-white font-bold mb-3 pr-14">Características</h3>
+            <p id="features-intro" class="font-body text-on-surface-variant text-base leading-relaxed mb-10 max-w-3xl"></p>
+            <div id="features-groups" class="grid md:grid-cols-2 gap-x-10 gap-y-8"></div>
+        </div>
+    </div>
+
     <!-- Toast de feedback -->
     <div id="toast" role="status" aria-live="polite">
         <span class="toast-icon material-symbols-outlined">check_circle</span>
         <span id="toast-msg">Mensaje enviado</span>
     </div>
 
-    <script src="assets/js/main.js?v=1.0.9"></script>
+    <script src="assets/js/main.js?v=1.2.1"></script>
 </body>
 
 </html>
