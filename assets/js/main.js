@@ -872,6 +872,15 @@ function createCarousel(key) {
         }
     }, { passive: true });
 
+    // --- Carga diferida: al acercarse el carrusel, cargar todas sus imágenes ---
+    // (las que quedan fuera del recorte del carrusel no se cargarían solas con loading="lazy")
+    const preloadObserver = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) return;
+        track.querySelectorAll('img[loading="lazy"]').forEach(img => { img.loading = 'eager'; });
+        preloadObserver.disconnect();
+    }, { rootMargin: '300px 0px' });
+    preloadObserver.observe(track.parentElement);
+
     // --- Teclado (cuando el carrusel tiene foco) ---
     track.parentElement.setAttribute('tabindex', '0');
     track.parentElement.addEventListener('keydown', e => {
