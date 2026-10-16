@@ -119,36 +119,13 @@ body {
     background: radial-gradient(circle at 50% 50%, var(--outline-variant) 0%, transparent 70%);
 }
 
-        /* ── Placeholder visual proyectos ─────────────── */
-        .project-placeholder {
-            background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-container) 50%, var(--surface-container-low) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-placeholder::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--outline-variant) 0%, transparent 100%);
-        }
-
-        /* ── Efecto hover en tarjeta de proyecto ─────── */
-        .project-placeholder {
-            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease, border-color 0.5s ease;
-            border: 1px solid var(--outline-variant);
-        }
-        .project-card:hover .project-placeholder {
-            transform: scale(1.02) translateY(-4px);
-            border-color: var(--primary);
-            box-shadow: 0 16px 40px var(--outline-variant);
-        }
-
-        /* ── Mismo efecto para el carrusel de LocalPDF Hub y Key2Pad ─── */
+        /* ── Efecto hover en los carruseles de proyectos ─── */
+        #turnero-carousel,
         #localpdf-carousel,
         #key2pad-carousel {
             transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease, border-color 0.5s ease;
         }
+        .project-card:hover #turnero-carousel,
         .project-card:hover #localpdf-carousel,
         .project-card:hover #key2pad-carousel {
             transform: scale(1.02) translateY(-4px);
