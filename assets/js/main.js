@@ -82,6 +82,7 @@ window.addEventListener('scroll', () => {
 const sections = document.querySelectorAll('section[id], header[id]');
 const navLinks = document.querySelectorAll('nav .nav-link');
 
+// Activa la sección que cruza la mitad de la pantalla (funciona aunque sea más alta que la ventana)
 const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -90,7 +91,7 @@ const navObserver = new IntersectionObserver((entries) => {
             if (active) active.classList.add('nav-link-active');
         }
     });
-}, { threshold: 0.35 });
+}, { rootMargin: '-50% 0px -50% 0px' });
 sections.forEach(s => navObserver.observe(s));
 
 // ═══════════════════════════════════════════════════
