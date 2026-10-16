@@ -146,16 +146,13 @@ mobileMenu.querySelectorAll('a').forEach(link => {
 const btnTheme = document.getElementById('btn-theme');
 const htmlEl = document.documentElement;
 
-// Restaurar preferencia guardada
-if (localStorage.getItem('theme') === 'light') {
-    htmlEl.classList.remove('dark');
-    btnTheme.textContent = 'light_mode';
-}
+// La preferencia guardada ya se aplicó en <head>; aquí solo se sincroniza el ícono
+if (!htmlEl.classList.contains('dark')) btnTheme.textContent = 'light_mode';
 
 btnTheme.addEventListener('click', () => {
     const isDark = htmlEl.classList.toggle('dark');
     btnTheme.textContent = isDark ? 'dark_mode' : 'light_mode';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) { /* almacenamiento no disponible */ }
     showToast(isDark ? 'toastDark' : 'toastLight', isDark ? 'dark_mode' : 'light_mode');
 });
 

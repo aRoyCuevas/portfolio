@@ -19,6 +19,10 @@
     <meta name="twitter:description"
         content="Estoy abierto a nuevos desafíos técnicos, propuestas laborales o charlas sobre arquitectura de software. ¿Tenés algún proyecto en mente? Hablemos." />
     <meta name="twitter:image" content="https://aroycuevas.github.io/portfolio/assets/img/og-image.png" />
+    <script>
+        // Aplicar el tema guardado antes de pintar para evitar el destello del modo oscuro
+        try { if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark'); } catch (e) {}
+    </script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link
