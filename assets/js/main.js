@@ -400,7 +400,7 @@ const i18n = {
     }
 };
 
-function applyLang(lang) {
+function applyLang(lang, notify = true) {
     const t = i18n[lang];
     document.documentElement.lang = lang;
 
@@ -603,12 +603,13 @@ function applyLang(lang) {
         }
     }
 
-    showToast('langToast', 'language');
+    if (notify) showToast('langToast', 'language');
 }
 
 btnLang.addEventListener('click', () => {
     currentLang = currentLang === 'es' ? 'en' : 'es';
     applyLang(currentLang);
+    try { localStorage.setItem('lang', currentLang); } catch (e) { /* almacenamiento no disponible */ }
 });
 
 // ═══════════════════════════════════════════════════
@@ -1068,3 +1069,14 @@ window.portfolioLightbox = (() => {
         updateActiveTranslation: updateActiveTranslation
     };
 })();
+
+// ═══════════════════════════════════════════════════
+//  IDIOMA GUARDADO
+// ═══════════════════════════════════════════════════
+// Se aplica al final para que la ventana de características y el visor ya existan.
+try {
+    if (localStorage.getItem('lang') === 'en') {
+        currentLang = 'en';
+        applyLang('en', false);
+    }
+} catch (e) { /* almacenamiento no disponible */ }
