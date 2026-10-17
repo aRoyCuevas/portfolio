@@ -23,3 +23,5 @@ build/
 
 # Project Documents
 documents/
+# Local regression checks (Playwright from the vault, not published)
+tests/

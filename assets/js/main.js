@@ -17,59 +17,8 @@ function showToast(msgKey, icon = 'check_circle') {
 }
 
 // ═══════════════════════════════════════════════════
-//  HERO: Intro scroll scrubbing (Sticky)
+//  HERO: lo anima remix.js (GSAP)
 // ═══════════════════════════════════════════════════
-const mainNav = document.querySelector('nav');
-const heroElements = document.querySelectorAll('.hero-stagger');
-const scrollIndicator = document.getElementById('intro-scroll-indicator');
-
-mainNav.style.transition = 'none';
-mainNav.style.opacity = '0';
-mainNav.style.transform = 'translateY(-100%)';
-mainNav.style.pointerEvents = 'none';
-
-heroElements.forEach(el => {
-    el.style.transition = 'none';
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(40px)';
-    el.classList.remove('appeared');
-});
-
-const asciiBg = document.getElementById('ascii-bg');
-
-function handleScrubbing() {
-    const scrollY = window.scrollY;
-    // El efecto dura exactamente el alto de la pantalla (100vh)
-    const maxScroll = window.innerHeight; 
-    const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
-    
-    // Aplicar desenfoque dinámico al fondo ASCII (de 0px a 2px)
-    if (asciiBg) {
-        asciiBg.style.filter = `blur(${progress * 2}px)`;
-    }
-    
-    // Nav
-    mainNav.style.opacity = progress.toString();
-    mainNav.style.transform = `translateY(${-100 + (progress * 100)}%)`;
-    mainNav.style.pointerEvents = progress > 0.8 ? 'auto' : 'none';
-    
-    // Textos
-    heroElements.forEach((el, index) => {
-        const startThreshold = index * 0.08; 
-        const localProgress = Math.min(1, Math.max(0, (progress - startThreshold) / (1 - startThreshold)));
-        
-        el.style.opacity = localProgress.toString();
-        el.style.transform = `translateY(${40 - (localProgress * 40)}px)`;
-    });
-    
-    if (scrollIndicator) {
-        scrollIndicator.style.opacity = Math.max(0, 1 - (progress * 2.5)).toString();
-    }
-}
-
-window.addEventListener('scroll', handleScrubbing, { passive: true });
-window.addEventListener('resize', handleScrubbing, { passive: true });
-handleScrubbing();
 
 // ═══════════════════════════════════════════════════
 //  NAV: shadow + scroll activo
@@ -77,7 +26,7 @@ handleScrubbing();
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
     nav.classList.toggle('shadow-md', window.scrollY > 50);
-});
+}, { passive: true });
 
 const sections = document.querySelectorAll('section[id], header[id]');
 const navLinks = document.querySelectorAll('nav .nav-link');
@@ -93,32 +42,6 @@ const navObserver = new IntersectionObserver((entries) => {
     });
 }, { rootMargin: '-50% 0px -50% 0px' });
 sections.forEach(s => navObserver.observe(s));
-
-// ═══════════════════════════════════════════════════
-//  SCROLL REVEAL
-// ═══════════════════════════════════════════════════
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
-    .forEach(el => revealObserver.observe(el));
-
-// ═══════════════════════════════════════════════════
-//  PARALLAX blobs hero
-// ═══════════════════════════════════════════════════
-const blobA = document.getElementById('blob-a');
-const blobB = document.getElementById('blob-b');
-window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    if (blobA) blobA.style.transform = `translateY(${y * 0.12}px)`;
-    if (blobB) blobB.style.transform = `translateY(${y * -0.08}px)`;
-}, { passive: true });
 
 // ═══════════════════════════════════════════════════
 //  MENÚ MÓVIL
@@ -149,10 +72,12 @@ const htmlEl = document.documentElement;
 
 // La preferencia guardada ya se aplicó en <head>; aquí solo se sincroniza el ícono
 if (!htmlEl.classList.contains('dark')) btnTheme.textContent = 'light_mode';
+btnTheme.setAttribute('aria-pressed', String(htmlEl.classList.contains('dark')));
 
 btnTheme.addEventListener('click', () => {
     const isDark = htmlEl.classList.toggle('dark');
     btnTheme.textContent = isDark ? 'dark_mode' : 'light_mode';
+    btnTheme.setAttribute('aria-pressed', String(isDark));
     try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) { /* almacenamiento no disponible */ }
     showToast(isDark ? 'toastDark' : 'toastLight', isDark ? 'dark_mode' : 'light_mode');
 });
@@ -176,23 +101,23 @@ const i18n = {
         techDesc: 'Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto rendimiento.',
         projTitle: 'Proyectos Destacados',
         proj1Demo: 'Solicitar Demo', proj2Site: 'Ver Sitio Web',
-        proj1Title: 'Turnero — Gestión de Colas',
+        proj1Title: 'Turnero - Gestión de Colas',
         proj1Desc: 'Sistema integral de gestión de turnos en tiempo real que digitaliza las filas de espera. Procesa conexiones simultáneas desde dispositivos móviles, tótems y pantallas de TV mediante WebSockets, garantizando velocidad y seguridad con un sistema de persistencia híbrida y acceso por roles.',
         proj2Title: 'LocalPDF Hub',
         proj2Desc: 'Aplicación de escritorio offline para manipular documentos e imágenes directamente en el navegador. Su arquitectura cliente-servidor local garantiza privacidad total al procesar los archivos de forma local sin enviarlos a servidores externos.',
-        proj3Title: 'Key2Pad — Teclado a Gamepad',
+        proj3Title: 'Key2Pad - Teclado a Gamepad',
         proj3Desc: 'Software de emulación nativa (XInput) que permite jugar cualquier título de PC sin necesidad de hardware adicional. Transforma inputs físicos en señales analógicas reales mediante drivers de bajo nivel, ofreciendo una experiencia altamente personalizable con perfiles dedicados y un overlay de interacción directa.',
         proj3Site: 'Ver Sitio Web',
         expTitle: 'Experiencia',
         expRole: 'Desarrollador Full Stack Independiente',
-        expOrg: 'Turnero — Gestión de Colas',
+        expOrg: 'Turnero - Gestión de Colas',
         expContext: 'Institución Médica / Sector Salud - Obra social privada',
-        expDate: '2025 — PRESENTE',
+        expDate: '2025 - PRESENTE',
         expBullet1: 'Desarrollé desde cero un sistema integral de gestión de turnos para optimizar el flujo de atención diaria, utilizando Node.js, Socket.IO y SQLite.',
         expBullet2: 'Implementé una solución en tiempo real que sincroniza tótems, pantallas de TV y dispositivos móviles de forma simultánea, asegurando un rendimiento estable y la protección de los datos.',
         expBullet3: 'Evolucioné el sistema de forma continua basándome en el feedback de los usuarios, logrando entregar una herramienta a medida, intuitiva y de fácil adaptación.',
         expBullet4: 'El sistema gestionó de forma autónoma a más de 4,300 pacientes mensuales distribuidos en 12 servicios activos, logrando una tasa de satisfacción del 4.9/5 según los reportes analíticos generados. ',
-        expReportLink: 'Ver reporte generado por Turnero — Gestión de Colas.',
+        expReportLink: 'Ver reporte generado por Turnero - Gestión de Colas.',
         exp2Org: 'LocalPDF Hub',
         exp2Bullet1: 'Lideré el desarrollo end-to-end de una aplicación web local en Python para procesamiento de PDFs, priorizando privacidad y funcionamiento offline.',
         exp2Bullet2: 'Diseñé una arquitectura modular (FastAPI + JavaScript, empaquetada con PyInstaller) que permite sumar herramientas de forma aislada sin acoplar funcionalidades.',
@@ -206,7 +131,7 @@ const i18n = {
         contactLabelEmail: 'Email', contactPlaceholderEmail: 'tu@email.com',
         contactLabelMsg: 'Mensaje', contactPlaceholderMsg: '¿En qué te puedo ayudar?',
         contactBtn: 'Enviar Mensaje',
-        footerCopy: '© 2026 Alan Roy Cuevas. Todos los derechos reservados.',
+        footerCopy: `© ${new Date().getFullYear()} Alan Roy Cuevas. Todos los derechos reservados.`,
         langToast: 'Idioma: Español',
         toastDark: 'Tema oscuro activado',
         toastLight: 'Tema claro activado',
@@ -278,7 +203,19 @@ const i18n = {
             ] }
         ],
         ariaProj2: 'Ver sitio web de LocalPDF Hub',
-        ariaProj3: 'Ver sitio web de Key2Pad'
+        ariaProj3: 'Ver sitio web de Key2Pad',
+        imageWord: 'Imagen', carouselOf: 'Capturas de', carouselRole: 'carrusel', dotsLabel: 'Selector de imagen',
+        navLabel: 'Navegación principal', socialLabel: 'Redes sociales', techListLabel: 'Lista de tecnologías',
+        exp1ListLabel: 'Logros y responsabilidades en Turnero', exp2ListLabel: 'Logros y responsabilidades en LocalPDF Hub',
+        formLabel: 'Formulario de contacto', thumbsLabel: 'Capturas', logoLabel: 'ROY, ir al inicio', footerTopLabel: 'ROY, volver al inicio',
+        linkedinLabel: 'LinkedIn de Alan Roy Cuevas', githubLabel: 'GitHub de Alan Roy Cuevas', moreProjectsLabel: 'Ver Más Proyectos (próximamente)',
+        errRequired: 'Completá este campo.', errEmail: 'Ingresá un email válido, por ejemplo nombre@dominio.com.', errCaptcha: 'Marcá la casilla "No soy un robot".',
+        formPrivacy: 'Tus datos se usan solo para responderte. El envío se procesa con EmailJS.',
+        motionPause: 'Pausar animaciones', motionPlay: 'Reanudar animaciones', themeDark: 'Modo oscuro',
+        carouselPause: 'Pausar carrusel', carouselPlay: 'Reanudar carrusel', skipLink: 'Saltar al contenido',
+        statPatients: 'pacientes por mes', statServices: 'servicios activos',
+        statRating: 'satisfacción sobre 5', statTools: 'herramientas de documentos',
+        moreSoon1: 'Más', moreSoon2: 'pronto.'
     },
     en: {
         navAbout: 'About', navStack: 'Stack', navProjects: 'Projects',
@@ -292,23 +229,23 @@ const i18n = {
         techDesc: 'Technologies and languages I use to build scalable, secure, high-performance architectures.',
         projTitle: 'Featured Projects',
         proj1Demo: 'Request Demo', proj2Site: 'View Website',
-        proj1Title: 'Turnero — Queue Management',
+        proj1Title: 'Turnero - Queue Management',
         proj1Desc: 'Comprehensive real-time queue management system that digitizes waiting lines. Processes simultaneous connections from mobile devices, totems, and TV screens via WebSockets, ensuring speed and security with hybrid persistence and role-based access.',
         proj2Title: 'LocalPDF Hub',
         proj2Desc: 'Offline desktop application to manipulate documents and images directly in the browser. Its local client-server architecture ensures total privacy by processing files locally without sending them to external servers.',
-        proj3Title: 'Key2Pad — Keyboard to Gamepad',
+        proj3Title: 'Key2Pad - Keyboard to Gamepad',
         proj3Desc: 'Native emulation software (XInput) that allows playing any PC title without the need for additional hardware. Transforms physical inputs into real analog signals using low-level drivers, offering a highly customizable experience with dedicated profiles and a direct interaction overlay.',
         proj3Site: 'View Website',
         expTitle: 'Experience',
         expRole: 'Independent Full Stack Developer',
-        expOrg: 'Turnero — Queue Management',
+        expOrg: 'Turnero - Queue Management',
         expContext: 'Medical Institution / Healthcare Sector - Private Health Insurance',
-        expDate: '2025 — PRESENT',
+        expDate: '2025 - PRESENT',
         expBullet1: 'Built a comprehensive appointment management system from scratch to optimize daily patient flow, using Node.js, Socket.IO, and SQLite.',
         expBullet2: 'Implemented a real-time solution that synchronizes totems, TV screens, and mobile devices simultaneously, ensuring stable performance and data protection.',
         expBullet3: 'Continuously evolved the system based on user feedback, delivering a custom-built, intuitive, and easily adaptable tool.',
         expBullet4: 'The system autonomously managed over 4,300 monthly patients distributed across 12 active services, achieving a 4.9/5 satisfaction rate according to generated analytics reports. ',
-        expReportLink: 'View report generated by Turnero — Queue Management.',
+        expReportLink: 'View report generated by Turnero - Queue Management.',
         exp2Org: 'LocalPDF Hub',
         exp2Bullet1: 'Led end-to-end development of a local Python web application for PDF processing, prioritizing privacy and offline functionality.',
         exp2Bullet2: 'Designed a modular architecture (FastAPI + JavaScript, packaged with PyInstaller) that allows adding tools in isolation without coupling functionalities.',
@@ -322,7 +259,7 @@ const i18n = {
         contactLabelEmail: 'Email', contactPlaceholderEmail: 'you@email.com',
         contactLabelMsg: 'Message', contactPlaceholderMsg: 'How can I help you?',
         contactBtn: 'Send Message',
-        footerCopy: '© 2026 Alan Roy Cuevas. All rights reserved.',
+        footerCopy: `© ${new Date().getFullYear()} Alan Roy Cuevas. All rights reserved.`,
         langToast: 'Language: English',
         toastDark: 'Dark mode activated',
         toastLight: 'Light mode activated',
@@ -342,15 +279,15 @@ const i18n = {
         ariaTheme: 'Toggle light/dark theme',
         ariaMenuOpen: 'Close navigation menu',
         ariaMenuClosed: 'Open navigation menu',
-        ariaCvNav: 'Download Alan Roy Cuevas CV',
+        ariaCvNav: 'Download CV – Alan Roy Cuevas',
         ariaCvHero: 'Download CV as PDF',
         ariaLboxClose: 'Close viewer',
         ariaLboxPrev: 'Previous image',
         ariaLboxNext: 'Next image',
         ariaLbox: 'Image viewer',
-        ariaProj1: 'Request Turnero demo - Queue Management',
+        ariaProj1: 'Request Demo – Turnero (Queue Management)',
         proj1Features: 'View Features',
-        ariaProj1Features: 'View Turnero features - Queue Management',
+        ariaProj1Features: 'View Features – Turnero (Queue Management)',
         featuresTitle: 'Features',
         featuresIntro: 'A complete ticketing and queue system: customers take a ticket, wait seated and the screen calls them to the right desk. Everything in real time and adaptable to any business.',
         ariaFeaturesClose: 'Close features',
@@ -393,13 +330,26 @@ const i18n = {
                 'Over 370 automated tests and step-by-step setup guides.'
             ] }
         ],
-        ariaProj2: 'Visit LocalPDF Hub website',
-        ariaProj3: 'Visit Key2Pad website'
+        ariaProj2: 'View Website – LocalPDF Hub',
+        ariaProj3: 'View Website – Key2Pad',
+        imageWord: 'Image', carouselOf: 'Screenshots of', carouselRole: 'carousel', dotsLabel: 'Image selector',
+        navLabel: 'Main navigation', socialLabel: 'Social networks', techListLabel: 'Technology list',
+        exp1ListLabel: 'Achievements and responsibilities at Turnero', exp2ListLabel: 'Achievements and responsibilities at LocalPDF Hub',
+        formLabel: 'Contact form', thumbsLabel: 'Screenshots', logoLabel: 'ROY, back to top', footerTopLabel: 'ROY, back to top',
+        linkedinLabel: 'LinkedIn of Alan Roy Cuevas', githubLabel: 'GitHub of Alan Roy Cuevas', moreProjectsLabel: 'View More Projects (coming soon)',
+        errRequired: 'Please fill in this field.', errEmail: 'Enter a valid email, for example name@domain.com.', errCaptcha: 'Please check "I\'m not a robot".',
+        formPrivacy: 'Your data is only used to reply to you. Sending is handled by EmailJS.',
+        motionPause: 'Pause animations', motionPlay: 'Resume animations', themeDark: 'Dark mode',
+        carouselPause: 'Pause carousel', carouselPlay: 'Resume carousel', skipLink: 'Skip to content',
+        statPatients: 'patients per month', statServices: 'active services',
+        statRating: 'satisfaction out of 5', statTools: 'document tools',
+        moreSoon1: 'More', moreSoon2: 'soon.'
     }
 };
 
 function applyLang(lang, notify = true) {
     const t = i18n[lang];
+    window.remixBeforeLang?.();
     document.documentElement.lang = lang;
 
     // Helper robusto sin innerHTML (prevención de XSS)
@@ -424,7 +374,7 @@ function applyLang(lang, notify = true) {
     if (nl[3]) nl[3].textContent = t.navExp;
     if (nl[4]) nl[4].textContent = t.navContact;
 
-    document.querySelectorAll('#mobile-menu a[role="menuitem"]').forEach((a, i) => {
+    document.querySelectorAll('#mobile-menu a[href^="#"]').forEach((a, i) => {
         a.textContent = [t.navAbout, t.navStack, t.navProjects, t.navExp, t.navContact][i];
     });
 
@@ -432,7 +382,7 @@ function applyLang(lang, notify = true) {
     const introIndicator = document.querySelector('#intro-scroll-indicator span:first-child');
     if (introIndicator && t.introScroll) introIndicator.textContent = t.introScroll;
 
-    const heroBadgeEl = document.querySelector('.hero-stagger.font-headline.text-primary');
+    const heroBadgeEl = document.getElementById('hero-badge');
     if (heroBadgeEl) heroBadgeEl.textContent = t.heroBadge;
 
     translateEl('txt-btn-projects', t.heroCta1);
@@ -441,7 +391,7 @@ function applyLang(lang, notify = true) {
 
     // --- 3. SOBRE MÍ ---
     translateEl('about-heading', t.aboutTitle);
-    const aboutTextEl = document.querySelector('#about p.reveal');
+    const aboutTextEl = document.getElementById('about-text');
     if (aboutTextEl) aboutTextEl.textContent = t.aboutText;
 
     // --- 4. STACK ---
@@ -575,17 +525,46 @@ function applyLang(lang, notify = true) {
         img.alt = `Key2Pad – ${t.carouselScreen} ${i + 1}`;
     });
 
-    // Traducir atributos del Lightbox
-    translateEl('lightbox', t.ariaLbox, 'aria-label');
-    translateEl('lightbox-close', t.ariaLboxClose, 'aria-label');
-    translateEl('lightbox-prev', t.ariaLboxPrev, 'aria-label');
-    translateEl('lightbox-next', t.ariaLboxNext, 'aria-label');
-
-    // Actualización del Lightbox visible en caliente
-    const lbox = document.getElementById('lightbox');
-    if (lbox && !lbox.classList.contains('hidden') && window.portfolioLightbox) {
-        window.portfolioLightbox.updateActiveTranslation();
-    }
+    // Visor de capturas y contadores (remix)
+    translateEl('shot-close', t.ariaLboxClose, 'aria-label');
+    translateEl('skip-link', t.skipLink);
+    translateEl('main-nav', t.navLabel, 'aria-label');
+    translateEl('social-nav', t.socialLabel, 'aria-label');
+    translateEl('logo-link', t.logoLabel, 'aria-label');
+    translateEl('footer-top-link', t.footerTopLabel, 'aria-label');
+    translateEl('link-linkedin', t.linkedinLabel, 'aria-label');
+    translateEl('link-github', t.githubLabel, 'aria-label');
+    translateEl('btn-more-projects', t.moreProjectsLabel, 'aria-label');
+    translateEl('exp1-bullets', t.exp1ListLabel, 'aria-label');
+    translateEl('exp2-bullets', t.exp2ListLabel, 'aria-label');
+    translateEl('contact-form', t.formLabel, 'aria-label');
+    translateEl('shot-thumbs', t.thumbsLabel, 'aria-label');
+    translateEl('form-privacy', t.formPrivacy);
+    translateEl('btn-theme', t.themeDark, 'aria-label');
+    const techList = document.querySelector('#tech ul');
+    if (techList) techList.setAttribute('aria-label', t.techListLabel);
+    [['turnero', 'Turnero'], ['localpdf', 'LocalPDF Hub'], ['key2pad', 'Key2Pad']].forEach(([key, name]) => {
+        const region = document.getElementById(`${key}-carousel`);
+        if (region) { region.setAttribute('aria-label', `${t.carouselOf} ${name}`); region.setAttribute('aria-roledescription', t.carouselRole); }
+        translateEl(`${key}-prev`, t.ariaLboxPrev, 'aria-label');
+        translateEl(`${key}-next`, t.ariaLboxNext, 'aria-label');
+        translateEl(`${key}-dots`, t.dotsLabel, 'aria-label');
+        document.querySelectorAll(`#${key}-dots .carousel-dot`).forEach((dot, i) => dot.setAttribute('aria-label', `${t.imageWord} ${i + 1}`));
+    });
+    document.querySelectorAll('.field-error:not([hidden])').forEach((el) => {
+        const input = document.getElementById(el.id.replace(/-error$/, ''));
+        if (input) validateField(input);
+    });
+    window.remixSyncMotion?.();
+    Object.values(window.portfolioCarousels || {}).forEach((c) => c?.syncToggle?.());
+    translateEl('shot-prev', t.ariaLboxPrev, 'aria-label');
+    translateEl('shot-next', t.ariaLboxNext, 'aria-label');
+    translateEl('stat-patients', t.statPatients);
+    translateEl('stat-services', t.statServices);
+    translateEl('stat-rating', t.statRating);
+    translateEl('stat-tools', t.statTools);
+    translateEl('more-soon-1', t.moreSoon1);
+    translateEl('more-soon-2', t.moreSoon2);
 
     // Retraducir el toast visible si lo hay
     const toastContainer = document.getElementById('toast');
@@ -601,6 +580,7 @@ function applyLang(lang, notify = true) {
         }
     }
 
+    window.remixAfterLang?.();
     if (notify) showToast('langToast', 'language');
 }
 
@@ -617,7 +597,8 @@ const btnDemo = document.getElementById('btn-turnero-demo');
 if (btnDemo) {
     btnDemo.addEventListener('click', (e) => {
         e.preventDefault();
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        if (window.remixScrollTo) window.remixScrollTo('#contact');
+        else document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         showToast('toastDemo', 'mail');
     });
 }
@@ -631,6 +612,7 @@ function lockPageScroll(locked) {
     const value = locked ? 'hidden' : '';
     document.documentElement.style.overflow = value;
     document.body.style.overflow = value;
+    window.remixPause?.(locked);
 }
 
 // ═══════════════════════════════════════════════════
@@ -679,7 +661,9 @@ window.portfolioFeatures = (() => {
     }
 
     // --- Open / close ---
+    let closeTimer;
     function open() {
+        clearTimeout(closeTimer);
         Object.values(window.portfolioCarousels || {}).forEach((c) => c && c.pause());
         modal.classList.remove('hidden');
         modal.classList.add('flex');
@@ -695,7 +679,7 @@ window.portfolioFeatures = (() => {
     function close() {
         modal.classList.add('opacity-0');
         panel.classList.add('scale-95');
-        setTimeout(() => {
+        closeTimer = setTimeout(() => {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             lockPageScroll(false);
@@ -737,7 +721,7 @@ if (btnMoreProjects) {
 // ═══════════════════════════════════════════════════
 
 // EmailJS Inicialización segura (OWASP A04:2021)
-emailjs.init({
+if (window.emailjs) emailjs.init({
     publicKey: '5jV8d_imrYVzIc3-W',
     blockHeadless: true,
     limitRate: {
@@ -749,11 +733,60 @@ emailjs.init({
 const form = document.getElementById('contact-form');
 const submitBtn = form.querySelector('button[type="submit"]');
 
+// reCAPTCHA v2: EmailJS verifies it server-side, so a copied public key is useless without allowed
+// origins (a paid option). The site key is public; the secret key lives only in the EmailJS template.
+// Empty site key = no widget and the form works as before (the EmailJS check must be enabled only with a key here)
+const RECAPTCHA_SITE_KEY = '6LfEGfMtAAAAAABkCbK0c8pj7ZH2AWayx8SWCd_r';
+const captchaField = document.getElementById('contact-captcha-field');
+const captchaBox = document.getElementById('contact-captcha');
+const captchaError = document.getElementById('contact-captcha-error');
+let captchaId = null;
+
+function setCaptchaError(on) {
+    captchaError.hidden = !on;
+    captchaError.textContent = on ? i18n[currentLang].errCaptcha : '';
+}
+
+// Theme and size are fixed when it renders: a fresh slot is rendered each time
+function renderCaptcha() {
+    if (!window.grecaptcha?.render) return;
+    const slot = document.createElement('div');
+    captchaBox.replaceChildren(slot);
+    captchaId = grecaptcha.render(slot, {
+        sitekey: RECAPTCHA_SITE_KEY,
+        theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+        size: captchaBox.clientWidth < 304 ? 'compact' : 'normal',
+        callback: () => setCaptchaError(false),
+    });
+}
+
+if (RECAPTCHA_SITE_KEY && captchaField) {
+    captchaField.hidden = false;
+    window.onCaptchaReady = renderCaptcha;
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?onload=onCaptchaReady&render=explicit&hl=${currentLang}`;
+    script.async = true;
+    document.head.appendChild(script);
+    // A theme switch re-renders the widget while it is still unanswered
+    new MutationObserver(() => {
+        if (captchaId !== null && !grecaptcha.getResponse(captchaId)) renderCaptcha();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+}
+
 function validateField(input) {
     const isEmpty = !input.value.trim();
     const isInvalidEmail = input.type === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
     const wrapper = input.closest('.relative');
     wrapper.classList.toggle('has-error', isEmpty || isInvalidEmail);
+    input.setAttribute('aria-invalid', String(isEmpty || isInvalidEmail));
+    const errorEl = document.getElementById(`${input.id}-error`);
+    if (errorEl) {
+        const failed = isEmpty || isInvalidEmail;
+        errorEl.hidden = !failed;
+        errorEl.textContent = failed ? (isEmpty ? i18n[currentLang].errRequired : i18n[currentLang].errEmail) : '';
+        if (failed) input.setAttribute('aria-describedby', errorEl.id);
+        else input.removeAttribute('aria-describedby');
+    }
     return !isEmpty && !isInvalidEmail;
 }
 
@@ -762,14 +795,30 @@ form.querySelectorAll('.form-input').forEach(input => {
     input.addEventListener('blur', () => validateField(input));
     input.addEventListener('input', () => {
         input.closest('.relative').classList.remove('has-error');
+        input.removeAttribute('aria-invalid');
+        const errorEl = document.getElementById(`${input.id}-error`);
+        if (errorEl) { errorEl.hidden = true; errorEl.textContent = ''; }
+        input.removeAttribute('aria-describedby');
     });
 });
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    // Honeypot: bots fill the hidden field; pretend success and send nothing
+    if (form.querySelector('#contact-extra')?.value) {
+        form.reset();
+        showToast('toastFormOk', 'check_circle');
+        return;
+    }
     const inputs = [...form.querySelectorAll('.form-input')];
     const allValid = inputs.map(validateField).every(Boolean);
     if (!allValid) {
+        showToast('toastFormErr', 'error');
+        return;
+    }
+    // sendForm carries the widget's g-recaptcha-response field; an unanswered widget would be rejected
+    if (captchaId !== null && !grecaptcha.getResponse(captchaId)) {
+        setCaptchaError(true);
         showToast('toastFormErr', 'error');
         return;
     }
@@ -782,6 +831,7 @@ form.addEventListener('submit', async (e) => {
     try {
         const serviceId = 'service_371pzcc';
         const templateId = 'template_ag99jpi';
+        if (!window.emailjs) throw new Error('EmailJS no disponible');
         await emailjs.sendForm(serviceId, templateId, form);
         form.reset();
         showToast('toastFormOk', 'check_circle');
@@ -792,6 +842,8 @@ form.addEventListener('submit', async (e) => {
         submitBtn.disabled = false;
         submitBtn.textContent = i18n[currentLang].submitNormal;
         submitBtn.style.opacity = '';
+        // Each token is valid once
+        if (captchaId !== null) grecaptcha.reset(captchaId);
     }
 });
 
@@ -821,7 +873,8 @@ function createCarousel(key) {
         dots.forEach((dot, i) => {
             const active = i === current;
             dot.classList.toggle('dot-active', active);
-            dot.setAttribute('aria-selected', active);
+            if (active) dot.setAttribute('aria-current', 'true');
+            else dot.removeAttribute('aria-current');
         });
     }
 
@@ -833,12 +886,34 @@ function createCarousel(key) {
     dots.forEach((dot, i) => dot.addEventListener('click', () => { resetAuto(); goTo(i); }));
 
     // --- Avance automático ---
-    function startAuto() { 
-        if (autoTimer) clearInterval(autoTimer);
-        autoTimer = setInterval(() => goTo(current + 1), AUTO_MS); 
+    let userPaused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let hoverPaused = false;
+    let modalPaused = false;
+    function startAuto() {
+        clearInterval(autoTimer);
+        if (userPaused || hoverPaused || modalPaused || document.hidden) return;
+        autoTimer = setInterval(() => goTo(current + 1), AUTO_MS);
     }
     function resetAuto() { clearInterval(autoTimer); startAuto(); }
     startAuto();
+
+    // --- Pausa: botón visible, hover/foco y pestaña oculta ---
+    const toggle = document.getElementById(`${key}-toggle`);
+    function syncToggle() {
+        if (!toggle) return;
+        const t = i18n[currentLang];
+        toggle.setAttribute('aria-pressed', String(userPaused));
+        toggle.setAttribute('aria-label', userPaused ? t.carouselPlay : t.carouselPause);
+        toggle.querySelector('span').textContent = userPaused ? 'play_arrow' : 'pause';
+    }
+    if (toggle) toggle.addEventListener('click', () => { userPaused = !userPaused; syncToggle(); startAuto(); });
+    const box = track.parentElement;
+    box.addEventListener('mouseenter', () => { hoverPaused = true; clearInterval(autoTimer); });
+    box.addEventListener('mouseleave', () => { hoverPaused = false; startAuto(); });
+    box.addEventListener('focusin', () => { hoverPaused = true; clearInterval(autoTimer); });
+    box.addEventListener('focusout', (e) => { if (!box.contains(e.relatedTarget)) { hoverPaused = false; startAuto(); } });
+    document.addEventListener('visibilitychange', startAuto);
+    syncToggle();
 
     // --- Soporte táctil / swipe ---
     let touchStartX = 0;
@@ -873,8 +948,11 @@ function createCarousel(key) {
     });
 
     return {
-        pause: () => clearInterval(autoTimer),
-        resume: () => startAuto(),
+        goTo: (i) => { resetAuto(); goTo(i); },
+        syncToggle,
+        pause: () => { modalPaused = true; clearInterval(autoTimer); },
+        resume: () => { modalPaused = false; startAuto(); },
+        current: () => current,
         isClickPrevented: () => preventClick
     };
 }
@@ -884,197 +962,13 @@ function createCarousel(key) {
 });
 
 // ═══════════════════════════════════════════════════
-//  LIGHTBOX (GALERÍA PANTALLA COMPLETA)
+//  VISOR DE CAPTURAS: lo maneja remix.js (Flip)
 // ═══════════════════════════════════════════════════
-window.portfolioLightbox = (() => {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxClose = document.getElementById('lightbox-close');
-    const lightboxPrev = document.getElementById('lightbox-prev');
-    const lightboxNext = document.getElementById('lightbox-next');
-    const lightboxCounter = document.getElementById('lightbox-counter');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-
-    if (!lightbox) return null;
-
-    let currentImages = [];
-    let currentIndex = 0;
-
-    // Abrir lightbox
-    function openLightbox(index) {
-        // Pausar avance automático de todos los carruseles
-        if (window.portfolioCarousels) {
-            Object.values(window.portfolioCarousels).forEach(c => {
-                if (c && typeof c.pause === 'function') c.pause();
-            });
-        }
-
-        currentIndex = index;
-        updateLightboxImage();
-        lightbox.classList.remove('hidden');
-        // Pequeño delay para permitir que el display:flex se aplique antes de la transición de opacidad
-        requestAnimationFrame(() => {
-            lightbox.classList.remove('opacity-0');
-            lightboxImg.classList.remove('scale-95');
-            lightboxImg.classList.add('scale-100');
-        });
-        lockPageScroll(true); // Prevenir scroll de fondo
-    }
-
-    // Cerrar lightbox
-    function closeLightbox() {
-        lightbox.classList.add('opacity-0');
-        lightboxImg.classList.remove('scale-100');
-        lightboxImg.classList.add('scale-95');
-        setTimeout(() => {
-            lightbox.classList.add('hidden');
-            lockPageScroll(false);
-            
-            // Reanudar avance automático de todos los carruseles
-            if (window.portfolioCarousels) {
-                Object.values(window.portfolioCarousels).forEach(c => {
-                    if (c && typeof c.resume === 'function') c.resume();
-                });
-            }
-        }, 300); // Coincide con la duración de la transición
-    }
-
-    // Actualizar traducción en caliente
-    function updateActiveTranslation() {
-        if (currentImages.length === 0) return;
-        if (lightboxImg) {
-            lightboxImg.alt = currentImages[currentIndex].alt;
-        }
-        if (lightboxCaption) {
-            lightboxCaption.textContent = currentImages[currentIndex].alt || i18n[currentLang].lightboxFallback;
-        }
-        if (lightboxCounter) {
-            lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
-        }
-    }
-
-    // Actualizar imagen mostrada
-    function updateLightboxImage() {
-        if (currentImages.length === 0) return;
-        
-        // Efecto fade suave
-        lightboxImg.style.opacity = '0';
-        
-        setTimeout(() => {
-            lightboxImg.src = currentImages[currentIndex].src;
-            lightboxImg.alt = currentImages[currentIndex].alt;
-            
-            if (lightboxCaption) {
-                lightboxCaption.textContent = currentImages[currentIndex].alt || i18n[currentLang].lightboxFallback;
-            }
-            
-            lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
-            lightboxImg.style.opacity = '1';
-        }, 150);
-    }
-
-    // Navegar
-    function nextImage() {
-        currentIndex = (currentIndex + 1) % currentImages.length;
-        updateLightboxImage();
-    }
-
-    // prevImage
-    function prevImage() {
-        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-        updateLightboxImage();
-    }
-
-    // Bindear clicks en las imágenes de los carruseles
-    const tracks = ['turnero-track', 'localpdf-track', 'key2pad-track'];
-    tracks.forEach(trackId => {
-        const track = document.getElementById(trackId);
-        if (!track) return;
-
-        const images = track.querySelectorAll('img');
-        images.forEach((img, index) => {
-            img.classList.add('cursor-pointer'); // Feedback visual
-            img.addEventListener('click', () => {
-                const carouselKey = trackId.split('-')[0]; // 'turnero', 'localpdf' o 'key2pad'
-                const ctrl = window.portfolioCarousels ? window.portfolioCarousels[carouselKey] : null;
-                
-                // Si el carrusel indica que está en medio de un swipe (drag), evitar abrir el Lightbox
-                if (ctrl && typeof ctrl.isClickPrevented === 'function' && ctrl.isClickPrevented()) {
-                    return;
-                }
-                
-                currentImages = Array.from(images); // Guardar contexto de qué carrusel se clickeó
-                openLightbox(index);
-            });
-        });
-    });
-
-    // Eventos de botones UI
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxNext.addEventListener('click', nextImage);
-    lightboxPrev.addEventListener('click', prevImage);
-
-    // Cerrar al clickear fuera de la imagen
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
-
-    // Soporte teclado con Focus Trapping
-    document.addEventListener('keydown', (e) => {
-        if (lightbox.classList.contains('hidden')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowRight') nextImage();
-        if (e.key === 'ArrowLeft') prevImage();
-        
-        // Atrapar foco
-        if (e.key === 'Tab') {
-            const focusable = lightbox.querySelectorAll('button, [tabindex="0"]');
-            if (focusable.length > 0) {
-                const first = focusable[0];
-                const last = focusable[focusable.length - 1];
-                if (e.shiftKey) {
-                    if (document.activeElement === first) {
-                        last.focus();
-                        e.preventDefault();
-                    }
-                } else {
-                    if (document.activeElement === last) {
-                        first.focus();
-                        e.preventDefault();
-                    }
-                }
-            }
-        }
-    });
-
-    // Soporte Swipe en móvil
-    let touchStartX = 0;
-    lightbox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
-    lightbox.addEventListener('touchend', e => {
-        if (lightbox.classList.contains('hidden')) return;
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) {
-            if (dx < 0) nextImage();
-            else prevImage();
-        }
-    }, { passive: true });
-
-    return {
-        open: openLightbox,
-        close: closeLightbox,
-        updateActiveTranslation: updateActiveTranslation
-    };
-})();
+window.portfolioLightbox = null;
 
 // ═══════════════════════════════════════════════════
 //  IDIOMA GUARDADO
 // ═══════════════════════════════════════════════════
 // Se aplica al final para que la ventana de características y el visor ya existan.
-try {
-    if (localStorage.getItem('lang') === 'en') {
-        currentLang = 'en';
-        applyLang('en', false);
-    }
-} catch (e) { /* almacenamiento no disponible */ }
+try { if (localStorage.getItem('lang') === 'en') currentLang = 'en'; } catch (e) { /* almacenamiento no disponible */ }
+applyLang(currentLang, false);
