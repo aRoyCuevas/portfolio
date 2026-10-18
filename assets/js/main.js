@@ -141,7 +141,6 @@ const i18n = {
         toastMoreProjects: 'Próximamente más proyectos',
         moreProjectsBtn: 'Ver Más Proyectos',
         toastDemo: 'Completá el formulario para solicitar la demo',
-        disclaimerCarousel: 'Las imágenes pueden corresponder a versiones anteriores',
         introScroll: 'Hacé scroll para descubrir',
         carouselScreen: 'pantalla',
         lightboxFallback: 'Captura de pantalla',
@@ -269,7 +268,6 @@ const i18n = {
         toastMoreProjects: 'More projects coming soon',
         moreProjectsBtn: 'View More Projects',
         toastDemo: 'Fill out the form to request the demo',
-        disclaimerCarousel: 'Images may correspond to earlier versions',
         introScroll: 'Scroll to discover',
         carouselScreen: 'screen',
         lightboxFallback: 'Screenshot',
@@ -417,9 +415,6 @@ function applyLang(lang, notify = true) {
     if (window.portfolioFeatures) window.portfolioFeatures.render(t);
     translateEl('btn-localpdf-site-text', t.proj2Site);
     translateEl('btn-key2pad-site-text', t.proj3Site);
-
-    const disclaimer = document.getElementById('localpdf-disclaimer');
-    if (disclaimer) disclaimer.textContent = t.disclaimerCarousel;
 
     // --- 6. EXPERIENCIA ---
     translateEl('experience-heading', t.expTitle);
