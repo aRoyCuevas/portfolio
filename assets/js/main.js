@@ -100,7 +100,7 @@ const i18n = {
         techTitle: 'Stack Tecnológico', techSub: 'Herramientas Principales',
         techDesc: 'Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto rendimiento.',
         projTitle: 'Proyectos Destacados',
-        proj1Demo: 'Solicitar Demo', proj2Site: 'Ver Sitio Web',
+        proj1Demo: 'Solicitar Demo', proj2Site: 'Ver en GitHub',
         proj1Title: 'Turnero - Gestión de Colas',
         proj1Desc: 'Sistema integral de gestión de turnos en tiempo real que digitaliza las filas de espera. Procesa conexiones simultáneas desde dispositivos móviles, tótems y pantallas de TV mediante WebSockets, garantizando velocidad y seguridad con un sistema de persistencia híbrida y acceso por roles.',
         proj2Title: 'LocalPDF Hub',
@@ -202,7 +202,7 @@ const i18n = {
                 'Más de 370 tests automáticos y guías de instalación paso a paso.'
             ] }
         ],
-        ariaProj2: 'Ver sitio web de LocalPDF Hub',
+        ariaProj2: 'Ver LocalPDF Hub en GitHub',
         ariaProj3: 'Ver sitio web de Key2Pad',
         imageWord: 'Imagen', carouselOf: 'Capturas de', carouselRole: 'carrusel', dotsLabel: 'Selector de imagen',
         navLabel: 'Navegación principal', socialLabel: 'Redes sociales', techListLabel: 'Lista de tecnologías',
@@ -228,7 +228,7 @@ const i18n = {
         techTitle: 'Tech Stack', techSub: 'Core Tools',
         techDesc: 'Technologies and languages I use to build scalable, secure, high-performance architectures.',
         projTitle: 'Featured Projects',
-        proj1Demo: 'Request Demo', proj2Site: 'View Website',
+        proj1Demo: 'Request Demo', proj2Site: 'View on GitHub',
         proj1Title: 'Turnero - Queue Management',
         proj1Desc: 'Comprehensive real-time queue management system that digitizes waiting lines. Processes simultaneous connections from mobile devices, totems, and TV screens via WebSockets, ensuring speed and security with hybrid persistence and role-based access.',
         proj2Title: 'LocalPDF Hub',
@@ -330,7 +330,7 @@ const i18n = {
                 'Over 370 automated tests and step-by-step setup guides.'
             ] }
         ],
-        ariaProj2: 'View Website – LocalPDF Hub',
+        ariaProj2: 'View LocalPDF Hub on GitHub',
         ariaProj3: 'View Website – Key2Pad',
         imageWord: 'Image', carouselOf: 'Screenshots of', carouselRole: 'carousel', dotsLabel: 'Image selector',
         navLabel: 'Main navigation', socialLabel: 'Social networks', techListLabel: 'Technology list',
