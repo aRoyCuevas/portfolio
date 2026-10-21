@@ -394,7 +394,10 @@
                 .to(sideWords, { x: (i) => (i ? 1 : -1) * measure().w * 0.9, opacity: 0, ease: 'power1.in', duration: 0.6 }, 0.1)
                 // The accent goes through a CSS variable: a recorded color would freeze the theme
                 .fromTo(royChars, { '--zoom-mix': 0 }, { '--zoom-mix': 1, duration: 0.4 }, 0.6)
-                .to(['#hero-badge', '#txt-hero-quote', ctaWrap, '#intro-scroll-indicator'], { yPercent: 300, opacity: 0, duration: 0.4 }, 0)
+                // Explicit start: built during the intro, a .to recorded the badge and the indicator at
+                // opacity 0, so scrolling back to the top left them invisible. At 0.01, not 0: the scrub
+                // renders time 0 on build and the start values would show them before the intro fades them in
+                .fromTo(['#hero-badge', '#txt-hero-quote', ctaWrap, '#intro-scroll-indicator'], { yPercent: 0, opacity: 1 }, { yPercent: 300, opacity: 0, duration: 0.4, immediateRender: false }, 0.01)
                 .to('#blob-a', { scale: 3, x: '30vw', duration: 1 }, 0)
                 .to('#blob-b', { scale: 2.5, x: '-30vw', duration: 1 }, 0)
                 // While "Sobre mí" covers it (one screen of scroll), ROY drifts up slower than the
