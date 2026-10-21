@@ -2,6 +2,10 @@
 html { scroll-behavior: auto !important; }
 #intro-scroll-indicator { transition: none !important; }
 
+/* --- Hero Badge: one line always (the intro widens its letter spacing; a wrap moved the h1 while the zoom measured it) --- */
+#hero-badge { white-space: nowrap; }
+@media (max-width: 360px) { #hero-badge { letter-spacing: .25em; } }
+
 /* --- Hero Name Gradient --- */
 #hero-name .grad:not(:has(.char)),
 #hero-name .grad .char {

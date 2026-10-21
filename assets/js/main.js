@@ -94,12 +94,12 @@ const i18n = {
     es: {
         navAbout: 'Sobre Mí', navStack: 'Stack', navProjects: 'Proyectos',
         navExp: 'Experiencia', navContact: 'Contacto',
-        heroBadge: 'Desarrollador Full Stack',
+        heroBadge: 'Desarrollador · Agentes de IA',
         heroCta1: 'Ver Proyectos', heroCta2: 'Descargar CV', heroNavCv: 'Descargar CV',
         heroQuote: 'El código se reescribe; tu determinación permanece intacta',
         aboutTitle: 'Sobre Mí',
-        pageTitle: 'Alan Roy Cuevas - Desarrollador Full Stack | Portfolio',
-        aboutText: 'Soy un desarrollador apasionado por la tecnología y el análisis de sistemas. Me considero una persona práctica a la que le gusta optimizar procesos para hacer el trabajo más fácil. Tengo facilidad para adaptarme a los cambios, lo que me ayuda a resolver problemas reales y a trabajar bien con los demás.',
+        pageTitle: 'Alan Roy Cuevas - Desarrollador de software | Agentes de IA y tiempo real',
+        aboutText: 'Construyo software que se usa todos los días y también las herramientas que me permiten trabajar con agentes de IA con criterio. Diseño la solución y tomo las decisiones; los agentes me ayudan a ejecutar, y nada se da por terminado sin una prueba que lo confirme. Me apasionan los sistemas en tiempo real, las apps que cuidan la privacidad y resolver problemas reales.',
         techTitle: 'Stack Tecnológico', techSub: 'Herramientas Principales',
         techDesc: 'Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto rendimiento.',
         projTitle: 'Proyectos Destacados',
@@ -112,15 +112,19 @@ const i18n = {
         proj3Desc: 'Software de emulación nativa (XInput) que permite jugar cualquier título de PC sin necesidad de hardware adicional. Transforma inputs físicos en señales analógicas reales mediante drivers de bajo nivel, ofreciendo una experiencia altamente personalizable con perfiles dedicados y un overlay de interacción directa.',
         proj3Site: 'Ver Sitio Web',
         expTitle: 'Experiencia',
-        expRole: 'Desarrollador Full Stack Independiente',
+        expRole: 'Desarrollador de software independiente',
         expOrg: 'Turnero - Gestión de Colas',
         expContext: 'Institución Médica / Sector Salud - Obra social privada',
         expDate: '2025 - PRESENTE',
         expBullet1: 'Desarrollé desde cero un sistema integral de gestión de turnos para optimizar el flujo de atención diaria, utilizando Node.js, Socket.IO y SQLite.',
         expBullet2: 'Implementé una solución en tiempo real que sincroniza tótems, pantallas de TV y dispositivos móviles de forma simultánea, asegurando un rendimiento estable y la protección de los datos.',
         expBullet3: 'Evolucioné el sistema de forma continua basándome en el feedback de los usuarios, logrando entregar una herramienta a medida, intuitiva y de fácil adaptación.',
-        expBullet4: 'El sistema gestionó de forma autónoma a más de 4.300 pacientes mensuales distribuidos en 12 servicios activos, logrando una tasa de satisfacción del 4,9/5 según los reportes analíticos generados. ',
+        expBullet4: 'El sistema gestionó de forma autónoma a más de 4.200 pacientes mensuales distribuidos en 12 servicios activos, logrando una tasa de satisfacción del 4,9/5 según los reportes analíticos generados. ',
         expReportLink: 'Ver reporte generado por Turnero - Gestión de Colas.',
+        exp3Org: 'NEXUS - Desarrollo con agentes de IA',
+        exp3Bullet1: 'Diseñé un entorno para desarrollar con agentes de IA en el que ningún cambio se da por bueno sin una prueba automática que lo verifique.',
+        exp3Bullet2: 'Construí su servidor MCP propio (memoria, backlog y verificación) y una memoria semántica con LanceDB.',
+        exp3Bullet3: 'Antes de tocar código, cada plan pasa por agentes revisores que pueden pedir cambios o rechazarlo. Hoy lo uso en todos mis proyectos.',
         exp2Org: 'LocalPDF Hub',
         exp2Bullet1: 'Lideré el desarrollo end-to-end de una aplicación web local en Python para procesamiento de PDFs, priorizando privacidad y funcionamiento offline.',
         exp2Bullet2: 'Diseñé una arquitectura modular (FastAPI + JavaScript, empaquetada con PyInstaller) que permite sumar herramientas de forma aislada sin acoplar funcionalidades.',
@@ -209,7 +213,7 @@ const i18n = {
         ariaProj3: 'Ver sitio web de Key2Pad',
         imageWord: 'Imagen', carouselOf: 'Capturas de', carouselRole: 'carrusel', dotsLabel: 'Selector de imagen',
         navLabel: 'Navegación principal', socialLabel: 'Redes sociales', techListLabel: 'Lista de tecnologías',
-        exp1ListLabel: 'Logros y responsabilidades en Turnero', exp2ListLabel: 'Logros y responsabilidades en LocalPDF Hub',
+        exp1ListLabel: 'Logros y responsabilidades en Turnero', exp2ListLabel: 'Logros y responsabilidades en LocalPDF Hub', exp3ListLabel: 'Logros y responsabilidades en NEXUS',
         formLabel: 'Formulario de contacto', thumbsLabel: 'Capturas', logoLabel: 'ROY, ir al inicio', footerTopLabel: 'ROY, volver al inicio',
         linkedinLabel: 'LinkedIn de Alan Roy Cuevas', githubLabel: 'GitHub de Alan Roy Cuevas', moreProjectsLabel: 'Ver Más Proyectos (próximamente)',
         errRequired: 'Completá este campo.', errEmail: 'Ingresá un email válido, por ejemplo nombre@dominio.com.', errCaptcha: 'Marcá la casilla "No soy un robot".',
@@ -217,18 +221,18 @@ const i18n = {
         motionPause: 'Pausar animaciones', motionPlay: 'Reanudar animaciones', themeDark: 'Modo oscuro',
         carouselPause: 'Pausar carrusel', carouselPlay: 'Reanudar carrusel', skipLink: 'Saltar al contenido',
         statPatients: 'pacientes por mes', statServices: 'servicios activos',
-        statRating: 'satisfacción sobre 5', statTools: 'herramientas de documentos',
+        statRating: 'satisfacción sobre 5', statTools: 'herramientas de documentos', statMcp: 'herramientas en su servidor MCP',
         moreSoon1: 'Más', moreSoon2: 'pronto.'
     },
     en: {
         navAbout: 'About', navStack: 'Stack', navProjects: 'Projects',
         navExp: 'Experience', navContact: 'Contact',
-        heroBadge: 'Full Stack Developer',
+        heroBadge: 'Developer · AI agents',
         heroCta1: 'View Projects', heroCta2: 'Download CV', heroNavCv: 'Download CV',
         heroQuote: 'Code is rewritten; your determination remains intact',
         aboutTitle: 'About Me',
-        pageTitle: 'Alan Roy Cuevas - Full Stack Developer | Portfolio',
-        aboutText: 'I am a developer passionate about technology and systems analysis. I consider myself a practical person who likes to optimize processes to make work easier. I adapt well to change, which helps me solve real problems and collaborate effectively with others.',
+        pageTitle: 'Alan Roy Cuevas - Software Developer | AI agents and real time',
+        aboutText: 'I build software people use every day, and also the tools that let me work with AI agents with judgment. I design the solution and make the decisions; the agents help me carry it out, and nothing counts as done until a test confirms it. I love real-time systems, apps that protect privacy and solving real problems.',
         techTitle: 'Tech Stack', techSub: 'Core Tools',
         techDesc: 'Technologies and languages I use to build scalable, secure, high-performance architectures.',
         projTitle: 'Featured Projects',
@@ -241,15 +245,19 @@ const i18n = {
         proj3Desc: 'Native emulation software (XInput) that allows playing any PC title without the need for additional hardware. Transforms physical inputs into real analog signals using low-level drivers, offering a highly customizable experience with dedicated profiles and a direct interaction overlay.',
         proj3Site: 'View Website',
         expTitle: 'Experience',
-        expRole: 'Independent Full Stack Developer',
+        expRole: 'Independent Software Developer',
         expOrg: 'Turnero - Queue Management',
         expContext: 'Medical Institution / Healthcare Sector - Private Health Insurance',
         expDate: '2025 - PRESENT',
         expBullet1: 'Built a comprehensive appointment management system from scratch to optimize daily patient flow, using Node.js, Socket.IO, and SQLite.',
         expBullet2: 'Implemented a real-time solution that synchronizes totems, TV screens, and mobile devices simultaneously, ensuring stable performance and data protection.',
         expBullet3: 'Continuously evolved the system based on user feedback, delivering a custom-built, intuitive, and easily adaptable tool.',
-        expBullet4: 'The system autonomously managed over 4,300 monthly patients distributed across 12 active services, achieving a 4.9/5 satisfaction rate according to generated analytics reports. ',
+        expBullet4: 'The system autonomously managed over 4,200 monthly patients distributed across 12 active services, achieving a 4.9/5 satisfaction rate according to generated analytics reports. ',
         expReportLink: 'View report generated by Turnero - Queue Management.',
+        exp3Org: 'NEXUS - Building with AI agents',
+        exp3Bullet1: 'Designed an environment for building software with AI agents where no change counts as done until an automated test verifies it.',
+        exp3Bullet2: 'Built its own MCP server (memory, backlog and verification) and a semantic memory on LanceDB.',
+        exp3Bullet3: 'Before any code is touched, every plan goes through reviewer agents that can ask for changes or reject it. Today I use it in all my projects.',
         exp2Org: 'LocalPDF Hub',
         exp2Bullet1: 'Led end-to-end development of a local Python web application for PDF processing, prioritizing privacy and offline functionality.',
         exp2Bullet2: 'Designed a modular architecture (FastAPI + JavaScript, packaged with PyInstaller) that allows adding tools in isolation without coupling functionalities.',
@@ -338,7 +346,7 @@ const i18n = {
         ariaProj3: 'View Website – Key2Pad',
         imageWord: 'Image', carouselOf: 'Screenshots of', carouselRole: 'carousel', dotsLabel: 'Image selector',
         navLabel: 'Main navigation', socialLabel: 'Social networks', techListLabel: 'Technology list',
-        exp1ListLabel: 'Achievements and responsibilities at Turnero', exp2ListLabel: 'Achievements and responsibilities at LocalPDF Hub',
+        exp1ListLabel: 'Achievements and responsibilities at Turnero', exp2ListLabel: 'Achievements and responsibilities at LocalPDF Hub', exp3ListLabel: 'Achievements and responsibilities at NEXUS',
         formLabel: 'Contact form', thumbsLabel: 'Screenshots', logoLabel: 'ROY, back to top', footerTopLabel: 'ROY, back to top',
         linkedinLabel: 'LinkedIn of Alan Roy Cuevas', githubLabel: 'GitHub of Alan Roy Cuevas', moreProjectsLabel: 'View More Projects (coming soon)',
         errRequired: 'Please fill in this field.', errEmail: 'Enter a valid email, for example name@domain.com.', errCaptcha: 'Please check "I\'m not a robot".',
@@ -346,7 +354,7 @@ const i18n = {
         motionPause: 'Pause animations', motionPlay: 'Resume animations', themeDark: 'Dark mode',
         carouselPause: 'Pause carousel', carouselPlay: 'Resume carousel', skipLink: 'Skip to content',
         statPatients: 'patients per month', statServices: 'active services',
-        statRating: 'satisfaction out of 5', statTools: 'document tools',
+        statRating: 'satisfaction out of 5', statTools: 'document tools', statMcp: 'tools in its MCP server',
         moreSoon1: 'More', moreSoon2: 'soon.'
     }
 };
@@ -453,6 +461,18 @@ function applyLang(lang, notify = true) {
             translateEl('exp1-report-link', t.expReportLink);
         }
         
+        translateEl('exp3-org', t.exp3Org);
+        const ul3 = document.getElementById('exp3-bullets');
+        if (ul3) {
+            const bulletTexts3 = [t.exp3Bullet1, t.exp3Bullet2, t.exp3Bullet3];
+            ul3.querySelectorAll('li').forEach((li, i) => {
+                const dot = li.querySelector('span');
+                li.textContent = '';
+                if (dot) li.appendChild(dot);
+                li.append(' ' + bulletTexts3[i]);
+            });
+        }
+
         translateEl('exp2-org', t.exp2Org);
         const ul2 = document.getElementById('exp2-bullets');
         if (ul2) {
@@ -541,6 +561,7 @@ function applyLang(lang, notify = true) {
     translateEl('btn-more-projects', t.moreProjectsLabel, 'aria-label');
     translateEl('exp1-bullets', t.exp1ListLabel, 'aria-label');
     translateEl('exp2-bullets', t.exp2ListLabel, 'aria-label');
+    translateEl('exp3-bullets', t.exp3ListLabel, 'aria-label');
     translateEl('contact-form', t.formLabel, 'aria-label');
     translateEl('shot-thumbs', t.thumbsLabel, 'aria-label');
     translateEl('form-privacy', t.formPrivacy);
@@ -567,6 +588,7 @@ function applyLang(lang, notify = true) {
     translateEl('stat-services', t.statServices);
     translateEl('stat-rating', t.statRating);
     translateEl('stat-tools', t.statTools);
+    translateEl('stat-mcp', t.statMcp);
     document.querySelectorAll('[data-count]').forEach((el) => {
         el.textContent = formatCount(parseFloat(el.dataset.value ?? el.dataset.count), el.dataset.format === 'dec');
     });
