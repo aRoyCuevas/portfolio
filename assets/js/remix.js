@@ -333,8 +333,9 @@
 
         // Hero: intro
         const nameSplit = SplitText.create('#hero-name', { type: 'chars,words', charsClass: 'char' });
+        let intro = null;
         if (firstBuild) {
-            gsap.timeline({ defaults: { ease: 'expo.out' } })
+            intro = gsap.timeline({ defaults: { ease: 'expo.out' } })
                 .from(nameSplit.chars, { yPercent: () => rand(-300, 300), rotation: () => rand(-120, 120), scale: () => rand(0, 3), opacity: 0, duration: 1.6, stagger: { each: 0.04, from: 'random' } }, 0.1)
                 .from('#hero-badge', { letterSpacing: '2.4em', opacity: 0, duration: 1.6 }, 0.2)
                 .from(ctas, { scale: 0, rotation: () => rand(-40, 40), duration: 1.4, ease: 'elastic.out(1, 0.45)', stagger: 0.12 }, 1)
@@ -386,7 +387,7 @@
             document.getElementById('hero').after(spacer);
             cleanups.push(() => spacer.remove());
             // One trigger pins and scrubs: a second trigger on the pinned hero would start after the pin
-            gsap.timeline({ scrollTrigger: { trigger: '#hero', start: 'top top', end: () => '+=' + innerHeight * (ZOOM_SCREENS + 1), pin: true, pinSpacing: false, scrub: 1, invalidateOnRefresh: true, refreshPriority: 2 } })
+            const zoom = gsap.timeline({ scrollTrigger: { trigger: '#hero', start: 'top top', end: () => '+=' + innerHeight * (ZOOM_SCREENS + 1), pin: true, pinSpacing: false, scrub: 1, invalidateOnRefresh: true, refreshPriority: 2 } })
                 .to('#hero-name', {
                     scale: () => measure().scale, x: () => measure().x, y: () => measure().y,
                     transformOrigin: '50% 50%', ease: 'power2.in', force3D: false, duration: 1,
@@ -394,15 +395,20 @@
                 .to(sideWords, { x: (i) => (i ? 1 : -1) * measure().w * 0.9, opacity: 0, ease: 'power1.in', duration: 0.6 }, 0.1)
                 // The accent goes through a CSS variable: a recorded color would freeze the theme
                 .fromTo(royChars, { '--zoom-mix': 0 }, { '--zoom-mix': 1, duration: 0.4 }, 0.6)
-                // Explicit start: built during the intro, a .to recorded the badge and the indicator at
-                // opacity 0, so scrolling back to the top left them invisible. At 0.01, not 0: the scrub
-                // renders time 0 on build and the start values would show them before the intro fades them in
-                .fromTo(['#hero-badge', '#txt-hero-quote', ctaWrap, '#intro-scroll-indicator'], { yPercent: 0, opacity: 1 }, { yPercent: 300, opacity: 0, duration: 0.4, immediateRender: false }, 0.01)
+                .to(['#txt-hero-quote', ctaWrap], { yPercent: 300, opacity: 0, duration: 0.4 }, 0)
                 .to('#blob-a', { scale: 3, x: '30vw', duration: 1 }, 0)
                 .to('#blob-b', { scale: 2.5, x: '-30vw', duration: 1 }, 0)
                 // While "Sobre mí" covers it (one screen of scroll), ROY drifts up slower than the
                 // curtain, as if pushed by it
                 .to('#hero-name', { y: () => measure().y - innerHeight * 0.45, ease: 'none', duration: 1 / ZOOM_SCREENS }, 1);
+            // The intro also animates the opacity of the badge and the indicator: added while it runs, the
+            // zoom recorded them at opacity 0 and scrolling back to the top left them invisible
+            const fadeIntroParts = () => {
+                zoom.to(['#hero-badge', '#intro-scroll-indicator'], { yPercent: 300, opacity: 0, duration: 0.4 }, 0);
+                zoom.render(zoom.totalTime(), true, true);
+            };
+            if (intro) intro.eventCallback('onComplete', fadeIntroParts);
+            else fadeIntroParts();
         }
 
         // Navigation appears after the hero
