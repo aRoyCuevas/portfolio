@@ -42,7 +42,17 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css?v=3" />
     <link rel="stylesheet" href="assets/css/tailwind.css?v=2.0.9" />
-    <link rel="stylesheet" href="assets/css/remix.css?v=2.5.1" />
+    <link rel="stylesheet" href="assets/css/remix.css?v=2.5.2" />
+    <!-- Deferred in <head>: the parser requests them all at once (at the end of <body> they came one by one) -->
+    <script src="assets/vendor/gsap/gsap.min.js" defer></script>
+    <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
+    <script src="assets/vendor/gsap/SplitText.min.js" defer></script>
+    <script src="assets/vendor/gsap/MorphSVGPlugin.min.js" defer></script>
+    <script src="assets/vendor/gsap/Flip.min.js" defer></script>
+    <script src="assets/vendor/gsap/ScrollSmoother.min.js" defer></script>
+    <script src="assets/vendor/emailjs/email.min.js" defer></script>
+    <script src="assets/js/main.js?v=2.2.2" defer></script>
+    <script src="assets/js/remix.js?v=2.5.3" defer></script>
 </head>
 
 <body class="bg-surface text-on-surface selection:bg-[#8021db] selection:text-white overflow-x-clip">
@@ -173,10 +183,10 @@
             <div class="max-w-4xl mx-auto">
                 <span class="about-quote" aria-hidden="true">“</span>
                 <p id="about-text" class="font-body text-xl md:text-2xl text-on-surface leading-relaxed font-light">
-                    "Soy un desarrollador apasionado por la tecnología y el análisis de sistemas. Me considero una
+                    Soy un desarrollador apasionado por la tecnología y el análisis de sistemas. Me considero una
                     persona práctica a la que le gusta optimizar procesos para hacer el trabajo más fácil. Tengo
                     facilidad para adaptarme a los cambios, lo que me ayuda a resolver problemas reales y a trabajar
-                    bien con los demás."
+                    bien con los demás.
                 </p>
             </div>
         </div>
@@ -606,15 +616,15 @@
                                 <li class="flex gap-4">
                                     <span class="text-primary mt-1" aria-hidden="true">•</span>
                                     <span>
-                                        <span id="exp1-bullet4-text">El sistema gestionó de forma autónoma a más de 4,300 pacientes mensuales distribuidos en 12 servicios activos, logrando una tasa de satisfacción del 4.9/5 según los reportes analíticos generados. </span>
+                                        <span id="exp1-bullet4-text">El sistema gestionó de forma autónoma a más de 4.300 pacientes mensuales distribuidos en 12 servicios activos, logrando una tasa de satisfacción del 4,9/5 según los reportes analíticos generados. </span>
                                         <a href="assets/docs/Reporte Analítico de Rendimiento.pdf" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-bold" id="exp1-report-link">Ver reporte generado por Turnero - Gestión de Colas.</a>
                                     </span>
                                 </li>
                             </ul>
                             <div class="stats">
-                                <div class="stat"><b data-count="4300" data-format="int">4,300</b><span id="stat-patients">pacientes por mes</span></div>
+                                <div class="stat"><b data-count="4300" data-format="int">4.300</b><span id="stat-patients">pacientes por mes</span></div>
                                 <div class="stat"><b data-count="12" data-format="int">12</b><span id="stat-services">servicios activos</span></div>
-                                <div class="stat"><b data-count="4.9" data-format="dec">4.9</b><span id="stat-rating">satisfacción sobre 5</span></div>
+                                <div class="stat"><b data-count="4.9" data-format="dec">4,9</b><span id="stat-rating">satisfacción sobre 5</span></div>
                             </div>
                         </div>
 
@@ -635,13 +645,13 @@
                                 </li>
                                 <li class="flex gap-4">
                                     <span class="text-primary mt-1" aria-hidden="true">•</span>
-                                    Desarrollé un conjunto de 10 herramientas de manipulación de documentos e incorporé mejoras
-                                    continuas como soporte multi-formato (HEIC/HEIF), procesamiento batch, modo red para LAN, y
-                                    UI multi-idioma con modo claro/oscuro.
+                                    Desarrollé un conjunto de 13 herramientas de manipulación de documentos e incorporé mejoras
+                                    continuas como soporte multi-formato (HEIC/HEIF), unión de varios archivos en un solo PDF,
+                                    modo red para LAN, y UI multi-idioma con modo claro/oscuro.
                                 </li>
                             </ul>
                             <div class="stats">
-                                <div class="stat"><b data-count="10" data-format="int">10</b><span id="stat-tools">herramientas de documentos</span></div>
+                                <div class="stat"><b data-count="13" data-format="int">13</b><span id="stat-tools">herramientas de documentos</span></div>
                             </div>
                         </div>
                     </div>
@@ -678,7 +688,7 @@
                                 aria-hidden="true">
                                 <span class="material-symbols-outlined">location_on</span>
                             </div>
-                            <span class="font-headline text-lg text-white">Buenos Aires, Argentina / Remoto</span>
+                            <span id="contact-location" class="font-headline text-lg text-white">Buenos Aires, Argentina / Remoto</span>
                         </div>
                     </address>
                 </div>
@@ -796,15 +806,6 @@
         <span id="toast-msg">Mensaje enviado</span>
     </div>
 
-    <script src="assets/vendor/gsap/gsap.min.js"></script>
-    <script src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
-    <script src="assets/vendor/gsap/SplitText.min.js"></script>
-    <script src="assets/vendor/gsap/MorphSVGPlugin.min.js"></script>
-    <script src="assets/vendor/gsap/Flip.min.js"></script>
-    <script src="assets/vendor/gsap/ScrollSmoother.min.js"></script>
-    <script src="assets/vendor/emailjs/email.min.js"></script>
-    <script src="assets/js/main.js?v=2.2.1"></script>
-    <script src="assets/js/remix.js?v=2.5.2"></script>
 </body>
 
 </html>

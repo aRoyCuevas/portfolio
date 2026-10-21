@@ -295,6 +295,8 @@
     const loops = new Set();
     let motionPaused = false;
     try { motionPaused = localStorage.getItem('motion') === 'paused'; } catch (e) { /* storage unavailable */ }
+    // CSS loops (timeline pulse, scroll arrow) pause through this class
+    document.documentElement.classList.toggle('motion-paused', motionPaused);
     const motionBtn = document.getElementById('btn-motion');
     function registerLoop(anim, trigger) {
         loops.add(anim);
@@ -319,6 +321,7 @@
     motionBtn?.addEventListener('click', () => {
         motionPaused = !motionPaused;
         loops.forEach((anim) => (motionPaused ? anim.pause() : anim.resume()));
+        document.documentElement.classList.toggle('motion-paused', motionPaused);
         try { localStorage.setItem('motion', motionPaused ? 'paused' : 'on'); } catch (e) { /* storage unavailable */ }
         window.remixSyncMotion();
     });
@@ -476,11 +479,13 @@
             const target = parseFloat(el.dataset.count);
             const dec = el.dataset.format === 'dec';
             const counter = { val: 0 };
-            el.textContent = dec ? '0.0' : '0';
+            // dataset.value lets a language switch reformat the number where it stands
+            const show = () => { el.dataset.value = counter.val; el.textContent = formatCount(counter.val, dec); };
+            show();
             gsap.to(counter, {
                 val: target, duration: 2.4, ease: 'expo.out',
                 scrollTrigger: { trigger: el, start: 'top 88%' },
-                onUpdate: () => { el.textContent = dec ? counter.val.toFixed(1) : Math.round(counter.val).toLocaleString('en-US'); },
+                onUpdate: show,
                 onStart: () => gsap.fromTo(el, { scale: 2.2, color: '#a47fff' }, { scale: 1, color: '', duration: 1.2, ease: 'elastic.out(1, 0.4)' }),
             });
         });
@@ -597,6 +602,9 @@
         const state = Flip.getState(source);
 
         shotImg.src = images[index].src;
+        // Revert the previous split first: reverting after writing restored the first project's title
+        titleSplit?.revert();
+        titleSplit = null;
         shotTitle.textContent = article.querySelector('h3').textContent.trim();
         thumbs.replaceChildren(...images.map((img, i) => {
             const b = document.createElement('button');
@@ -624,7 +632,6 @@
             Flip.from(state, { targets: figure, duration: 0.95, ease: 'power4.inOut', scale: true });
             gsap.fromTo(shot, { backgroundColor: 'rgba(10,8,14,0)', backdropFilter: 'blur(0px)' }, { backgroundColor: 'rgba(10,8,14,.9)', backdropFilter: 'blur(18px)', duration: 0.6 });
             gsap.to(others, { y: () => rand(-700, 700), rotation: () => rand(-120, 120), scale: 0.5, opacity: 0, duration: 0.8, ease: 'power3.in', stagger: 0.05 });
-            titleSplit?.revert();
             titleSplit = SplitText.create(shotTitle, { type: 'chars,words', mask: 'chars' });
             gsap.from(titleSplit.chars, { yPercent: () => rand([-120, 120]), rotation: () => rand(-40, 40), duration: 0.8, ease: 'back.out(2)', stagger: 0.02, delay: 0.5 });
             gsap.fromTo('#shot-meta', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.6, delay: 0.7 });
@@ -735,6 +742,9 @@
         return true;
     }
     gsap.set(navEl, { yPercent: -100 });
+    // A link with #section: the browser jumped before pins and spacers existed, so jump again once they do
+    let bootTarget = null;
+    try { bootTarget = location.hash.length > 1 ? document.querySelector(location.hash) : null; } catch (e) { /* not a selector */ }
     document.fonts.ready.then(() => {
         const mm = gsap.matchMedia();
         mm.add({ isDesktop: '(min-width: 1024px) and (pointer: fine)', isLight: '(max-width: 1023px), (pointer: coarse)' }, (ctx) => {
@@ -755,6 +765,11 @@
             ScrollTrigger.refresh();
             built = true;
             document.documentElement.classList.remove('remix-loading');
+            if (bootTarget) {
+                const target = bootTarget;
+                bootTarget = null;
+                requestAnimationFrame(() => window.remixScrollTo(target, true));
+            }
             return () => {
                 cleanups.splice(0).forEach((fn) => fn());
                 loops.clear();

@@ -1,7 +1,6 @@
 /* --- Remix Base --- */
 html { scroll-behavior: auto !important; }
 #intro-scroll-indicator { transition: none !important; }
-.tech-card { transition: box-shadow .3s ease, background-color .3s ease !important; }
 
 /* --- Hero Name Gradient --- */
 #hero-name .grad:not(:has(.char)),
@@ -95,7 +94,17 @@ html { scroll-behavior: auto !important; }
 .remix-loading #hero-badge,
 .remix-loading #txt-hero-quote,
 .remix-loading #intro-scroll-indicator,
-.remix-loading #hero .justify-center > a { visibility: hidden; }
+.remix-loading #hero .justify-center > a,
+.remix-loading #main-nav { visibility: hidden; }
+
+/* --- Motion Paused: CSS loops stop too (WCAG 2.2.2) --- */
+.motion-paused .timeline-pulse::after,
+.motion-paused .animate-bounce { animation-play-state: paused; }
+
+/* --- Stack Cards: lift through translate (GSAP owns transform, so transform on :hover never applied;
+       GSAP also writes translate: none inline, hence !important) --- */
+.tech-card { transition: box-shadow .3s ease, background-color .3s ease, translate .3s ease !important; }
+.tech-card:hover { transform: none; translate: 0 -6px !important; }
 
 /* --- Anchors And Focus Under The Fixed Nav --- */
 html { scroll-padding-top: 96px; }

@@ -16,6 +16,14 @@ function showToast(msgKey, icon = 'check_circle') {
     toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
+// Stat numbers in the page language: 4.300 / 4,9 in Spanish, 4,300 / 4.9 in English (also used by remix.js)
+function formatCount(value, dec) {
+    const es = (typeof currentLang !== 'undefined' ? currentLang : 'es') === 'es';
+    if (dec) return es ? value.toFixed(1).replace('.', ',') : value.toFixed(1);
+    const int = String(Math.round(value));
+    return es ? int.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : Number(int).toLocaleString('en-US');
+}
+
 // ═══════════════════════════════════════════════════
 //  HERO: lo anima remix.js (GSAP)
 // ═══════════════════════════════════════════════════
@@ -48,21 +56,15 @@ sections.forEach(s => navObserver.observe(s));
 // ═══════════════════════════════════════════════════
 const btnMobile = document.getElementById('btn-mobile-menu');
 const mobileMenu = document.getElementById('mobile-menu');
-btnMobile.addEventListener('click', () => {
-    const isOpen = !mobileMenu.classList.contains('hidden');
-    mobileMenu.classList.toggle('hidden', isOpen);
-    mobileMenu.setAttribute('aria-hidden', isOpen);
-    btnMobile.setAttribute('aria-expanded', !isOpen);
-    btnMobile.textContent = isOpen ? 'menu' : 'close';
-});
-mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        btnMobile.setAttribute('aria-expanded', 'false');
-        btnMobile.textContent = 'menu';
-    });
-});
+function setMobileMenu(open) {
+    mobileMenu.classList.toggle('hidden', !open);
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    btnMobile.setAttribute('aria-expanded', String(open));
+    btnMobile.setAttribute('aria-label', open ? i18n[currentLang].ariaMenuOpen : i18n[currentLang].ariaMenuClosed);
+    btnMobile.textContent = open ? 'close' : 'menu';
+}
+btnMobile.addEventListener('click', () => setMobileMenu(mobileMenu.classList.contains('hidden')));
+mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMobileMenu(false)));
 
 // ═══════════════════════════════════════════════════
 //  MODO OSCURO / CLARO
@@ -96,7 +98,8 @@ const i18n = {
         heroCta1: 'Ver Proyectos', heroCta2: 'Descargar CV', heroNavCv: 'Descargar CV',
         heroQuote: 'El código se reescribe; tu determinación permanece intacta',
         aboutTitle: 'Sobre Mí',
-        aboutText: '"Soy un desarrollador apasionado por la tecnología y el análisis de sistemas. Me considero una persona práctica a la que le gusta optimizar procesos para hacer el trabajo más fácil. Tengo facilidad para adaptarme a los cambios, lo que me ayuda a resolver problemas reales y a trabajar bien con los demás."',
+        pageTitle: 'Alan Roy Cuevas - Desarrollador Full Stack | Portfolio',
+        aboutText: 'Soy un desarrollador apasionado por la tecnología y el análisis de sistemas. Me considero una persona práctica a la que le gusta optimizar procesos para hacer el trabajo más fácil. Tengo facilidad para adaptarme a los cambios, lo que me ayuda a resolver problemas reales y a trabajar bien con los demás.',
         techTitle: 'Stack Tecnológico', techSub: 'Herramientas Principales',
         techDesc: 'Tecnologías y lenguajes que utilizo para construir arquitecturas escalables, seguras y de alto rendimiento.',
         projTitle: 'Proyectos Destacados',
@@ -116,17 +119,18 @@ const i18n = {
         expBullet1: 'Desarrollé desde cero un sistema integral de gestión de turnos para optimizar el flujo de atención diaria, utilizando Node.js, Socket.IO y SQLite.',
         expBullet2: 'Implementé una solución en tiempo real que sincroniza tótems, pantallas de TV y dispositivos móviles de forma simultánea, asegurando un rendimiento estable y la protección de los datos.',
         expBullet3: 'Evolucioné el sistema de forma continua basándome en el feedback de los usuarios, logrando entregar una herramienta a medida, intuitiva y de fácil adaptación.',
-        expBullet4: 'El sistema gestionó de forma autónoma a más de 4,300 pacientes mensuales distribuidos en 12 servicios activos, logrando una tasa de satisfacción del 4.9/5 según los reportes analíticos generados. ',
+        expBullet4: 'El sistema gestionó de forma autónoma a más de 4.300 pacientes mensuales distribuidos en 12 servicios activos, logrando una tasa de satisfacción del 4,9/5 según los reportes analíticos generados. ',
         expReportLink: 'Ver reporte generado por Turnero - Gestión de Colas.',
         exp2Org: 'LocalPDF Hub',
         exp2Bullet1: 'Lideré el desarrollo end-to-end de una aplicación web local en Python para procesamiento de PDFs, priorizando privacidad y funcionamiento offline.',
         exp2Bullet2: 'Diseñé una arquitectura modular (FastAPI + JavaScript, empaquetada con PyInstaller) que permite sumar herramientas de forma aislada sin acoplar funcionalidades.',
-        exp2Bullet3: 'Desarrollé un conjunto de 10 herramientas de manipulación de documentos e incorporé mejoras continuas como soporte multi-formato (HEIC/HEIF), procesamiento batch, modo red para LAN, y UI multi-idioma con modo claro/oscuro.',
+        exp2Bullet3: 'Desarrollé un conjunto de 13 herramientas de manipulación de documentos e incorporé mejoras continuas como soporte multi-formato (HEIC/HEIF), unión de varios archivos en un solo PDF, modo red para LAN, y UI multi-idioma con modo claro/oscuro.',
         contactTitle: 'Contacto',
         contactHeadlinePart1: '¿Tenés algún proyecto en mente? ',
         contactHeadlineSpan: 'Hablemos',
         contactHeadlinePart2: '.',
         contactDesc: 'Estoy abierto a nuevos desafíos técnicos, propuestas laborales o charlas sobre arquitectura de software.',
+        contactLocation: 'Buenos Aires, Argentina / Remoto',
         contactLabelName: 'Nombre', contactPlaceholderName: 'Tu nombre completo',
         contactLabelEmail: 'Email', contactPlaceholderEmail: 'tu@email.com',
         contactLabelMsg: 'Mensaje', contactPlaceholderMsg: '¿En qué te puedo ayudar?',
@@ -223,7 +227,8 @@ const i18n = {
         heroCta1: 'View Projects', heroCta2: 'Download CV', heroNavCv: 'Download CV',
         heroQuote: 'Code is rewritten; your determination remains intact',
         aboutTitle: 'About Me',
-        aboutText: '"I am a developer passionate about technology and systems analysis. I consider myself a practical person who likes to optimize processes to make work easier. I adapt well to change, which helps me solve real problems and collaborate effectively with others."',
+        pageTitle: 'Alan Roy Cuevas - Full Stack Developer | Portfolio',
+        aboutText: 'I am a developer passionate about technology and systems analysis. I consider myself a practical person who likes to optimize processes to make work easier. I adapt well to change, which helps me solve real problems and collaborate effectively with others.',
         techTitle: 'Tech Stack', techSub: 'Core Tools',
         techDesc: 'Technologies and languages I use to build scalable, secure, high-performance architectures.',
         projTitle: 'Featured Projects',
@@ -248,12 +253,13 @@ const i18n = {
         exp2Org: 'LocalPDF Hub',
         exp2Bullet1: 'Led end-to-end development of a local Python web application for PDF processing, prioritizing privacy and offline functionality.',
         exp2Bullet2: 'Designed a modular architecture (FastAPI + JavaScript, packaged with PyInstaller) that allows adding tools in isolation without coupling functionalities.',
-        exp2Bullet3: 'Developed a suite of 10 document manipulation tools and shipped continuous improvements including multi-format support (HEIC/HEIF), batch processing, LAN network mode, and a multi-language UI with light/dark mode.',
+        exp2Bullet3: 'Developed a suite of 13 document manipulation tools and shipped continuous improvements including multi-format support (HEIC/HEIF), merging several files into one PDF, LAN network mode, and a multi-language UI with light/dark mode.',
         contactTitle: 'Contact',
         contactHeadlinePart1: 'Do you have a project in mind? ',
         contactHeadlineSpan: 'Let\'s talk',
         contactHeadlinePart2: '.',
         contactDesc: 'I\'m open to new technical challenges, job proposals, or conversations about software architecture.',
+        contactLocation: 'Buenos Aires, Argentina / Remote',
         contactLabelName: 'Name', contactPlaceholderName: 'Your full name',
         contactLabelEmail: 'Email', contactPlaceholderEmail: 'you@email.com',
         contactLabelMsg: 'Message', contactPlaceholderMsg: 'How can I help you?',
@@ -349,6 +355,7 @@ function applyLang(lang, notify = true) {
     const t = i18n[lang];
     window.remixBeforeLang?.();
     document.documentElement.lang = lang;
+    document.title = t.pageTitle;
 
     // Helper robusto sin innerHTML (prevención de XSS)
     function translateEl(id, text, attr = null) {
@@ -418,7 +425,8 @@ function applyLang(lang, notify = true) {
 
     // --- 6. EXPERIENCIA ---
     translateEl('experience-heading', t.expTitle);
-    const expItems = document.querySelectorAll('#experience ol > li');
+    // The first <li> of the list is the timeline decoration
+    const expItems = document.querySelectorAll('#experience ol > li:not(.timeline-line)');
     // Experiencia (Padre único)
     if (expItems[0]) {
         const h3 = expItems[0].querySelector('h3');
@@ -465,6 +473,7 @@ function applyLang(lang, notify = true) {
     translateEl('contact-headline-span', t.contactHeadlineSpan);
     translateEl('contact-headline-part2', t.contactHeadlinePart2);
     translateEl('contact-desc', t.contactDesc);
+    translateEl('contact-location', t.contactLocation);
     translateEl('contact-name-label', t.contactLabelName);
     translateEl('contact-email-label', t.contactLabelEmail);
     translateEl('contact-message-label', t.contactLabelMsg);
@@ -558,6 +567,10 @@ function applyLang(lang, notify = true) {
     translateEl('stat-services', t.statServices);
     translateEl('stat-rating', t.statRating);
     translateEl('stat-tools', t.statTools);
+    document.querySelectorAll('[data-count]').forEach((el) => {
+        el.textContent = formatCount(parseFloat(el.dataset.value ?? el.dataset.count), el.dataset.format === 'dec');
+    });
+    setCaptchaLang();
     translateEl('more-soon-1', t.moreSoon1);
     translateEl('more-soon-2', t.moreSoon2);
 
@@ -736,6 +749,8 @@ const captchaField = document.getElementById('contact-captcha-field');
 const captchaBox = document.getElementById('contact-captcha');
 const captchaError = document.getElementById('contact-captcha-error');
 let captchaId = null;
+let captchaTheme = null;
+let captchaRequested = false;
 
 function setCaptchaError(on) {
     captchaError.hidden = !on;
@@ -747,24 +762,51 @@ function renderCaptcha() {
     if (!window.grecaptcha?.render) return;
     const slot = document.createElement('div');
     captchaBox.replaceChildren(slot);
+    captchaTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     captchaId = grecaptcha.render(slot, {
         sitekey: RECAPTCHA_SITE_KEY,
-        theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+        theme: captchaTheme,
         size: captchaBox.clientWidth < 304 ? 'compact' : 'normal',
         callback: () => setCaptchaError(false),
     });
+    setCaptchaLang();
 }
 
-if (RECAPTCHA_SITE_KEY && captchaField) {
-    captchaField.hidden = false;
+// The script fixes the language once: an unanswered widget is reloaded in the page language
+function setCaptchaLang() {
+    if (captchaId === null || grecaptcha.getResponse(captchaId)) return;
+    const frame = captchaBox.querySelector('iframe');
+    if (!frame) return;
+    const url = new URL(frame.src);
+    if (url.searchParams.get('hl') === currentLang) return;
+    url.searchParams.set('hl', currentLang);
+    frame.src = url.href;
+}
+
+// ~450 KB that only the form needs: requested when the contact section gets close or a field gets focus
+function loadCaptcha() {
+    if (captchaRequested) return;
+    captchaRequested = true;
     window.onCaptchaReady = renderCaptcha;
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?onload=onCaptchaReady&render=explicit&hl=${currentLang}`;
     script.async = true;
     document.head.appendChild(script);
+}
+
+if (RECAPTCHA_SITE_KEY && captchaField) {
+    captchaField.hidden = false;
+    const nearForm = new IntersectionObserver((entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        nearForm.disconnect();
+        loadCaptcha();
+    }, { rootMargin: '1200px 0px' });
+    nearForm.observe(document.getElementById('contact'));
+    form.addEventListener('focusin', loadCaptcha);
     // A theme switch re-renders the widget while it is still unanswered
     new MutationObserver(() => {
-        if (captchaId !== null && !grecaptcha.getResponse(captchaId)) renderCaptcha();
+        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        if (captchaId !== null && theme !== captchaTheme && !grecaptcha.getResponse(captchaId)) renderCaptcha();
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 }
 
@@ -811,8 +853,9 @@ form.addEventListener('submit', async (e) => {
         showToast('toastFormErr', 'error');
         return;
     }
-    // sendForm carries the widget's g-recaptcha-response field; an unanswered widget would be rejected
-    if (captchaId !== null && !grecaptcha.getResponse(captchaId)) {
+    // sendForm carries the widget's g-recaptcha-response field; an unanswered (or not yet loaded) widget would be rejected
+    if (RECAPTCHA_SITE_KEY && captchaField && (captchaId === null || !grecaptcha.getResponse(captchaId))) {
+        loadCaptcha();
         setCaptchaError(true);
         showToast('toastFormErr', 'error');
         return;
