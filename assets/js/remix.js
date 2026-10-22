@@ -541,7 +541,7 @@
         // then the key words light up
         const aboutTitle = SplitText.create('#about-heading', { type: 'chars' });
         const about = accessible('#about-text', { type: 'words', mask: 'words' });
-        const KEY_WORDS = /^(construyo|agentes|criterio|decisiones|prueba|tiempo|privacidad|problemas|reales|build|agents|judgment|decisions|test|real|privacy|problems)/i;
+        const KEY_WORDS = /^(construyo|agentic|engineering|decisiones|reviso|prueba|tiempo|privacidad|problemas|reales|build|decisions|review|test|real|privacy|problems)/i;
         const keyWords = about.words.filter((w) => KEY_WORDS.test(w.textContent.replace(/[^\p{L}]/gu, '')));
         keyWords.forEach((w) => w.classList.add('key-word'));
         gsap.timeline({ scrollTrigger: { trigger: '#about', start: 'top 92%', toggleActions: 'play none none reverse' } })
