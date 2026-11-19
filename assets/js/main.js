@@ -160,6 +160,7 @@ const i18n = {
         ariaMenuClosed: 'Abrir menú de navegación',
         ariaCvNav: 'Descargar CV de Alan Roy Cuevas',
         ariaCvHero: 'Descargar CV en PDF',
+        cvHref: 'assets/docs/Alan-Cuevas-CV.pdf',
         ariaLboxClose: 'Cerrar visor',
         ariaLboxPrev: 'Imagen anterior',
         ariaLboxNext: 'Imagen siguiente',
@@ -293,6 +294,7 @@ const i18n = {
         ariaMenuClosed: 'Open navigation menu',
         ariaCvNav: 'Download CV – Alan Roy Cuevas',
         ariaCvHero: 'Download CV as PDF',
+        cvHref: 'assets/docs/Alan-Cuevas-CV-en.pdf',
         ariaLboxClose: 'Close viewer',
         ariaLboxPrev: 'Previous image',
         ariaLboxNext: 'Next image',
@@ -520,6 +522,8 @@ function applyLang(lang, notify = true) {
     translateEl('btn-cv-nav', t.ariaCvNav, 'aria-label');
     translateEl('btn-cv-hero', t.ariaCvHero, 'aria-label');
     translateEl('btn-cv-mobile', t.ariaCvNav, 'aria-label');
+    // CV file in the page language
+    ['btn-cv-nav', 'btn-cv-hero', 'btn-cv-mobile'].forEach((id) => translateEl(id, t.cvHref, 'href'));
     translateEl('btn-turnero-demo', t.ariaProj1, 'aria-label');
     translateEl('btn-localpdf-site', t.ariaProj2, 'aria-label');
     translateEl('btn-key2pad-site', t.ariaProj3, 'aria-label');
