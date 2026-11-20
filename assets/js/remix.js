@@ -489,7 +489,7 @@
             const dec = el.dataset.format === 'dec';
             const counter = { val: 0 };
             // dataset.value lets a language switch reformat the number where it stands
-            const show = () => { el.dataset.value = counter.val; el.textContent = formatCount(counter.val, dec); };
+            const show = () => { el.dataset.value = counter.val; el.textContent = formatCount(counter.val, dec) + (el.dataset.suffix || ''); };
             show();
             gsap.to(counter, {
                 val: target, duration: 2.4, ease: 'expo.out',

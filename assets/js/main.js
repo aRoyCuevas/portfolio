@@ -464,6 +464,9 @@ function applyLang(lang, notify = true) {
         }
         
         translateEl('exp3-org', t.exp3Org);
+        // Case study page exists in English only
+        const exp3Case = document.getElementById('exp3-case');
+        if (exp3Case) exp3Case.hidden = lang !== 'en';
         const ul3 = document.getElementById('exp3-bullets');
         if (ul3) {
             const bulletTexts3 = [t.exp3Bullet1, t.exp3Bullet2, t.exp3Bullet3];
@@ -594,7 +597,7 @@ function applyLang(lang, notify = true) {
     translateEl('stat-tools', t.statTools);
     translateEl('stat-mcp', t.statMcp);
     document.querySelectorAll('[data-count]').forEach((el) => {
-        el.textContent = formatCount(parseFloat(el.dataset.value ?? el.dataset.count), el.dataset.format === 'dec');
+        el.textContent = formatCount(parseFloat(el.dataset.value ?? el.dataset.count), el.dataset.format === 'dec') + (el.dataset.suffix || '');
     });
     setCaptchaLang();
     translateEl('more-soon-1', t.moreSoon1);

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Do the security tests notice when a defense is removed? | Alan Roy Cuevas</title>
+    <meta name="description"
+        content="Case study: removing one defense at a time to measure whether the security tests notice. From 21/25 to 23/25, and a second system from 15/28 to 28/28." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Do the security tests notice when a defense is removed?" />
+    <meta property="og:description"
+        content="Case study: removing one defense at a time to measure whether the security tests notice." />
+    <meta property="og:url" content="https://aroycuevas.github.io/portfolio/case-security-tests.html" />
+    <meta property="og:image" content="https://aroycuevas.github.io/portfolio/assets/img/og-image-1200x630.png" />
+    <link rel="canonical" href="https://aroycuevas.github.io/portfolio/case-security-tests.html" />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <script src="assets/js/theme-init.js?v=2.0.9"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css?v=3" />
+    <style>
+        /* --- Case study layout (site tokens from style.css) --- */
+        body { margin: 0; }
+        .case-bar { border-bottom: 1px solid var(--outline-variant); }
+        .case-bar-inner, .case { max-width: 46rem; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+        .case-bar-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1rem; padding-bottom: 1rem; font-size: .9rem; }
+        .case-bar a { color: var(--on-surface-variant); text-decoration: none; font-weight: 600; }
+        .case-bar a:hover, .case-bar a:focus-visible { color: var(--primary-fixed-dim); }
+        .case .case-kicker { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 600; color: var(--primary-fixed-dim); margin: 3rem 0 .75rem; }
+        .case h1 { font-family: 'Space Grotesk', sans-serif; color: var(--on-surface); font-size: clamp(1.9rem, 5vw, 2.75rem); line-height: 1.1; font-weight: 700; letter-spacing: -.02em; margin: 0 0 1rem; }
+        .case .case-sub { font-style: italic; margin: 0 0 2rem; }
+        .case .case-summary { background: var(--surface-container-low); border-left: 3px solid var(--primary-fixed-dim); border-radius: .5rem; padding: 1.1rem 1.25rem; color: var(--on-surface); margin: 0 0 2.5rem; }
+        .case h2 { font-family: 'Space Grotesk', sans-serif; color: var(--on-surface); font-size: 1.35rem; font-weight: 600; margin: 2.5rem 0 .9rem; }
+        .case p, .case li { line-height: 1.7; font-size: 1.02rem; }
+        .case p { margin: 0 0 1rem; }
+        .case ul, .case ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+        .case ul { list-style: disc; }
+        .case ol { list-style: decimal; }
+        .case li { margin: 0 0 .55rem; padding-left: .25rem; }
+        .case li::marker { color: var(--primary-fixed-dim); }
+        .case strong { color: var(--on-surface); font-weight: 700; }
+        .case-table-wrap { overflow-x: auto; margin: 0 0 1.5rem; }
+        .case table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+        .case th, .case td { text-align: left; padding: .7rem .9rem; border-bottom: 1px solid var(--outline-variant); }
+        .case thead th { font-family: 'Space Grotesk', sans-serif; color: var(--on-surface); font-weight: 600; }
+        .case td.num { font-variant-numeric: tabular-nums; color: var(--on-surface); font-weight: 600; }
+        .case-foot { margin: 3.5rem 0 3rem; padding-top: 1.25rem; border-top: 1px solid var(--outline-variant); font-size: .9rem; }
+        .case-foot a { color: var(--primary-fixed-dim); font-weight: 600; }
+        :root:not(.dark) .case-kicker, :root:not(.dark) .case-foot a, :root:not(.dark) .case-bar a:hover { color: var(--primary); }
+        :root:not(.dark) .case-summary { border-left-color: var(--primary); }
+        :root:not(.dark) .case li::marker { color: var(--primary); }
+    </style>
+</head>
+
+<body>
+    <header class="case-bar">
+        <div class="case-bar-inner">
+            <a href="index.html#experience">&larr; Alan Roy Cuevas</a>
+            <span>Case study</span>
+        </div>
+    </header>
+
+    <main class="case" id="main-content">
+        <p class="case-kicker">Case study · Security testing</p>
+        <h1>Do the security tests notice when a defense is removed?</h1>
+        <p class="case-sub">Case study: an accounts-receivable system for a retail store.</p>
+
+        <p class="case-summary"><strong>Summary.</strong> A green security test does not prove the defense it is named after. Removing one defense at a time, the security tests noticed 11 of 25 removals and the full suite 21 of 25; two new tests raised that to 23/25. A second system went from 15/28 to 28/28.</p>
+
+        <h2>Who did what</h2>
+        <ul>
+            <li><strong>I</strong> set the question, directed the work and made the decisions.</li>
+            <li><strong>My AI agent environment</strong> ran the measurement: the mutation runner, the runs and the two new tests.</li>
+            <li><strong>A second, separate AI session</strong>, which I commissioned, drafted the initial list of candidate mutants from the code and later reviewed the result. It worked from the code, the commit and the written report, not from the first session's conversation.</li>
+        </ul>
+
+        <h2>The question</h2>
+        <p>An internal report listed the system's defenses, and a set of test files attacked them: <strong>the security tests</strong>. If one defense is removed, does any test fail?</p>
+
+        <h2>Method</h2>
+        <p>On a disposable copy with a green baseline, one mutant at a time (an exact text change removing one defense) ran against the security tests and full suite. A control mutant survived every run. 26 mutants, one equivalent: <strong>25 defenses</strong>, any layer.</p>
+
+        <div class="case-table-wrap">
+            <table>
+                <thead>
+                    <tr><th scope="col"></th><th scope="col">Security tests</th><th scope="col">Full suite</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">Before</th><td class="num">11/25</td><td class="num">21/25</td></tr>
+                    <tr><th scope="row">After two new tests</th><td class="num">13/25</td><td class="num">23/25</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>The two real gaps</h2>
+        <ol>
+            <li><strong>Row lock on sale confirmation.</strong> The concurrency test reused one idempotency key, so idempotency absorbed the second request and the test never exercised the lock. New test: parallel confirmations with different keys, one charge.</li>
+            <li><strong>Stale-totals check.</strong> No test covered it, and no API path can make it fire: it guards against a regression or a direct database edit. The test simulates that by editing the database, not an attacker's path.</li>
+        </ol>
+        <p>Each new test fails with its mutant and passes without it. Two second-layer tenant filters still survive, since the outer layer already returns 404; I chose to document them rather than test them.</p>
+
+        <h2>The correction from the second session</h2>
+        <p>My environment first reported <strong>19/19</strong>. The review found an uneven exclusion rule and an unmutated price layer. With one rule and four more mutants: <strong>23/25</strong>, in a new commit.</p>
+
+        <h2>A second system</h2>
+        <p>A second system, in production use, went through the same measurement: the full suite noticed 15 of 28 removed defenses. The same pattern appeared: a negative test passed because input validation rejected the request before the check it was named after ever ran. No defense was missing; tests were. They have been added, and the suite now notices 28 of 28, with the control mutant still surviving. Here too, the same agent environment chose the mutants and wrote the tests.</p>
+
+        <h2>Limits</h2>
+        <ul>
+            <li>The mutants were chosen by reading the code. The rate measures how many <strong>known</strong> defenses have a test, not how many unknown vulnerabilities the security tests would find.</li>
+            <li>The second session proposed the initial list of mutants and later reviewed the result, so it is not independent of the selection.</li>
+            <li>The application code, the tests and the mutation runs come from the same agent environment. The second session read the code, the commit and the report; it did not run anything.</li>
+            <li>The full suite ran against mutants only in UTC.</li>
+            <li>The concurrency test depends on the two requests overlapping. It cannot give a false red; it can give a false green.</li>
+            <li>The 6 frontend rows of the report (XSS, CSP, clickjacking) were not measured.</li>
+            <li>The two surviving second-layer filters still have no test of their own: if the outer layer is removed, nothing warns.</li>
+            <li>In one run, two security test files failed to load for one mutant. A repeat did not reproduce it and the cause was not determined; that mutant's result did not change.</li>
+        </ul>
+
+        <h2>What changes in practice</h2>
+        <p>Reviews start from an inventory of every defense, found or not, and measure the tests by seeding faults into it. A green security test counts only once it fails without its defense.</p>
+
+        <footer class="case-foot">
+            <p>Alan Roy Cuevas · <a href="index.html">Portfolio</a></p>
+        </footer>
+    </main>
+</body>
+
+</html>
