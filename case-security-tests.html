@@ -58,6 +58,28 @@
         .case td.num { font-variant-numeric: tabular-nums; color: var(--on-surface); font-weight: 600; }
         .case-foot { margin: 3.5rem 0 3rem; padding-top: 1.25rem; border-top: 1px solid var(--outline-variant); font-size: .9rem; }
         .case-foot a { color: var(--primary-fixed-dim); font-weight: 600; display: inline-block; padding: .8rem .25rem; margin: -.8rem -.25rem; }
+        /* Evidence: code excerpts, diffs and the per-mutant table */
+        .case h3 { font-family: 'Space Grotesk', sans-serif; color: var(--on-surface); font-size: 1.05rem; font-weight: 600; margin: 1.75rem 0 .6rem; }
+        .case pre { margin: 0 0 1rem; padding: .85rem 1rem; background: var(--surface-container-low); border: 1px solid var(--outline-variant); border-radius: .5rem; overflow-x: auto;
+            font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: .75rem; line-height: 1.6; color: var(--on-surface); }
+        .case :not(pre) > code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: .85em; }
+        .case pre .del { color: var(--error); }
+        .case pre .add, .case pre .hl { color: var(--primary); font-weight: 600; }
+        .case pre .cut { color: var(--on-surface-variant); }
+        .case-compare { display: grid; gap: 0 1rem; }
+        @media (min-width: 720px) { .case-compare { grid-template-columns: 1fr 1fr; } }
+        .case figure { margin: 0; min-width: 0; }
+        .case figcaption { font-family: 'Space Grotesk', sans-serif; font-size: .85rem; font-weight: 600; color: var(--on-surface); margin: 0 0 .4rem; }
+        .case .case-note { font-size: .9rem; color: var(--on-surface-variant); }
+        .case table.case-mutants { font-size: .9rem; }
+        @media (max-width: 719px) { .case table.case-mutants th, .case table.case-mutants td { padding: .6rem .45rem; } }
+        .case table.case-mutants th[scope="row"] { font-weight: 400; color: var(--on-surface-variant); }
+        .case details { margin: 0 0 1rem; }
+        .case summary { cursor: pointer; font-weight: 600; color: var(--on-surface); display: flex; align-items: center; gap: .4rem; min-height: 44px; list-style: none; }
+        .case summary::-webkit-details-marker { display: none; }
+        .case summary::before { content: '+'; color: var(--primary-fixed-dim); width: 1ch; }
+        .case details[open] summary::before { content: '−'; }
+        :root:not(.dark) .case summary::before { color: var(--primary); }
         :root:not(.dark) .case-kicker, :root:not(.dark) .case-foot a, :root:not(.dark) .case-bar a:hover { color: var(--primary); }
         :root:not(.dark) .case-summary { border-left-color: var(--primary); }
         :root:not(.dark) .case li::marker { color: var(--primary); }
@@ -81,7 +103,7 @@
 
         <h2>Who did what</h2>
         <ul>
-            <li><strong>I</strong> set the question, directed the work and made the decisions.</li>
+            <li>The idea came out of a review I commissioned; <strong>I</strong> decided to run it and what to do with the results.</li>
             <li><strong>My AI agent environment</strong> ran the measurement: the mutation runner, the runs and the two new tests.</li>
             <li><strong>A second, separate AI session</strong>, which I commissioned, drafted the initial list of candidate mutants from the code and later reviewed the result. It worked from the code, the commit and the written report, not from the first session's conversation.</li>
         </ul>
@@ -111,6 +133,100 @@
         </ol>
         <p>Each new test fails with its mutant and passes without it. Two second-layer tenant filters still survive, since the outer layer already returns 404; I chose to document them rather than test them.</p>
 
+        <h2>Evidence</h2>
+        <p class="case-note">Real code, trimmed to the lines that matter and wrapped to fit; omitted lines are marked <code>// …</code>.</p>
+
+        <h3>The lock mutant</h3>
+        <p>The confirmation query loses its row lock. Nothing else changes.</p>
+<pre><code>  const sale = await trx
+    .selectFrom('sales')
+<span class="cut">    // …</span>
+    .where('id', '=', id)
+<span class="del">-   .forUpdate()</span>
+    .executeTakeFirst();</code></pre>
+
+        <h3>The concurrency test, before and after</h3>
+        <p>Before, both confirmations shared one idempotency key, so the second request was answered by idempotency and never reached the lock. After, each request has its own key, over five rounds, and there must be one charge.</p>
+        <div class="case-compare">
+            <figure>
+                <figcaption>Original: one shared key</figcaption>
+<pre><code><span class="hl">const k = idem();</span>
+const [r1, r2] = await Promise.all([
+  as('oper_a', 'POST',
+    `/api/v1/sales/${draft}/confirm`,
+    {}, <span class="hl">k</span>),
+  as('oper_a', 'POST',
+    `/api/v1/sales/${draft}/confirm`,
+    {}, <span class="hl">k</span>),
+]);
+<span class="cut">// …</span>
+expect(Number(charges.n)).<span class="hl">toBe(1)</span>;</code></pre>
+            </figure>
+            <figure>
+                <figcaption>New: one key per request, 5 rounds</figcaption>
+<pre><code><span class="hl">for (let round = 0; round &lt; 5; round++) {</span>
+  const saleId =
+    await draftSale('20000');
+  const [r1, r2] = await Promise.all([
+    call('POST',
+      `/api/v1/sales/${saleId}/confirm`,
+      {}, <span class="hl">idem()</span>),
+    call('POST',
+      `/api/v1/sales/${saleId}/confirm`,
+      {}, <span class="hl">idem()</span>),
+  ]);
+<span class="cut">  // …</span>
+  expect(await chargesFor(saleId))
+    .<span class="hl">toBe(1)</span>;
+}</code></pre>
+            </figure>
+        </div>
+
+        <h3>The control mutant</h3>
+        <p>It changes only the text of a log line, so no test should notice. It survived every run.</p>
+<pre><code>  if (status &gt;= 500)
+    request.log.error(
+      { err: error },
+<span class="del">-     'request failed');</span>
+<span class="add">+     'request failed (control)');</span></code></pre>
+
+        <h3>All 25 mutants</h3>
+        <p class="case-note">Caught: at least one test failed with the defense removed. Before → after the two new tests. The equivalent mutant and the control are not counted.</p>
+        <div class="case-table-wrap">
+            <table class="case-mutants">
+                <thead>
+                    <tr><th scope="col">Defense removed</th><th scope="col">Security tests</th><th scope="col">Full suite</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th scope="row">CSRF: strict Sec-Fetch-Site check</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">CSRF: Origin check fails closed</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">CSRF: same-origin hook</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">CSRF: session token</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">Request body size limit</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">No internal details in server errors</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">Dotfiles not served</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Proxy trust default in production config</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Payments: amount must be positive</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">Payments: allocation cannot exceed the payment</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">Tenant filter when charging a customer (second layer)</th><td>missed</td><td>missed</td></tr>
+                    <tr><th scope="row">No allocation across customers</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Idempotency: same key with different data</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">Row lock on sale confirmation</th><td>missed → <strong>caught</strong></td><td>missed → <strong>caught</strong></td></tr>
+                    <tr><th scope="row">Tenant filter: read a customer</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">Tenant filter: edit a customer (second layer)</th><td>missed</td><td>missed</td></tr>
+                    <tr><th scope="row">Tenant filter: export a customer</th><td>caught</td><td>caught</td></tr>
+                    <tr><th scope="row">Stale-totals check on confirmation</th><td>missed → <strong>caught</strong></td><td>missed → <strong>caught</strong></td></tr>
+                    <tr><th scope="row">CSV formula injection</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Login throttle per account and IP</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Login throttle per account</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Prices: total sent by the client ignored</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Prices: strict draft schema</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Prices: recompute uses the quantity</th><td>missed</td><td>caught</td></tr>
+                    <tr><th scope="row">Prices: recompute applies the discount</th><td>missed</td><td>caught</td></tr>
+                </tbody>
+            </table>
+        </div>
+
         <h2>The correction from the second session</h2>
         <p>My environment first reported <strong>19/19</strong>. The review found an uneven exclusion rule and an unmutated price layer. With one rule and four more mutants: <strong>23/25</strong>, in a new commit.</p>
 
@@ -120,14 +236,19 @@
         <h2>Limits</h2>
         <ul>
             <li>The mutants were chosen by reading the code. The rate measures how many <strong>known</strong> defenses have a test, not how many unknown vulnerabilities the security tests would find.</li>
-            <li>The second session proposed the initial list of mutants and later reviewed the result, so it is not independent of the selection.</li>
             <li>The application code, the tests and the mutation runs come from the same agent environment. The second session read the code, the commit and the report; it did not run anything.</li>
-            <li>The full suite ran against mutants only in UTC.</li>
-            <li>The concurrency test depends on the two requests overlapping. It cannot give a false red; it can give a false green.</li>
+            <li>The second session proposed the initial list of mutants and later reviewed the result, so it is not independent of the selection.</li>
             <li>The 6 frontend rows of the report (XSS, CSP, clickjacking) were not measured.</li>
-            <li>The two surviving second-layer filters still have no test of their own: if the outer layer is removed, nothing warns.</li>
-            <li>In one run, two security test files failed to load for one mutant. A repeat did not reproduce it and the cause was not determined; that mutant's result did not change.</li>
         </ul>
+        <details>
+            <summary>More limits</summary>
+            <ul>
+                <li>The full suite ran against mutants only in UTC.</li>
+                <li>The concurrency test depends on the two requests overlapping. It cannot give a false red; it can give a false green.</li>
+                <li>The two surviving second-layer filters still have no test of their own: if the outer layer is removed, nothing warns.</li>
+                <li>In one run, two security test files failed to load for one mutant. A repeat did not reproduce it and the cause was not determined; that mutant's result did not change.</li>
+            </ul>
+        </details>
 
         <h2>What changes in practice</h2>
         <p>Reviews start from an inventory of every defense, found or not, and measure the tests by seeding faults into it. A green security test counts only once it fails without its defense.</p>
