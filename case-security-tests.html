@@ -80,6 +80,8 @@
         .case summary::before { content: '+'; color: var(--primary-fixed-dim); width: 1ch; }
         .case details[open] summary::before { content: '−'; }
         :root:not(.dark) .case summary::before { color: var(--primary); }
+        .case .case-link { color: var(--primary-fixed-dim); font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
+        :root:not(.dark) .case .case-link { color: var(--primary); }
         :root:not(.dark) .case-kicker, :root:not(.dark) .case-foot a, :root:not(.dark) .case-bar a:hover { color: var(--primary); }
         :root:not(.dark) .case-summary { border-left-color: var(--primary); }
         :root:not(.dark) .case li::marker { color: var(--primary); }
@@ -252,6 +254,7 @@ expect(Number(charges.n)).<span class="hl">toBe(1)</span>;</code></pre>
 
         <h2>What changes in practice</h2>
         <p>Reviews start from an inventory of every defense, found or not, and measure the tests by seeding faults into it. A green security test counts only once it fails without its defense.</p>
+        <p><a class="case-link" href="https://github.com/alaancuevas/LocalPDF-Hub/tree/main/security">The same measurement on an open-source project, reproducible with one command</a>.</p>
 
         <footer class="case-foot">
             <p>Alan Roy Cuevas · <a href="index.html">Portfolio</a></p>
